@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+:root {
+  --bright-blue: oklch(51.01% 0.274 263.83);
+  --gray-900: oklch(19.37% 0.006 300.98);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
