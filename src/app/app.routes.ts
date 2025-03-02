@@ -41,6 +41,12 @@ export const routes: Routes = [
           breadcrumb: 'Documentation',
           icon: 'bi-book'
         }
+      },
+      {
+        path: 'chatbot',
+        loadComponent: () => import('./mfes/chatbot/chatbot-mfe.component').then(m => m.ChatbotMfeComponent),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Chatbot' }
       }
     ]
   },
@@ -52,6 +58,18 @@ export const routes: Routes = [
     path: '404',
     loadComponent: () => import('./features/error/error.component').then(m => m.ErrorComponent),
     data: { code: '404' }
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [AuthGuard],
+    data: { breadcrumb: 'Profile' }
+  },
+  {
+    path: 'settings',
+    loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent),
+    canActivate: [AuthGuard],
+    data: { breadcrumb: 'Settings' }
   },
   {
     path: '**',
