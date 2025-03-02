@@ -1,0 +1,19 @@
+{
+    "apiUrl": "https://api.yourapp.com",
+    "features": {
+        "darkMode": true,
+        "notifications": true,
+        "analytics": true
+    },
+    "mfeUrls": {
+        "mfe1": "https://mfe1.yourapp.com",
+        "mfe2": "https://mfe2.yourapp.com"
+    },
+    "theme": {
+        "primary": "#0d6efd",
+        "secondary": "#6c757d",
+        "success": "#198754",
+        "warning": "#ffc107",
+        "danger": "#dc3545"
+    }
+}

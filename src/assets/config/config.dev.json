@@ -1,0 +1,19 @@
+{
+    "apiUrl": "http://localhost:3000",
+    "features": {
+        "darkMode": true,
+        "notifications": true,
+        "analytics": false
+    },
+    "mfeUrls": {
+        "mfe1": "http://localhost:4201",
+        "mfe2": "http://localhost:4202"
+    },
+    "theme": {
+        "primary": "#0d6efd",
+        "secondary": "#6c757d",
+        "success": "#198754",
+        "warning": "#ffc107",
+        "danger": "#dc3545"
+    }
+}

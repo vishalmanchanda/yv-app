@@ -34,6 +34,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     Custom icons for each type
     Optional titles
     Customizable duration
+-Global Error Handler
+    Global error catching
+    Custom error pages (404, generic error)
+    Error notifications
+    Error logging
+    Route handling for non-existent pages
+    Theme-aware error pages
 
 ## Development server
 

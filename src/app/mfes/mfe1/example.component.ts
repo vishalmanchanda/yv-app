@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../core/services/loader.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { ConfigService, AppConfig } from '../../core/services/config.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -29,9 +30,34 @@ import { HttpClient } from '@angular/common/http';
             <button (click)="simulateError('http')" class="btn btn-warning me-2">
               HTTP Error
             </button>
-            <button (click)="simulateError('custom')" class="btn btn-info">
+            <button (click)="simulateError('custom')" class="btn btn-info me-2">
               Custom Error
             </button>
+          </div>
+
+          <div class="config-info mt-4">
+            <h4>Current Configuration:</h4>
+            <pre class="config-display">{{ currentConfig | json }}</pre>
+            <div class="mt-2">
+              <strong>Feature Flags:</strong>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('darkMode')" 
+                     [class.bi-x-circle-fill]="!isFeatureEnabled('darkMode')"></i>
+                  Dark Mode
+                </li>
+                <li>
+                  <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('notifications')"
+                     [class.bi-x-circle-fill]="!isFeatureEnabled('notifications')"></i>
+                  Notifications
+                </li>
+                <li>
+                  <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('analytics')"
+                     [class.bi-x-circle-fill]="!isFeatureEnabled('analytics')"></i>
+                  Analytics
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -50,36 +76,56 @@ import { HttpClient } from '@angular/common/http';
       color: var(--text-primary);
     }
 
-    h2, h3 {
+    .config-display {
+      background: var(--bg-secondary);
+      padding: 15px;
+      border-radius: 5px;
+      font-size: 0.9rem;
       color: var(--text-primary);
+      max-height: 200px;
+      overflow-y: auto;
     }
 
-    p {
-      color: var(--text-secondary);
+    .bi-check-circle-fill {
+      color: var(--bs-success);
     }
 
-    .demo-controls {
-      margin-top: 20px;
+    .bi-x-circle-fill {
+      color: var(--bs-danger);
     }
 
-    .btn-primary {
-      background-color: var(--bs-primary);
-      border-color: var(--bs-primary);
+    li {
+      margin-bottom: 8px;
     }
 
-    .btn-primary:hover {
-      opacity: 0.9;
+    li i {
+      margin-right: 8px;
     }
   `]
 })
-export class ExampleComponent {
+export class ExampleComponent implements OnInit {
   counter = 0;
+  currentConfig: AppConfig | null = null;
 
   constructor(
     private loaderService: LoaderService,
     private notificationService: NotificationService,
+    private configService: ConfigService,
     private http: HttpClient
   ) {}
+
+  ngOnInit() {
+    this.currentConfig = this.configService.getConfig();
+    
+    // Subscribe to config changes
+    this.configService.config$.subscribe(config => {
+      this.currentConfig = config;
+    });
+  }
+
+  isFeatureEnabled(feature: keyof AppConfig['features']): boolean {
+    return this.configService.isFeatureEnabled(feature);
+  }
 
   simulateLoading() {
     this.loaderService.show('Loading MFE Data...');
