@@ -87,6 +87,11 @@ export class ShellLayoutComponent {
       label: 'Settings', 
       icon: 'bi bi-gear', 
       route: '/settings' 
+    },
+    {
+      label: 'Documentation',
+      icon: 'bi bi-book',
+      route: '/docs'
     }
   ];
 

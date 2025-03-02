@@ -32,6 +32,15 @@ export const routes: Routes = [
           breadcrumb: 'MFE Example',
           icon: 'bi-puzzle'
         }
+      },
+      {
+        path: 'docs',
+        loadComponent: () => import('./mfes/docs/documentation.component')
+          .then(m => m.DocumentationComponent),
+        data: { 
+          breadcrumb: 'Documentation',
+          icon: 'bi-book'
+        }
       }
     ]
   },
