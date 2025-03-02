@@ -10,11 +10,13 @@ import { SearchService, SearchResult } from '../../core/services/search.service'
 import { PreferencesPanelComponent } from '../../shared/components/preferences-panel/preferences-panel.component';
 import { SearchComponent } from '../../shared/components/search/search.component';
 import { HttpClient } from '@angular/common/http';
+import { WebSocketMessage, WebSocketService } from '../../core/services/websocket.service';
+import { WebSocketStatusComponent } from '../../shared/components/websocket-status/websocket-status.component';
 
 @Component({
   selector: 'mfe1-example',
   standalone: true,
-  imports: [CommonModule, FormsModule, PreferencesPanelComponent, SearchComponent],
+  imports: [CommonModule, FormsModule, PreferencesPanelComponent, SearchComponent, WebSocketStatusComponent],
   template: `
     <div class="mfe-container">
       <div class="feature-card mb-4">
@@ -157,6 +159,54 @@ import { HttpClient } from '@angular/common/http';
           </div>
         </div>
       </div>
+
+      <!-- WebSocket Testing Section -->
+      <div class="feature-card mb-4">
+        <h3>WebSocket Testing</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="ws-controls">
+              <app-websocket-status class="mb-3"></app-websocket-status>
+              
+              <button class="btn btn-primary mb-2" 
+                      (click)="sendTestMessage('notification')">
+                Send Test Notification
+              </button>
+              
+              <button class="btn btn-warning mb-2" 
+                      (click)="sendTestMessage('alert')">
+                Send Test Alert
+              </button>
+              
+              <button class="btn btn-info mb-2" 
+                      (click)="sendTestMessage('status')">
+                Send Status Update
+              </button>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="ws-messages">
+              <h4>Recent Messages</h4>
+              @if (recentMessages.length > 0) {
+                <ul class="list-unstyled">
+                  @for (message of recentMessages; track message.timestamp) {
+                    <li class="message-item">
+                      <span class="message-type">{{ message.type }}</span>
+                      <span class="message-payload">{{ message.payload | json }}</span>
+                      <small class="message-time">
+                        {{ message.timestamp | date:'medium' }}
+                      </small>
+                    </li>
+                  }
+                </ul>
+              } @else {
+                <p class="text-muted">No messages yet</p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
@@ -268,6 +318,43 @@ import { HttpClient } from '@angular/common/http';
       padding: 1rem;
       border-radius: 8px;
     }
+
+    .ws-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .ws-messages {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .message-item {
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .message-type {
+      font-weight: 500;
+      color: var(--bs-primary);
+    }
+
+    .message-payload {
+      font-family: monospace;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .message-time {
+      color: var(--text-muted);
+    }
   `]
 })
 export class ExampleComponent implements OnInit {
@@ -276,6 +363,7 @@ export class ExampleComponent implements OnInit {
   showPreferences = false;
   readonly preferences$;
   readonly searchHistory$;
+  recentMessages: WebSocketMessage[] = [];
 
   constructor(
     private loaderService: LoaderService,
@@ -284,7 +372,8 @@ export class ExampleComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     private preferencesService: UserPreferencesService,
     private http: HttpClient,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private wsService: WebSocketService
   ) {
     this.preferences$ = this.preferencesService.preferences$;
     this.searchHistory$ = this.searchService.history$;
@@ -296,6 +385,11 @@ export class ExampleComponent implements OnInit {
     // Subscribe to config changes
     this.configService.config$.subscribe(config => {
       this.currentConfig = config;
+    });
+
+    // Subscribe to WebSocket messages
+    this.wsService.messages$.subscribe(message => {
+      this.recentMessages = [message, ...this.recentMessages].slice(0, 5);
     });
   }
 
@@ -356,5 +450,15 @@ export class ExampleComponent implements OnInit {
   clearSearchHistory() {
     this.searchService.clearHistory();
     this.notificationService.success('Search history cleared');
+  }
+
+  sendTestMessage(type: WebSocketMessage['type']) {
+    const testMessages = {
+      notification: { message: 'Test notification message' },
+      alert: { message: 'Test alert message' },
+      status: { status: 'online', timestamp: Date.now() }
+    };
+
+    this.wsService.simulateIncomingMessage(type, testMessages[type as keyof typeof testMessages]);
   }
 } 
