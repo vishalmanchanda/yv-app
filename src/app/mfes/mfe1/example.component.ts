@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
         <p>This is an embedded microfrontend that can be extracted later.</p>
         
         <div class="demo-controls">
-          <button (click)="counter = counter + 1">
+          <button (click)="counter = counter + 1" class="btn btn-primary">
             Count: {{ counter }}
           </button>
         </div>
@@ -24,22 +24,34 @@ import { CommonModule } from '@angular/common';
     .mfe-container {
       padding: 20px;
     }
+
     .feature-card {
-      background: white;
+      background: var(--card-bg);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      color: var(--text-primary);
     }
+
+    h2, h3 {
+      color: var(--text-primary);
+    }
+
+    p {
+      color: var(--text-secondary);
+    }
+
     .demo-controls {
       margin-top: 20px;
     }
-    button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background: var(--bright-blue);
-      color: white;
-      cursor: pointer;
+
+    .btn-primary {
+      background-color: var(--bs-primary);
+      border-color: var(--bs-primary);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
     }
   `]
 })

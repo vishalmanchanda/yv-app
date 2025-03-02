@@ -59,7 +59,7 @@ import { CommonModule } from '@angular/common';
     }
 
     .stat-card {
-      background: white;
+      background: var(--card-bg);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -73,23 +73,23 @@ import { CommonModule } from '@angular/common';
 
     .stat-card .material-icons {
       font-size: 2.5rem;
-      color: var(--bright-blue);
+      color: var(--bs-primary);
     }
 
     .stat-card h3 {
       margin: 10px 0;
-      color: #666;
+      color: var(--text-secondary);
     }
 
     .stat-card .stat {
       font-size: 2rem;
       font-weight: bold;
       margin: 0;
-      color: #333;
+      color: var(--text-primary);
     }
 
     .recent-activity {
-      background: white;
+      background: var(--card-bg);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -107,19 +107,20 @@ import { CommonModule } from '@angular/common';
       gap: 15px;
       padding: 10px;
       border-radius: 8px;
-      background: #f8f9fa;
+      background: var(--bg-secondary);
     }
 
     .activity-item .material-icons {
-      color: var(--bright-blue);
+      color: var(--bs-primary);
     }
 
     .activity-content p {
       margin: 0;
+      color: var(--text-primary);
     }
 
     .activity-content small {
-      color: #666;
+      color: var(--text-secondary);
     }
   `]
 })

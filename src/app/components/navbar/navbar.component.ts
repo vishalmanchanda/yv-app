@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ThemeToggleComponent],
   template: `
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
       <div class="container-fluid">
@@ -19,16 +20,15 @@ import { RouterModule } from '@angular/router';
           {{brandName}}
         </a>
 
-        <button class="navbar-toggler" type="button" 
-                (click)="isMenuCollapsed = !isMenuCollapsed"
-                data-bs-toggle="collapse" 
-                data-bs-target="#navbarContent">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarContent"
-             [class.show]="!isMenuCollapsed">
-          <ul class="navbar-nav ms-auto">
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <app-theme-toggle></app-theme-toggle>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
             </li>
@@ -52,8 +52,7 @@ import { RouterModule } from '@angular/router';
       </div>
     </nav>
   `,
-  styles: [`
-    .navbar {
+  styles: [`    .navbar {
       padding: 0.5rem 1rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
@@ -88,5 +87,4 @@ export class NavbarComponent {
   @Input() brandName: string = '';
   @Input() user: any;
   @Output() toggleSidebar = new EventEmitter<void>();
-  isMenuCollapsed = true;
 } 

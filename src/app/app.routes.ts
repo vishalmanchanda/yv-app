@@ -1,10 +1,16 @@
 import { Routes } from '@angular/router';
 import { ShellLayoutComponent } from './layouts/shell-layout/shell-layout.component';
+import { AuthGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)
+  },
+  {
     path: '',
     component: ShellLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

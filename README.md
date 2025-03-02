@@ -2,6 +2,31 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
+# Shell Features
+-Centralized authentication and authorization
+    User authentication
+    Route protection
+    Token management
+    Permission checking
+    Login UI
+    HTTP interceptor for auth headers
+-Shared state management between MFEs
+-Inter-MFE communication
+-Consistent error handling
+-Theme customization
+-Loading indicators
+-Configuration management
+-Notifications system
+    Different types of notifications (success, error, warning, info)
+    Auto-dismissing notifications
+    Click to dismiss
+    Animated transitions
+    Theme-aware styling
+    Stacked notifications
+    Custom icons for each type
+    Optional titles
+    Customizable duration
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
