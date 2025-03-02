@@ -41,6 +41,15 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     Error logging
     Route handling for non-existent pages
     Theme-aware error pages
+-BreadCrumb Component
+    Automatic breadcrumb generation from routes
+    Manual breadcrumb control when needed
+    Icons support
+    Theme-aware styling
+    Responsive design
+    Home link
+    Click navigation
+    Route data integration
 
 ## Development server
 

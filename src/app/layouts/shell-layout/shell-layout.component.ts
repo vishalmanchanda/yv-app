@@ -3,12 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
+import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 
 
 @Component({
   selector: 'app-shell-layout',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, SidebarComponent, CommonModule],
+  imports: [RouterOutlet, NavbarComponent, SidebarComponent, CommonModule, BreadcrumbComponent],
   template: `
     <div class="wrapper">
       <app-navbar 
@@ -27,6 +28,7 @@ import { CommonModule } from '@angular/common';
           ></app-sidebar>
           
           <main [class]="'col px-md-4 py-4 ' + (sidebarExpanded ? 'main-expanded' : 'main-collapsed')">
+            <app-breadcrumb></app-breadcrumb>
             <router-outlet></router-outlet>
           </main>
         </div>

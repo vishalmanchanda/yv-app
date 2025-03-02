@@ -19,11 +19,19 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
+        data: { 
+          breadcrumb: 'Dashboard',
+          icon: 'bi-speedometer2'
+        }
       },
       {
         path: 'mfe1',
-        loadComponent: () => import('./mfes/mfe1/example.component').then(m => m.ExampleComponent)
+        loadComponent: () => import('./mfes/mfe1/example.component').then(m => m.ExampleComponent),
+        data: { 
+          breadcrumb: 'MFE Example',
+          icon: 'bi-puzzle'
+        }
       }
     ]
   },

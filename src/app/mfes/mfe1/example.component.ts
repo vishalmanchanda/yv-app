@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../core/services/loader.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ConfigService, AppConfig } from '../../core/services/config.service';
+import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -11,52 +12,69 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule],
   template: `
     <div class="mfe-container">
-      <h2>Embedded MFE 1</h2>
-      <div class="feature-card">
-        <h3>Feature Overview</h3>
-        <p>This is an embedded microfrontend that can be extracted later.</p>
-        
-        <div class="demo-controls">
-          <button (click)="simulateLoading()" class="btn btn-primary me-2">
-            Simulate Loading
+      <div class="feature-card mb-4">
+        <h3>Breadcrumb Demo</h3>
+        <div class="btn-group">
+          <button (click)="updateBreadcrumb('Feature A')" class="btn btn-outline-primary me-2">
+            Show Feature A
           </button>
-          <button (click)="counter = counter + 1" class="btn btn-secondary me-2">
-            Count: {{ counter }}
+          <button (click)="updateBreadcrumb('Feature B')" class="btn btn-outline-primary me-2">
+            Show Feature B
           </button>
-          <div class="mt-3">
-            <button (click)="simulateError('runtime')" class="btn btn-danger me-2">
-              Runtime Error
-            </button>
-            <button (click)="simulateError('http')" class="btn btn-warning me-2">
-              HTTP Error
-            </button>
-            <button (click)="simulateError('custom')" class="btn btn-info me-2">
-              Custom Error
-            </button>
-          </div>
+          <button (click)="updateBreadcrumb('Feature C')" class="btn btn-outline-primary">
+            Show Feature C
+          </button>
+        </div>
+      </div>
 
-          <div class="config-info mt-4">
-            <h4>Current Configuration:</h4>
-            <pre class="config-display">{{ currentConfig | json }}</pre>
-            <div class="mt-2">
-              <strong>Feature Flags:</strong>
-              <ul class="list-unstyled">
-                <li>
-                  <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('darkMode')" 
-                     [class.bi-x-circle-fill]="!isFeatureEnabled('darkMode')"></i>
-                  Dark Mode
-                </li>
-                <li>
-                  <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('notifications')"
-                     [class.bi-x-circle-fill]="!isFeatureEnabled('notifications')"></i>
-                  Notifications
-                </li>
-                <li>
-                  <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('analytics')"
-                     [class.bi-x-circle-fill]="!isFeatureEnabled('analytics')"></i>
-                  Analytics
-                </li>
-              </ul>
+      <div class="feature-card">
+        <h2>Embedded MFE 1</h2>
+        <div class="feature-card">
+          <h3>Feature Overview</h3>
+          <p>This is an embedded microfrontend that can be extracted later.</p>
+          
+          <div class="demo-controls">
+            <button (click)="simulateLoading()" class="btn btn-primary me-2">
+              Simulate Loading
+            </button>
+            <button (click)="counter = counter + 1" class="btn btn-secondary me-2">
+              Count: {{ counter }}
+            </button>
+            <div class="mt-3">
+              <button (click)="simulateError('runtime')" class="btn btn-danger me-2">
+                Runtime Error
+              </button>
+              <button (click)="simulateError('http')" class="btn btn-warning me-2">
+                HTTP Error
+              </button>
+              <button (click)="simulateError('custom')" class="btn btn-info me-2">
+                Custom Error
+              </button>
+            </div>
+
+            <div class="config-info mt-4">
+              <h4>Current Configuration:</h4>
+              <pre class="config-display">{{ currentConfig | json }}</pre>
+              <div class="mt-2">
+                <strong>Feature Flags:</strong>
+                <ul class="list-unstyled">
+                  <li>
+                    <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('darkMode')" 
+                       [class.bi-x-circle-fill]="!isFeatureEnabled('darkMode')"></i>
+                    Dark Mode
+                  </li>
+                  <li>
+                    <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('notifications')"
+                       [class.bi-x-circle-fill]="!isFeatureEnabled('notifications')"></i>
+                    Notifications
+                  </li>
+                  <li>
+                    <i class="bi" [class.bi-check-circle-fill]="isFeatureEnabled('analytics')"
+                       [class.bi-x-circle-fill]="!isFeatureEnabled('analytics')"></i>
+                    Analytics
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -101,6 +119,16 @@ import { HttpClient } from '@angular/common/http';
     li i {
       margin-right: 8px;
     }
+
+    .btn-outline-primary {
+      border-color: var(--bs-primary);
+      color: var(--bs-primary);
+    }
+
+    .btn-outline-primary:hover {
+      background-color: var(--bs-primary);
+      color: white;
+    }
   `]
 })
 export class ExampleComponent implements OnInit {
@@ -111,6 +139,7 @@ export class ExampleComponent implements OnInit {
     private loaderService: LoaderService,
     private notificationService: NotificationService,
     private configService: ConfigService,
+    private breadcrumbService: BreadcrumbService,
     private http: HttpClient
   ) {}
 
@@ -156,5 +185,14 @@ export class ExampleComponent implements OnInit {
         // Throw a custom error
         throw new Error('This is a custom error for testing');
     }
+  }
+
+  updateBreadcrumb(feature: string) {
+    this.breadcrumbService.setBreadcrumbs([
+      { label: 'MFE Example', url: '/mfe1', icon: 'bi-puzzle' },
+      { label: feature, url: '/mfe1/' + feature.toLowerCase(), icon: 'bi-gear' }
+    ]);
+    
+    this.notificationService.info(`Navigated to ${feature}`);
   }
 } 
