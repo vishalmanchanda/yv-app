@@ -1,10 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { HealthService } from '../../core/services/health.service';
+import { AuthService } from '../../core/auth/auth.service';
+
+
+interface DashboardWidget {
+  id: string;
+  title: string;
+  type: 'chart' | 'metric' | 'list' | 'table';
+  data: any;
+  options?: any;
+  config?: any;
+}
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   template: `
     <div class="dashboard">
       <div class="stats-grid">
@@ -124,11 +138,71 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   recentActivity = [
     { id: 1, icon: 'person_add', description: 'New user registered', time: '5 minutes ago' },
     { id: 2, icon: 'task_alt', description: 'Task "Update Documentation" completed', time: '1 hour ago' },
     { id: 3, icon: 'sync', description: 'System update completed', time: '2 hours ago' },
     { id: 4, icon: 'warning', description: 'Server load high', time: '3 hours ago' }
   ];
-} 
+
+  widgets: DashboardWidget[] = [];
+
+  constructor(
+    private healthService: HealthService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadWidgets();
+  }
+
+  private loadWidgets(): void {
+    this.widgets = [
+      {
+        id: '1',
+        title: 'User Growth',
+        type: 'chart',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+          datasets: [
+            {
+              label: 'Users',
+              data: [120, 150, 180, 200, 220, 250],
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      },
+      {
+        id: '2',
+        title: 'Active Sessions',
+        type: 'metric',
+        data: 856
+      },
+      {
+        id: '3',
+        title: 'Recent Activity',
+        type: 'list',
+        data: this.recentActivity
+      },
+      {
+        id: '4',
+        title: 'System Health',
+        type: 'table',
+        data: this.healthService.getSystemHealth()
+      }
+    ];
+  }
+}

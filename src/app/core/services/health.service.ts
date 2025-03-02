@@ -72,4 +72,31 @@ export class HealthService {
       catchError(() => of(false))
     );
   }
+
+  getSystemHealth(): Observable<HealthStatus> {
+    const apiUrl = this.configService.getConfig().apiUrl;
+    
+    return this.http.get<HealthStatus>(`${apiUrl}/health`).pipe(
+      map(response => ({
+        status: response.status || 'up',
+        version: this.appVersion,
+        timestamp: Date.now(),
+        services: response.services || {}
+      })),
+      catchError(error => {
+        return of({ 
+          status: 'down' as 'up' | 'down' | 'degraded',
+          version: this.appVersion,
+          timestamp: Date.now(),
+          services: {
+            api: {
+              status: 'down' as 'up' | 'down',
+              message: error.message
+            }
+          }
+        });
+      })
+    );
+  }
+  
 } 

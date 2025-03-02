@@ -28,20 +28,21 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
     ChatbotComponent
   ],
   template: `
+    <div class="d-flex flex-column min-vh-100">
     <app-navbar 
       [brandName]="appTitle" 
       [user]="currentUser" 
       (toggleSidebar)="toggleSidebar()">
     </app-navbar>
     
-    <div class="app-container" [class.sidebar-expanded]="sidebarExpanded">
+    <div class="app-container d-flex flex-grow-1" [class.sidebar-expanded]="sidebarExpanded">
       <app-sidebar 
         [menuItems]="menuItems" 
         [isExpanded]="sidebarExpanded"
         (toggleSidebar)="toggleSidebar()">
       </app-sidebar>
       
-      <main class="content-area">
+      <main class="content-area flex-grow-1 px-5 mx-4">
         <app-breadcrumb></app-breadcrumb>
         
         <div class="content-wrapper">
@@ -56,6 +57,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
     </div>
     
     <app-chatbot *ngIf="showChatbot"></app-chatbot>
+</div>
   `,
   styles: [`
     .app-container {
@@ -69,6 +71,8 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
       overflow-y: auto;
       padding: 1rem;
       transition: all 0.3s ease;
+      padding-left: 2rem;
+      padding-right: 2rem;
     }
     
     .sidebar-expanded .content-area {
@@ -78,6 +82,12 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
     @media (max-width: 768px) {
       .sidebar-expanded .content-area {
         margin-left: 0;
+      }
+    }
+    
+    @media (min-width: 992px) {
+      .content-area {
+        padding-left: 3rem;
       }
     }
     
