@@ -4,12 +4,14 @@ import { LoaderService } from '../../core/services/loader.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ConfigService, AppConfig } from '../../core/services/config.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
+import { UserPreferencesService, UserPreferences } from '../../core/services/user-preferences.service';
+import { PreferencesPanelComponent } from '../../shared/components/preferences-panel/preferences-panel.component';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'mfe1-example',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PreferencesPanelComponent],
   template: `
     <div class="mfe-container">
       <div class="feature-card mb-4">
@@ -24,6 +26,37 @@ import { HttpClient } from '@angular/common/http';
           <button (click)="updateBreadcrumb('Feature C')" class="btn btn-outline-primary">
             Show Feature C
           </button>
+        </div>
+      </div>
+
+      <div class="feature-card mb-4">
+        <h3>User Preferences Demo</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="current-preferences">
+              <h4>Current Preferences:</h4>
+              <ul class="list-unstyled">
+                <li>
+                  <strong>Theme:</strong> {{ (preferences$ | async)?.theme }}
+                </li>
+                <li>
+                  <strong>Font Size:</strong> {{ (preferences$ | async)?.fontSize }}
+                </li>
+                <li>
+                  <strong>Sidebar:</strong> 
+                  {{ (preferences$ | async)?.sidebarExpanded ? 'Expanded' : 'Collapsed' }}
+                </li>
+              </ul>
+              <button class="btn btn-primary" (click)="togglePreferencesPanel()">
+                {{ showPreferences ? 'Hide' : 'Show' }} Preferences Panel
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            @if (showPreferences) {
+              <app-preferences-panel></app-preferences-panel>
+            }
+          </div>
         </div>
       </div>
 
@@ -94,6 +127,23 @@ import { HttpClient } from '@angular/common/http';
       color: var(--text-primary);
     }
 
+    .current-preferences {
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .current-preferences ul li {
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .current-preferences ul li strong {
+      color: var(--text-primary);
+      margin-right: 0.5rem;
+    }
+
     .config-display {
       background: var(--bg-secondary);
       padding: 15px;
@@ -134,14 +184,19 @@ import { HttpClient } from '@angular/common/http';
 export class ExampleComponent implements OnInit {
   counter = 0;
   currentConfig: AppConfig | null = null;
+  showPreferences = false;
+  readonly preferences$;
 
   constructor(
     private loaderService: LoaderService,
     private notificationService: NotificationService,
     private configService: ConfigService,
     private breadcrumbService: BreadcrumbService,
+    private preferencesService: UserPreferencesService,
     private http: HttpClient
-  ) {}
+  ) {
+    this.preferences$ = this.preferencesService.preferences$;
+  }
 
   ngOnInit() {
     this.currentConfig = this.configService.getConfig();
@@ -194,5 +249,9 @@ export class ExampleComponent implements OnInit {
     ]);
     
     this.notificationService.info(`Navigated to ${feature}`);
+  }
+
+  togglePreferencesPanel() {
+    this.showPreferences = !this.showPreferences;
   }
 } 
