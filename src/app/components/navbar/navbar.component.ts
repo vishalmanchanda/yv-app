@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { SearchComponent } from '../../shared/components/search/search.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, ThemeToggleComponent],
+  imports: [CommonModule, RouterModule, ThemeToggleComponent, SearchComponent],
   template: `
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
       <div class="container-fluid">
@@ -26,6 +27,11 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item me-3">
+              <div class="search-wrapper">
+                <app-search></app-search>
+              </div>
+            </li>
             <li class="nav-item">
               <app-theme-toggle></app-theme-toggle>
             </li>
@@ -52,7 +58,8 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
       </div>
     </nav>
   `,
-  styles: [`    .navbar {
+  styles: [`
+    .navbar {
       padding: 0.5rem 1rem;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
@@ -60,6 +67,17 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
     .sidebar-toggle {
       color: white;
       padding: 0;
+    }
+
+    .search-wrapper {
+      width: 300px;
+    }
+
+    @media (max-width: 991px) {
+      .search-wrapper {
+        width: 100%;
+        margin: 1rem 0;
+      }
     }
 
     .avatar {
@@ -87,4 +105,4 @@ export class NavbarComponent {
   @Input() brandName: string = '';
   @Input() user: any;
   @Output() toggleSidebar = new EventEmitter<void>();
-} 
+}

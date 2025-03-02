@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { LoaderService } from '../../core/services/loader.service';
 import { NotificationService } from '../../core/services/notification.service';
 import { ConfigService, AppConfig } from '../../core/services/config.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { UserPreferencesService, UserPreferences } from '../../core/services/user-preferences.service';
+import { SearchService, SearchResult } from '../../core/services/search.service';
 import { PreferencesPanelComponent } from '../../shared/components/preferences-panel/preferences-panel.component';
+import { SearchComponent } from '../../shared/components/search/search.component';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'mfe1-example',
   standalone: true,
-  imports: [CommonModule, PreferencesPanelComponent],
+  imports: [CommonModule, FormsModule, PreferencesPanelComponent, SearchComponent],
   template: `
     <div class="mfe-container">
       <div class="feature-card mb-4">
@@ -112,6 +115,48 @@ import { HttpClient } from '@angular/common/http';
           </div>
         </div>
       </div>
+
+      <!-- Search Testing Section -->
+      <div class="feature-card mb-4">
+        <h3>Search Testing</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="search-test-controls">
+              <button class="btn btn-primary mb-2" (click)="testSearch('dashboard')">
+                Search "Dashboard"
+              </button>
+              <button class="btn btn-primary mb-2" (click)="testSearch('settings')">
+                Search "Settings"
+              </button>
+              <button class="btn btn-danger mb-2" (click)="clearSearchHistory()">
+                Clear History
+              </button>
+            </div>
+            
+            <div class="search-history mt-3">
+              <h4>Search History</h4>
+              @if (searchHistory$ | async; as history) {
+                <ul class="list-unstyled">
+                  @for (item of history; track item.query) {
+                    <li class="history-item">
+                      <span class="query">{{ item.query }}</span>
+                      <span class="count">({{ item.resultCount }} results)</span>
+                      <small class="time">{{ item.timestamp | date:'short' }}</small>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="local-search">
+              <h4>Local Search</h4>
+              <app-search></app-search>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `,
   styles: [`
@@ -179,6 +224,50 @@ import { HttpClient } from '@angular/common/http';
       background-color: var(--bs-primary);
       color: white;
     }
+
+    .search-test-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .search-history {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .query {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .count {
+      color: var(--text-secondary);
+    }
+
+    .time {
+      margin-left: auto;
+      color: var(--text-secondary);
+    }
+
+    .local-search {
+      background: var(--bg-secondary);
+      padding: 1rem;
+      border-radius: 8px;
+    }
   `]
 })
 export class ExampleComponent implements OnInit {
@@ -186,6 +275,7 @@ export class ExampleComponent implements OnInit {
   currentConfig: AppConfig | null = null;
   showPreferences = false;
   readonly preferences$;
+  readonly searchHistory$;
 
   constructor(
     private loaderService: LoaderService,
@@ -193,9 +283,11 @@ export class ExampleComponent implements OnInit {
     private configService: ConfigService,
     private breadcrumbService: BreadcrumbService,
     private preferencesService: UserPreferencesService,
-    private http: HttpClient
+    private http: HttpClient,
+    private searchService: SearchService
   ) {
     this.preferences$ = this.preferencesService.preferences$;
+    this.searchHistory$ = this.searchService.history$;
   }
 
   ngOnInit() {
@@ -253,5 +345,16 @@ export class ExampleComponent implements OnInit {
 
   togglePreferencesPanel() {
     this.showPreferences = !this.showPreferences;
+  }
+
+  testSearch(query: string) {
+    this.searchService.search(query).subscribe(results => {
+      this.notificationService.info(`Found ${results.length} results for "${query}"`);
+    });
+  }
+
+  clearSearchHistory() {
+    this.searchService.clearHistory();
+    this.notificationService.success('Search history cleared');
   }
 } 
