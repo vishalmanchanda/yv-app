@@ -26,5 +26,18 @@ export const routes: Routes = [
         loadComponent: () => import('./mfes/mfe1/example.component').then(m => m.ExampleComponent)
       }
     ]
+  },
+  {
+    path: 'error',
+    loadComponent: () => import('./features/error/error.component').then(m => m.ErrorComponent)
+  },
+  {
+    path: '404',
+    loadComponent: () => import('./features/error/error.component').then(m => m.ErrorComponent),
+    data: { code: '404' }
+  },
+  {
+    path: '**',
+    redirectTo: '404'
   }
 ];

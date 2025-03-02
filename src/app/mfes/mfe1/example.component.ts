@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../core/services/loader.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'mfe1-example',
@@ -18,9 +19,20 @@ import { NotificationService } from '../../core/services/notification.service';
           <button (click)="simulateLoading()" class="btn btn-primary me-2">
             Simulate Loading
           </button>
-          <button (click)="counter = counter + 1" class="btn btn-secondary">
+          <button (click)="counter = counter + 1" class="btn btn-secondary me-2">
             Count: {{ counter }}
           </button>
+          <div class="mt-3">
+            <button (click)="simulateError('runtime')" class="btn btn-danger me-2">
+              Runtime Error
+            </button>
+            <button (click)="simulateError('http')" class="btn btn-warning me-2">
+              HTTP Error
+            </button>
+            <button (click)="simulateError('custom')" class="btn btn-info">
+              Custom Error
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -65,7 +77,8 @@ export class ExampleComponent {
 
   constructor(
     private loaderService: LoaderService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private http: HttpClient
   ) {}
 
   simulateLoading() {
@@ -76,5 +89,26 @@ export class ExampleComponent {
       this.loaderService.hide();
       this.notificationService.success('MFE Data loaded successfully!');
     }, 2000);
+  }
+
+  simulateError(type: 'runtime' | 'http' | 'custom') {
+    switch (type) {
+      case 'runtime':
+        // Trigger a TypeError
+        const nullObject: any = null;
+        nullObject.nonExistentMethod();
+        break;
+
+      case 'http':
+        // Trigger an HTTP error
+        this.http.get('https://non-existent-api.com/data').subscribe({
+          error: (error) => console.error('HTTP Error:', error)
+        });
+        break;
+
+      case 'custom':
+        // Throw a custom error
+        throw new Error('This is a custom error for testing');
+    }
   }
 } 
