@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoaderService } from '../../core/services/loader.service';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'mfe1-example',
@@ -13,7 +15,10 @@ import { CommonModule } from '@angular/common';
         <p>This is an embedded microfrontend that can be extracted later.</p>
         
         <div class="demo-controls">
-          <button (click)="counter = counter + 1" class="btn btn-primary">
+          <button (click)="simulateLoading()" class="btn btn-primary me-2">
+            Simulate Loading
+          </button>
+          <button (click)="counter = counter + 1" class="btn btn-secondary">
             Count: {{ counter }}
           </button>
         </div>
@@ -57,4 +62,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ExampleComponent {
   counter = 0;
+
+  constructor(
+    private loaderService: LoaderService,
+    private notificationService: NotificationService
+  ) {}
+
+  simulateLoading() {
+    this.loaderService.show('Loading MFE Data...');
+
+    // Simulate API call
+    setTimeout(() => {
+      this.loaderService.hide();
+      this.notificationService.success('MFE Data loaded successfully!');
+    }, 2000);
+  }
 } 

@@ -15,6 +15,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 -Consistent error handling
 -Theme customization
 -Loading indicators
+    Global loading indicator
+    Automatic HTTP request handling
+    Manual control when needed
+    Stacked loading requests (counter)
+    Custom loading messages
+    Blur effect overlay
+    Smooth animations
+    Theme-aware styling
 -Configuration management
 -Notifications system
     Different types of notifications (success, error, warning, info)
