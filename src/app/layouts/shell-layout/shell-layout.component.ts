@@ -42,8 +42,8 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
         (toggleSidebar)="toggleSidebar()">
       </app-sidebar>
       
-      <main class="content-area flex-grow-1 px-5 mx-4">
-        <app-breadcrumb></app-breadcrumb>
+      <main class="content-area flex-grow-1">
+        <app-breadcrumb class="flex-grow-1"></app-breadcrumb>
         
         <div class="content-wrapper">
           <router-outlet></router-outlet>

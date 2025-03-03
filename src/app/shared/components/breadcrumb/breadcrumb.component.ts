@@ -8,7 +8,7 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <nav class="breadcrumb-nav" aria-label="breadcrumb">
+    <nav class="breadcrumb-nav px-5" aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a routerLink="/">

@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
     .footer {
       background-color: var(--bs-body-bg);
       border-top: 1px solid var(--bs-border-color);
-      padding: 1rem 0;
+      padding: 1rem 2rem;
       margin-top: 2rem;
     }
     
