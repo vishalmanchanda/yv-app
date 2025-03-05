@@ -7,6 +7,9 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
+
+
+
 import { ChatbotComponent } from '../../mfes/chatbot/chatbot.component';
 
 import { UserPreferencesService } from '../../core/services/user-preferences.service';
@@ -30,29 +33,25 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   template: `
     <div class="d-flex flex-column min-vh-100">
     <app-navbar 
-      [brandName]="appTitle" 
-      [user]="currentUser" 
+      [brandName]="'Shell App'" 
+      [user]="user" 
       (toggleSidebar)="toggleSidebar()">
     </app-navbar>
     
-    <div class="app-container d-flex flex-grow-1" [class.sidebar-expanded]="sidebarExpanded">
+    <div class="shell-container">
       <app-sidebar 
         [menuItems]="menuItems" 
         [isExpanded]="sidebarExpanded"
-        (toggleSidebar)="toggleSidebar()">
+        (toggleSidebar)="toggleSidebar()"
+        (sidebarStateChanged)="onSidebarStateChanged($event)">
       </app-sidebar>
       
-      <main class="content-area flex-grow-1">
-        <app-breadcrumb class="flex-grow-1"></app-breadcrumb>
-        
-        <div class="content-wrapper">
+      <main [ngClass]="{'content-area': true, 'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
+        <app-breadcrumb></app-breadcrumb>
+        <div class="container-fluid py-3">
           <router-outlet></router-outlet>
         </div>
-        
-        <app-footer 
-          [appVersion]="appVersion"
-          [appName]="appTitle">
-        </app-footer>
+        <app-footer [appName]="'Shell App'"></app-footer>
       </main>
     </div>
     
@@ -60,43 +59,31 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
 </div>
   `,
   styles: [`
-    .app-container {
+    .shell-container {
       display: flex;
-      height: 100vh;
-      padding-top: 56px;
+      height: calc(100vh - 56px);
+      margin-top: 56px;
     }
     
     .content-area {
       flex: 1;
       overflow-y: auto;
-      padding: 1rem;
-      transition: all 0.3s ease;
-      padding-left: 2rem;
-      padding-right: 2rem;
+      transition: margin-left 0.3s ease;
     }
     
-    .sidebar-expanded .content-area {
+    .sidebar-expanded {
       margin-left: 250px;
     }
     
+    .sidebar-collapsed {
+      margin-left: 70px;
+    }
+    
     @media (max-width: 768px) {
-      .sidebar-expanded .content-area {
-        margin-left: 0;
-      }
-    }
-    
-    @media (min-width: 992px) {
       .content-area {
-        padding-left: 3rem;
+        margin-left: 0 !important;
+        width: 100%;
       }
-    }
-    
-    .content-wrapper {
-      min-height: calc(100vh - 170px);
-      padding: 1rem;
-      background: var(--bs-body-bg);
-      border-radius: 0.5rem;
-      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     }
   `]
 })
@@ -104,7 +91,7 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
   appTitle = 'Shell App';
   appVersion = '1.0.0';
   sidebarExpanded = true;
-  currentUser: any;
+  user: any;
   private subscriptions = new Subscription();
   
   menuItems = [
@@ -134,7 +121,7 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
     // Get current user
     this.subscriptions.add(
       this.authService.currentUser$.subscribe(user => {
-        this.currentUser = user;
+        this.user = user;
       })
     );
     
@@ -160,5 +147,9 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
   
   toggleSidebar() {
     this.userPreferences.toggleSidebar();
+  }
+  
+  onSidebarStateChanged(expanded: boolean) {
+    this.sidebarExpanded = expanded;
   }
 } 

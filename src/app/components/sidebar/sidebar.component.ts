@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -7,7 +7,9 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <nav [class]="'sidebar ' + (isExpanded ? 'expanded' : 'collapsed')">
+    <nav [class]="'sidebar ' + (isExpanded ? 'expanded' : 'collapsed')"
+         (mouseenter)="onMouseEnter()"
+         (mouseleave)="onMouseLeave()">
       <ul class="nav flex-column">
         @for (item of menuItems; track item.label) {
           <li class="nav-item">
@@ -89,10 +91,59 @@ import { RouterModule } from '@angular/router';
     }
   `]
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy {
   @Input() menuItems: any[] = [];
   @Input() isExpanded: boolean = true;
   @Output() toggleSidebar = new EventEmitter<void>();
+  @Output() sidebarStateChanged = new EventEmitter<boolean>();
+  
+  private resizeHandler: () => void;
+  private isDesktop = false;
+  private isHovering = false;
+
+  constructor() {
+    this.resizeHandler = () => this.checkScreenSize();
+  }
+
+  ngOnInit() {
+    this.checkScreenSize();
+    window.addEventListener('resize', this.resizeHandler);
+    
+    // Emit initial state to parent component
+    this.sidebarStateChanged.emit(this.isExpanded);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeHandler);
+  }
+
+  checkScreenSize() {
+    this.isDesktop = window.innerWidth > 768;
+    
+    // On mobile, we don't auto-expand
+    if (!this.isDesktop) {
+      const wasExpanded = this.isExpanded;
+      if (wasExpanded !== this.isExpanded) {
+        this.sidebarStateChanged.emit(this.isExpanded);
+      }
+    }
+  }
+
+  onMouseEnter() {
+    if (this.isDesktop && !this.isExpanded) {
+      this.isHovering = true;
+      this.isExpanded = true;
+      this.sidebarStateChanged.emit(true);
+    }
+  }
+
+  onMouseLeave() {
+    if (this.isDesktop && this.isHovering) {
+      this.isHovering = false;
+      this.isExpanded = false;
+      this.sidebarStateChanged.emit(false);
+    }
+  }
 
   onMenuClick() {
     if (window.innerWidth <= 768) {
