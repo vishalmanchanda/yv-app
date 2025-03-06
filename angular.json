@@ -4,10 +4,18 @@
             "architect": {
                 "build": {
                     "options": {
-                        "scriptType": "module"
+                        "scriptType": "module",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ]
                     }
                 }
             }
         }
-    }
+    },
+    "assets": [
+        "src/favicon.ico",
+        "src/assets"
+    ]
 }

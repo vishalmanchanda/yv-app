@@ -47,6 +47,22 @@ export const routes: Routes = [
         loadComponent: () => import('./mfes/chatbot/chatbot-mfe.component').then(m => m.ChatbotMfeComponent),
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Chatbot' }
+      },
+      {
+        path: 'users',
+        loadComponent: () => import('./features/user-management/user-management.component').then(m => m.UserManagementComponent),
+        data: { 
+          breadcrumb: 'User Management',
+          icon: 'bi-people'
+        }
+      },
+      {
+        path: 'features',
+        loadComponent: () => import('./features/features-display/features-display.component').then(m => m.FeaturesDisplayComponent),
+        data: { 
+          breadcrumb: 'Features',
+          icon: 'bi-list-check'
+        }
       }
     ]
   },

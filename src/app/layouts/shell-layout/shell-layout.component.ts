@@ -97,7 +97,17 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
   menuItems = [
     { label: 'Dashboard', icon: 'bi bi-speedometer2', route: '/dashboard' },
     { label: 'MFE Example', icon: 'bi bi-puzzle', route: '/mfe1' },
-    { label: 'Documentation', icon: 'bi bi-book', route: '/docs' }
+    { label: 'Documentation', icon: 'bi bi-book', route: '/docs' },
+    {
+      label: 'User Management',
+      icon: 'bi bi-people',
+      route: '/users'
+    },
+    {
+      label: 'Features',
+      icon: 'bi bi-list-check',
+      route: '/features'
+    }
   ];
   
   showChatbot = false;
