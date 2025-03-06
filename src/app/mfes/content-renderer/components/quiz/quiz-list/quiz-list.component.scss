@@ -1,0 +1,27 @@
+.list-group-item
+    {
+      transition: all 0.3s;
+      border-left: 5px solid transparent;
+    }
+    .list-group-item:hover {
+      // background-color:;
+      border-left-color: #007bff;
+    }
+    .list-group-item h5 {
+      color: #007bff;
+    }
+    .list-group-item small {
+      // color: #6c757d;
+    }
+    .list-group-item p {
+      font-size: 0.9rem;
+      // color: #495057;
+    }
+    .fixed-bottom {
+      background-color: var(--bs-body-bg);
+      z-index: 1030;
+    }
+    .list-group-item.border-transparent {
+      border-left: 5px solid transparent;
+    }
+    

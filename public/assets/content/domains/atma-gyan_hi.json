@@ -1,0 +1,68 @@
+[
+    {
+        "id": "101",
+        "title": "श्रीमद्भगवद्गीता",
+        "description": "श्रीमद्भगवद्गीता एक धार्मिक गीत है जो भारतीय धार्मिक संस्कृति में अत्यधिक महत्वपूर्ण है। यह गीत भारतीय विद्यालयों में अध्यापन के लिए उपयोग किया जाता है।",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "hi",
+        "coverImage": "/assets/images/sbg_4.jpg",
+        "zipUrl": "/assets/content/srimad-bhagavad-gita_hi.zip",
+        "authors": [
+            {
+                "name": "महर्षि वेदव्यास",
+                "image": "/assets/images/guru.jpg",
+                "bio": "वेदव्यास द्वारा लिखित श्रीमद्भगवद्गीता एक धार्मिक गीत है जो भारतीय धार्मिक संस्कृति में अत्यधिक महत्वपूर्ण है। यह गीत भारतीय विद्यालयों में अध्यापन के लिए उपयोग किया जाता है।",
+                "website": ""
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    },
+    {
+        "id": "YSOP02",
+        "title": "योग सूत्र - महर्षि पतंजलि",
+        "description": "पतंजलि योग सूत्र - योग के दर्शन और साधना का शाश्वत ग्रंथ, जो ध्यान, अनुशासन और आत्मज्ञान की यात्रा को सरल और गहन रूप में प्रस्तुत करता है।",
+        "status": "draft",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "hi",
+        "coverImage": "assets/images/guru.jpg",
+        "zipUrl": "assets/content/yoga-sutras-of-patanjali_hi.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "महर्षि पतंजलि",
+                "bio": "महर्षि पतंजलि योग दर्शन के प्रणेता माने जाते हैं। उनके द्वारा रचित 'योग सूत्र' योग के सिद्धांतों, ध्यान, और आत्मा की खोज के लिए एक मार्गदर्शक ग्रंथ है।",
+                "image": "assets/images/guru.jpg",
+                "website": "",
+                "authorKey": "hi_charles_johnston_commentary_md"
+            }
+        ],
+        "version": "1.0.0"
+    },
+    {
+        "id": "AoY02",
+        "title": "योगी की आत्मकथा",
+        "description": "योगी की आत्मकथा - परमहंस योगानंद द्वारा लिखित उनकी आत्मकथा है।",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "hi",
+        "coverImage": "assets/images/yp.jpg",
+        "zipUrl": "assets/content/AoY_fmtng_hi.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "परमहंस योगानंद",
+                "bio": "",
+                "image": "assets/images/yp.jpg",
+                "website": "",
+                "authorKey": "yp"
+            }
+        ],
+        "version": "1.0"
+    }
+]

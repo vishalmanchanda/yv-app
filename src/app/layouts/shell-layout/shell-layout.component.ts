@@ -33,7 +33,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   template: `
     <div class="d-flex flex-column min-vh-100">
     <app-navbar 
-      [brandName]="'Shell App'" 
+      [brandName]="'App'" 
       [user]="user" 
       (toggleSidebar)="toggleSidebar()">
     </app-navbar>
@@ -51,7 +51,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
         <div class="container-fluid py-3">
           <router-outlet></router-outlet>
         </div>
-        <app-footer [appName]="'Shell App'"></app-footer>
+        <app-footer [appName]="'App'"></app-footer>
       </main>
     </div>
     
@@ -88,7 +88,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   `]
 })
 export class ShellLayoutComponent implements OnInit, OnDestroy {
-  appTitle = 'Shell App';
+  appTitle = 'App';
   appVersion = '1.0.0';
   sidebarExpanded = true;
   user: any;

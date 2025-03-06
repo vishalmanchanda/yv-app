@@ -1,0 +1,43 @@
+<div class="container">
+
+    <app-navbar  categoryKey="" title="Yoga Vivek" 
+    (settingsClicked)="openAdvancedSettings()">
+    </app-navbar>
+    
+    <!-- New Jumbotron Section -->
+    <div class="jumbotron-container">
+      <div class="jumbotron-overlay">
+        <div class="jumbotron-content">
+          <h1 class="display-4">Yoga Vivek</h1>
+          <p class="lead">At Yoga Vivek, we aim to simplify access to the timeless ancient wisdom. Explore ancient knowledge and timeless teachings that guide you on your spiritual journey</p>
+          <button class="btn btn-primary btn-lg" (click)="scrollDown()">
+            Start Exploring
+            <i class="fas fa-arrow-down ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--show the bookmarks and on click of the bookmark it should open the reader with the bookmark-->
+    <div class="container mt-4 px-4 py-2" style="height: 50vh; overflow-y: auto;" *ngIf="bookmarks.length > 0">
+      <h3 class="text-center mb-4 mt-5">Recently Visited</h3>
+      <div class="row">
+        <div class="col-12">
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action" *ngFor="let bookmark of bookmarks" (click)="navigateToBookmark(bookmark)">
+              <div class="d-flex align-items-start">
+                <img [src]="bookmark.imageUrl" class="me-3" alt="Bookmark Image" style="width: 60px; height: 60px; object-fit: cover;" />
+                <div class="flex-grow-1">
+                  <h5 class="card-title mb-1">{{bookmark.title}}</h5>
+                  <small class="text-muted">{{bookmark.timestamp | date:'medium'}}</small>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+<hr>
+   
+    <app-category-content [categoryKey]="categoryKey"></app-category-content>
+  </div>

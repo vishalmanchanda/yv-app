@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga Vivek Hackathons</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e97618, #e4f42c);;
+            color: #ffffff;
+        }
+        header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #e4f42c,#e97618);
+            color: #fff;
+        }
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            animation: pop-in 1s ease-in-out;
+        }
+        header p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            background: #222;
+            padding: 10px 0;
+            color: #e4f42c;
+            text-decoration: none;
+            padding: 10px 20px;
+            /* margin: 0 10px; */
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        nav h2 {
+            font-size:1.5rem;
+        }
+    
+
+        .tile-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 100px; /* Aspect ratio of 3:1 */
+            background-color: black;
+            color: orange;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tile:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        section {
+            padding: 30px 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            background: #1c1c1c;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fade-in 1s ease-in-out;
+        }
+        section h2 {
+            text-align: center;
+            color: #e4f42c;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: #e97618;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 0;
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pop-in {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- add option to go back to home -->
+        <a href="/home" style="position: absolute; top: 10px; left: 10px; color: #1c1c1c; text-decoration: none; font-size: 1.2em;"> < Back to Home</a>
+        <h1>Yoga Vivek Hackathons</h1>
+        <p>Code. Collaborate. Conquer.</p>
+    </header>
+    <nav>
+        <h2>Upcoming Hackathon</h2>
+    </nav>
+    <br><br>
+
+    <div class="tile-container">
+        <!--a href="hackathon_nyd2025.html" class="tile">NYD Hackathon 2025</a-->
+        <a href="hackathon.html" class="tile">IYD Hackathon 2025<br>(coming soon)</a>
+        
+    </div>
+    <br><br>
+    <nav>
+        Completed Hackathons
+        <br>Prizes worth INR 35k distributed so far!
+    </nav>
+    
+
+    <br><br>
+    <div class="tile-container">
+        <a href="hackathon_iyd2025.html" class="tile">NYD Hackathon 2025</a>
+        <!--a href="hackathon_iyd2025.html" class="tile">IYD Hackathon 2025</a-->
+    </div>
+
+    <br><br>
+    <footer>
+        <p>© 2024 The Yoga Vivek Group</p>
+    </footer>
+</body>
+</html>

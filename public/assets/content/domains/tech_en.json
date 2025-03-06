@@ -1,0 +1,48 @@
+[
+    {
+        "id": "1",
+        "title": "Regular Expressions - By Artificial Intelligence",
+        "description": "Learn about regular expressions and their applications in programming.",
+        "status": "comingSoon",
+        "categoryKey": "tech",
+        "type": "course",
+        "language": "en",
+        "coverImage": "https://upload.wikimedia.org/wikipedia/commons/d/da/Pictogram_voting_regex.svg",
+        "zipUrl": "/assets/regex.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "AI Author",
+                "image": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
+                "bio": "An AI-generated content expert",
+                "website": "https://ai-author.com"
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    },
+    {
+        "id": "2",
+        "title": "Large Language Models - By Artificial Intelligence",
+        "description": "Explore the capabilities and applications of large language models.",
+        "status": "comingSoon",
+        "categoryKey": "tech",
+        "type": "course",
+        "language": "en",
+        "coverImage": "https://www.wisecube.ai/wp-content/uploads/2023/05/Featured-Blog-Image-A-Comprehensive-Overview-of-Large-Language-Models-1024x768.jpg",
+        "zipUrl": "/assets/llm.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "AI Author",
+                "image": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
+                "bio": "An AI-generated content expert",
+                "website": "https://ai-author.com"
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    }
+]

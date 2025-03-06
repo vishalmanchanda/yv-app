@@ -1,0 +1,37 @@
+/* Import Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css");
+
+/* Import Font Awesome Icons */
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --sidebar-width: 230px;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  padding-top: 56px;
+}
+
+.content-area {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
+
+.sidebar {
+  background-color: var(--bs-tertiary-bg);
+  border-color: var(--bs-border-color);
+}
+
+.modal-content {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+// .navbar {
+//   background-color: var(--bs-primary);
+//   color: var(--bs-light);
+// }

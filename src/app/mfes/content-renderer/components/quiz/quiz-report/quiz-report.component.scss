@@ -1,0 +1,163 @@
+.report-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bs-body-bg);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  .report-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+  .book-cover {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  }
+  .report-info {
+    flex: 1;
+    min-width: 200px;
+  }
+  h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.8em;
+  }
+  .student-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+  }
+  .book-info {
+    font-style: italic;
+    margin: 0 0 10px 0;
+    color: #666;
+    font-size: 1.1em;
+  }
+  .score-badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  .score-excellent { background-color: #28a745; color: white; }
+  .score-good { background-color: #17a2b8; color: white; }
+  .score-average { background-color: #ffc107; color: black; }
+  .score-poor { background-color: #dc3545; color: white; }
+  .quiz-meta {
+    background-color: var(--bs-secondary-bg);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+  }
+  .quiz-meta p {
+    margin: 5px 0;
+  }
+  .question-list {
+    background-color: var(--bs-body-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  .question-result {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+  }
+  .question-result.even-row {
+    background-color: var(--bs-secondary-bg);
+  }
+  .question-header {
+    margin-bottom: 10px;
+  }
+  .question-header h3 {
+    margin: 0;
+    color: #495057;
+  }
+  .question-text {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+  .solution {
+    background-color: var(--bs-secondary-bg);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  .solution h5 {
+    margin: 0 0 5px 0;
+    color: var(--bs-body-color);
+  }
+  .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    background-color: var(--bs-body-bg);
+  }
+  .download-btn, .share-btn {
+    padding: 10px 20px;
+    background-color: var(--bs-primary);
+    color: var(--bs-body-color);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .download-btn:hover, .share-btn:hover {
+    background-color: var(--bs-primary-hover);
+  }
+  .share-btn {
+    background-color: var(--bs-success);
+  }
+  .share-btn:hover {
+    background-color: var(--bs-success-hover);
+  }
+  @media (max-width: 600px) {
+    .report-header {
+      flex-direction: column;
+    }
+    .book-cover {
+      width: 100%;
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+    .report-info {
+      width: 100%;
+    }
+  }
+  .share-section {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: var(--bs-secondary-bg);
+    border-radius: 5px;
+  }
+  .whatsapp-share-link {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--bs-success);
+    color: var(--bs-body-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  .report-header {
+    background: linear-gradient(135deg, var(--bs-primary), var(--bs-primary-hover));
+  }
+  .card-title {
+      color: var(--bs-primary);
+  }
+  .card-text {
+    font-size: 0.9rem;
+  }

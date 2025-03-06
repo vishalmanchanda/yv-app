@@ -1,0 +1,127 @@
+[
+    {
+        "id": "102",
+        "title": "Shrimad Bhagavad Gita ",
+        "description": "Shrimad Bhagavad Gita is a sacred Hindu scripture that contains the teachings of Lord Krishna as revealed to Arjuna in the battle of Mahabharata.",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "en",
+        "coverImage": "https://vishalmanchanda.github.io/assets/bhagwad-gita-images/sbg_24.jpg",
+        "zipUrl": "/assets/content/srimad-bhagavad-gita_en.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Maharshi Vedavyasa",
+                "image": "/assets/images/guru.jpg",
+                "bio": "Vedavyasa is a revered figure in Hinduism, known for being the author of the Shrimad Bhagavad Gita, one of the two major Sanskrit epics of ancient India.",
+                "website": ""
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    },
+    {
+        "id": "YSOP01",
+        "title": "Yoga Sutras of Patanjali",
+        "description": "Yoga Sutras of Patanjali are a collection of 195 aphorisms that form the core of the Yoga tradition.",
+        "status": "draft",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "en",
+        "coverImage": "https://vishalmanchanda.github.io/assets/images-ag/yoga-sutras-patanjali-sm.jpg",
+        "zipUrl": "/assets/content/yoga-sutras-of-patanjali_en.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Maharishi Patanjali",
+                "image": "assets/images/guru.jpg",
+                "bio": "Maharishi Patanjali is a revered figure in Hinduism, known for being the author of the Yoga Sutras, one of the two major Sanskrit epics of ancient India.",
+                "website": ""
+            }
+        ]
+    },
+    {
+        "id": "KU01",
+        "title": "Katha Upanishad",
+        "description": "Katha Upanishad is a story of Nachiketa and his interaction with Yama.",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "en",
+        "version": "1.0",
+        "coverImage": "https://vishalmanchanda.github.io/assets/images-ag/katha-upanishad-sm.jpg",
+        "zipUrl": "assets/content/katha-upanishad_en.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Maharshi Vedavyasa",
+                "image": "assets/images/guru.jpg",
+                "bio": "Vedavyasa is a revered figure in Hinduism, known for being the author of the Shrimad Bhagavad Gita, one of the two major Sanskrit epics of ancient India.",
+                "website": ""
+            }
+        ]
+    },
+    {
+        "id": "MUP1",
+        "title": "Mandukya Upanishad",
+        "description": "Mandukya Upanishad covers the concept of the self and the universe.",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "en",
+        "version": "1.0",
+        "coverImage": "https://vishalmanchanda.github.io/assets/images-ag/mandukya-upanishad-sm.jpg",
+        "zipUrl": "assets/content/mandukya-upanishad_en.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Maharshi Vedavyasa",
+                "image": "assets/images/guru.jpg",
+                "bio": "Vedavyasa is a revered figure in Hinduism, known for being the author of the Shrimad Bhagavad Gita, one of the two major Sanskrit epics of ancient India.",
+                "website": ""
+            }
+        ]
+    },
+    {
+        "id": "IU01",
+        "title": "Isavasya Upanishad",
+        "description": "Isavasya Upanishad talks about the nature of the self and the universe.",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "en",
+        "version": "1.0",
+        "coverImage": "https://vishalmanchanda.github.io/assets/images-ag/isavasya-upanishad.jpg",
+        "zipUrl": "assets/content/isavasya-upanishad_en.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Maharshi Vedavyasa",
+                "image": "assets/images/guru.jpg",
+                "bio": "Vedavyasa is a revered figure in Hinduism, known for being the author of the Shrimad Bhagavad Gita, one of the two major Sanskrit epics of ancient India.",
+                "website": ""
+            }
+        ]
+    },
+    {
+        "id": "AoY01",
+        "title": "The Autobiography of a Yogi",
+        "description": "The Autobiography of a Yogi is a book by Paramahansa Yogananda that tells the story of his spiritual journey and the master.",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "book",
+        "language": "en",
+        "version": "1.0",
+        "coverImage": "assets/images/yp.jpg",
+        "zipUrl": "assets/content/AoY_fmtng_en.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Paramahansa Yogananda",
+                "image": "assets/images/yp.jpg"
+            }
+        ]
+    }
+]

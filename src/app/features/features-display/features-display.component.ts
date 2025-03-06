@@ -9,7 +9,7 @@ import { NotificationService } from '../../core/services/notification.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="container-fluid mt-4">
+    <div class="container-fluid mt-4 px-4">
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -19,7 +19,7 @@ import { NotificationService } from '../../core/services/notification.service';
                 <i class="bi bi-arrow-clockwise"></i> Refresh
               </button>
             </div>
-            <div class="card-body">
+            <div class="card-body px-4">
               <div class="markdown-content" [innerHTML]="htmlContent"></div>
             </div>
           </div>

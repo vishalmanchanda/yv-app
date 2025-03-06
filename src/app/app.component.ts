@@ -14,5 +14,5 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
   `
 })
 export class AppComponent {
-  title = 'shell-app';
+  title = 'yv-app';
 }

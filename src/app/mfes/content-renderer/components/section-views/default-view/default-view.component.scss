@@ -1,0 +1,43 @@
+.default-view {
+   padding: 0rem;
+   background-color: var(--bs-body-bg);
+  
+  .content-wrapper {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    
+    ::ng-deep {
+      h1, h2, h3, h4, h5, h6 {
+        color: var(--bs-primary);
+        margin-bottom: 1rem;
+      }
+      
+      p {
+        margin-bottom: 1.2rem;
+        text-align: justify;
+      }
+      
+      ul, ol {
+        margin-bottom: 1.2rem;
+        padding-left: 2rem;
+      }
+    }
+  }
+  
+  .commentary {
+    background-color: var(--bs-body-bg);
+
+    .card {
+      border-left: 4px solid var(--bs-primary);
+      background-color: var(--bs-body-bg);
+      
+      .card-title {
+        color: var(--bs-primary);
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+} 

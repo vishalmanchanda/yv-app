@@ -1,0 +1,25 @@
+[
+    {
+        "id": "4",
+        "title": "English, Reasoning & Current Affairs - By Artificial Intelligence",
+        "description": "Learn about English, reasoning, and current affairs through AI-driven content",
+        "status": "published",
+        "categoryKey": "aptitude",
+        "type": "quiz",
+        "language": "en",
+        "coverImage": "/assets/images/reading.jpg",
+        "zipUrl": "/assets/content/entrance_v1.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "AI Author",
+                "image": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
+                "bio": "An AI-generated content expert",
+                "website": "https://ai-author.com"
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    }
+]

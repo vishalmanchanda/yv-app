@@ -1,12 +1,12 @@
-# Integrating a New Micro Frontend into the Shell Application
+# Integrating a New Micro Frontend into the Application
 
-This guide outlines the steps to add and integrate a new micro frontend (MFE) into the shell application.
+This guide outlines the steps to add and integrate a new micro frontend (MFE) into the Application.
 
 ## Prerequisites
 
 - Node.js and npm installed
 - Angular CLI installed
-- Access to the shell application repository
+- Access to the Application repository
 - Understanding of Module Federation concepts
 
 ## Step-by-Step Integration Guide
@@ -29,23 +29,23 @@ ng add @angular-architects/module-federation --project my-new-feature --port 420
 Edit the `webpack.config.js` file in your micro frontend project:
 
 ```javascript
-const { shareAll } = require('@angular-architects/module-federation/webpack');
+const { shareAll } = require("@angular-architects/module-federation/webpack");
 
 module.exports = {
   output: {
     uniqueName: "myNewFeature",
-    publicPath: "auto"
+    publicPath: "auto",
   },
   optimization: {
-    runtimeChunk: false
+    runtimeChunk: false,
   },
   resolve: {
     alias: {
       ...sharedMappings.getAliases(),
-    }
+    },
   },
   experiments: {
-    outputModule: true
+    outputModule: true,
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -53,11 +53,11 @@ module.exports = {
       name: "myNewFeature",
       filename: "remoteEntry.js",
       exposes: {
-        './Module': './src/app/remote-entry/entry.module.ts',
+        "./Module": "./src/app/remote-entry/entry.module.ts",
       },
-      shared: shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' })
+      shared: shareAll({ singleton: true, strictVersion: true, requiredVersion: "auto" }),
     }),
-    sharedMappings.getPlugin()
+    sharedMappings.getPlugin(),
   ],
 };
 ```
@@ -73,26 +73,24 @@ ng g module remote-entry --routing
 Edit the `remote-entry/entry.module.ts`:
 
 ```typescript
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { EntryComponent } from './entry.component';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { EntryComponent } from "./entry.component";
 
 @NgModule({
-  declarations: [
-    EntryComponent
-  ],
+  declarations: [EntryComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {
-        path: '',
-        component: EntryComponent
-      }
-    ])
-  ]
+        path: "",
+        component: EntryComponent,
+      },
+    ]),
+  ],
 })
-export class RemoteEntryModule { }
+export class RemoteEntryModule {}
 ```
 
 Create an entry component:
@@ -101,7 +99,7 @@ Create an entry component:
 ng g component remote-entry/entry
 ```
 
-### 4. Update the Shell Application Configuration
+### 4. Update the Application Configuration
 
 #### 4.1. Add the MFE to the Shell's webpack.config.js
 
@@ -119,7 +117,7 @@ plugins: [
     // ... existing shared configuration ...
   }),
   // ... existing code ...
-]
+];
 ```
 
 #### 4.2. Update the Shell's Configuration Service
@@ -131,17 +129,17 @@ Add the new micro frontend to the configuration service:
 export const microFrontendConfig = {
   // ... existing MFEs ...
   myNewFeature: {
-    remoteEntry: 'http://localhost:4201/remoteEntry.js',
-    remoteName: 'myNewFeature',
-    exposedModule: './Module',
-    displayName: 'My New Feature',
-    routePath: 'my-new-feature',
-    ngModuleName: 'RemoteEntryModule'
-  }
-}
+    remoteEntry: "http://localhost:4201/remoteEntry.js",
+    remoteName: "myNewFeature",
+    exposedModule: "./Module",
+    displayName: "My New Feature",
+    routePath: "my-new-feature",
+    ngModuleName: "RemoteEntryModule",
+  },
+};
 ```
 
-### 5. Add Routing in the Shell Application
+### 5. Add Routing in the Application
 
 Update the shell's routing module to load the new micro frontend:
 
@@ -150,14 +148,14 @@ Update the shell's routing module to load the new micro frontend:
 const routes: Routes = [
   // ... existing routes ...
   {
-    path: 'my-new-feature',
-    loadChildren: () => loadRemoteModule({
-      type: 'module',
-      remoteEntry: environment.microFrontends.myNewFeature.remoteEntry,
-      exposedModule: environment.microFrontends.myNewFeature.exposedModule
-    })
-    .then(m => m[environment.microFrontends.myNewFeature.ngModuleName])
-  }
+    path: "my-new-feature",
+    loadChildren: () =>
+      loadRemoteModule({
+        type: "module",
+        remoteEntry: environment.microFrontends.myNewFeature.remoteEntry,
+        exposedModule: environment.microFrontends.myNewFeature.exposedModule,
+      }).then((m) => m[environment.microFrontends.myNewFeature.ngModuleName]),
+  },
 ];
 ```
 
@@ -170,11 +168,11 @@ Update the shell's navigation components to include a link to the new micro fron
 navigationItems = [
   // ... existing navigation items ...
   {
-    label: 'My New Feature',
-    icon: 'feature_icon',
-    route: '/my-new-feature',
-    permission: 'access:my-new-feature' // If using permissions
-  }
+    label: "My New Feature",
+    icon: "feature_icon",
+    route: "/my-new-feature",
+    permission: "access:my-new-feature", // If using permissions
+  },
 ];
 ```
 
@@ -186,11 +184,11 @@ Create a service to handle communication with the shell:
 
 ```typescript
 // In the MFE project
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ShellCommunicationService {
   private eventBus = new Subject<any>();
@@ -199,7 +197,7 @@ export class ShellCommunicationService {
   sendEventToShell(eventType: string, payload: any) {
     const event = { type: eventType, payload };
     // Use window.dispatchEvent for shell communication
-    window.dispatchEvent(new CustomEvent('mfe-event', { detail: event }));
+    window.dispatchEvent(new CustomEvent("mfe-event", { detail: event }));
   }
 
   receiveEventFromShell(event: any) {
@@ -208,7 +206,7 @@ export class ShellCommunicationService {
 }
 ```
 
-#### 7.2. In the Shell Application
+#### 7.2. In the Application
 
 Update the shell's event service to handle events from the new MFE:
 
@@ -217,7 +215,7 @@ Update the shell's event service to handle events from the new MFE:
 @HostListener('window:mfe-event', ['$event'])
 handleMfeEvent(event: CustomEvent) {
   const { type, payload } = event.detail;
-  
+
   // Process the event based on type
   switch (type) {
     case 'myNewFeature:someAction':
@@ -235,15 +233,15 @@ Ensure the micro frontend can access the shell's authentication context:
 
 ```typescript
 // In the MFE's authentication service
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
   getCurrentUser() {
     // Access the shell's auth data from window object or localStorage
-    return (window as any).shellAuth?.currentUser || JSON.parse(localStorage.getItem('user') || '{}');
+    return (window as any).shellAuth?.currentUser || JSON.parse(localStorage.getItem("user") || "{}");
   }
 
   isAuthenticated() {
@@ -258,7 +256,7 @@ Ensure your micro frontend uses the same styling approach as the shell:
 
 ```scss
 /* In the MFE's styles.scss */
-@import 'variables';
+@import "variables";
 
 // Use the same CSS variables as the shell
 :host {
@@ -278,6 +276,7 @@ Ensure your micro frontend uses the same styling approach as the shell:
 ### 10. Test the Integration
 
 1. Start both applications:
+
 ```bash
 # In the shell directory
 npm start
@@ -286,7 +285,7 @@ npm start
 npm start
 ```
 
-2. Navigate to the shell application (typically http://localhost:4200)
+2. Navigate to the Application (typically http://localhost:4200)
 3. Click on the navigation link for your new feature
 4. Verify that the micro frontend loads correctly
 5. Test communication between the shell and MFE

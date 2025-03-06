@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, delay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ConfigService } from '../services/config.service';
 import { MfeCommunicationService } from '../events/mfe-communication.service';
@@ -62,52 +62,39 @@ export class AuthService {
     }
   }
   
-  login(credentials: LoginCredentials): Observable<User> {
-    const apiUrl = this.configService.getConfig().apiUrl;
-    
-    // For demo purposes, we'll use a mock login
-    // In a real app, you would use:
-    // return this.http.post<LoginResponse>(`${apiUrl}/auth/login`, credentials)
-    
-    return of({
-      success: true,
-      data: {
-        user: {
-          id: '1',
-          name: 'John Doe',
-          email: credentials.email,
-          role: 'admin',
-          permissions: ['users:read', 'users:write', 'admin:read', 'admin:write'],
-          profileImage: 'https://i.pravatar.cc/300',
-          createdAt: new Date().toISOString(),
-          phone: '+1 (555) 123-4567',
-          bio: 'Software developer with a passion for building great user experiences.'
-        },
-        token: 'mock-jwt-token'
+  login(email: string, password: string, rememberMe: boolean = false): Observable<any> {
+    // For demo purposes, accept specific credentials
+    if (email === 'admin@example.com' && password === 'password123') {
+      const user = {
+        id: '1',
+        name: 'Admin User',
+        email: 'admin@example.com',
+        role: 'admin',
+        avatar: 'https://randomuser.me/api/portraits/men/10.jpg'
+      };
+      
+      const token = 'mock-jwt-token-' + Math.random().toString(36).substring(2);
+      
+      // Store auth data
+      this.setAuthState({
+        user,
+        token,
+        isAuthenticated: true
+      });
+      
+      // Store in localStorage if rememberMe is true
+      if (rememberMe) {
+        localStorage.setItem('auth', JSON.stringify({
+          user,
+          token,
+          isAuthenticated: true
+        }));
       }
-    }).pipe(
-      map(response => {
-        // Store user and token
-        const user = response.data.user;
-        const token = response.data.token;
-        
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        localStorage.setItem('token', token);
-        
-        this.currentUserSubject.next(user);
-        
-        // Notify MFEs about login
-        this.mfeCommunication.emit('auth-changed', { 
-          isAuthenticated: true, 
-          user: user 
-        });
-        
-        return user;
-      }),
-      catchError(error => {
-        return throwError(() => new Error('Invalid email or password'));
-      })
-    );
+      
+      return of({ user, token }).pipe(delay(1000));
+    }
+    
+    return throwError(() => 'Invalid email or password').pipe(delay(1000));
   }
   
   logout(): Observable<void> {
@@ -236,5 +223,12 @@ export class AuthService {
         }
         break;
     }
+  }
+  
+  // Add this method to allow setting auth state from social login
+  setAuthState(authState: any): void {
+    this.currentUserSubject.next(authState.user);
+    localStorage.setItem('currentUser', JSON.stringify(authState.user));
+    localStorage.setItem('token', authState.token);
   }
 } 

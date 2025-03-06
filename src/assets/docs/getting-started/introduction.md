@@ -1,10 +1,10 @@
-# Introduction to the Shell Application
+# Introduction to the Application
 
-Welcome to the Shell Application documentation! This guide will help you understand the architecture, features, and best practices for working with our micro-frontend platform.
+Welcome to the Application documentation! This guide will help you understand the architecture, features, and best practices for working with our micro-frontend platform.
 
-## What is the Shell Application?
+## What is the Application?
 
-The Shell Application is a modern, Angular-based micro-frontend platform that enables teams to develop, deploy, and scale frontend applications independently. It provides a robust foundation for building complex web applications with a modular architecture.
+The Application is a modern, Angular-based micro-frontend platform that enables teams to develop, deploy, and scale frontend applications independently. It provides a robust foundation for building complex web applications with a modular architecture.
 
 ## Key Features
 
@@ -29,7 +29,7 @@ Micro-frontends offer several advantages for large-scale applications:
 
 ## Getting Started
 
-To get started with the Shell Application, follow these steps:
+To get started with the Application, follow these steps:
 
 1. [Install the application](installation)
 2. [Understand the architecture](architecture-overview)
@@ -40,7 +40,7 @@ To get started with the Shell Application, follow these steps:
 
 ![Architecture Diagram](assets/images/architecture-diagram.png)
 
-The Shell Application follows a hub-and-spoke architecture:
+The Application follows a hub-and-spoke architecture:
 
 - **Shell (Hub)**: Core application that handles routing, authentication, and common UI elements
 - **Micro-Frontends (Spokes)**: Independent applications that plug into the shell
@@ -49,7 +49,7 @@ The Shell Application follows a hub-and-spoke architecture:
 
 ## Best Practices
 
-When working with the Shell Application, keep these best practices in mind:
+When working with the Application, keep these best practices in mind:
 
 - **Keep micro-frontends focused on specific business domains**
 - **Use the event system for cross-MFE communication**
@@ -59,4 +59,4 @@ When working with the Shell Application, keep these best practices in mind:
 
 ## Next Steps
 
-Ready to dive deeper? Check out the [Installation Guide](installation) to set up your development environment. 
+Ready to dive deeper? Check out the [Installation Guide](installation) to set up your development environment.

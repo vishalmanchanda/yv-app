@@ -1,0 +1,116 @@
+    .commentary-content {
+      ::ng-deep {
+        p {
+          font-family: 'Montserrat', sans-serif;
+          text-align: justify;          
+          margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+          margin-bottom: 1rem;
+          padding-left: 1.5rem;
+        }
+      }
+    }
+  
+
+.commentary-header {
+  cursor: pointer;
+  padding: 0.1rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--bs-gray-100);
+  }
+
+  .author-image {
+    img {
+      border: 2px solid var(--bs-primary);
+      object-fit: cover;
+    }
+  }
+}
+
+::ng-deep .author-selection-modal {
+  .modal-dialog {
+    margin: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: none;
+    
+    .modal-content {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.author-grid {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+  
+  // Mobile: 2 authors per row
+  grid-template-columns: repeat(2, 1fr);
+  
+  // Tablet: 3 authors per row
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  // Desktop: 4 authors per row
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .author-card {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+
+    &:hover {
+      background-color: var(--bs-gray-100);
+    }
+
+    &.active {
+      background-color: var(--bs-primary-bg-subtle);
+      border-color: var(--bs-primary);
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border: 3px solid var(--bs-primary);
+      
+      @media (min-width: 768px) {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    h5 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      
+      @media (min-width: 768px) {
+        font-size: 1.1rem;
+      }
+    }
+
+    p {
+      font-size: 0.8rem;
+      margin-bottom: 0;
+      
+      @media (min-width: 768px) {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

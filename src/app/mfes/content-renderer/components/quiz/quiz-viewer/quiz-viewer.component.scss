@@ -1,0 +1,30 @@
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 80px;
+  }
+  .quiz-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+  }
+  .timer {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  .navigation-fixed {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  }
+  .navigation-fixed button {
+    min-width: 100px;
+  }
+  .spacer {
+    flex-grow: 1;
+  }

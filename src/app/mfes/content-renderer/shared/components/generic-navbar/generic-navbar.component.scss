@@ -1,0 +1,15 @@
+.generic-navbar {
+    background-color: var(--bs-body-bg);
+  .navbar-brand {
+    width: 40%;
+  }
+}
+
+::ng-deep .dropdown-toggle::after {
+    display: none !important;
+  }
+  
+  /* If you want to target only specific dropdowns, add a custom class */
+  ::ng-deep .no-caret.dropdown-toggle::after {
+    display: none !important;
+  }

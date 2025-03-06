@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/nx/schemas/project-schema.json",
-  "name": "shell-app",
+  "name": "yv-app",
   "projectType": "application",
   "generators": {
     "@schematics/angular:component": {
@@ -13,7 +13,7 @@
     "build": {
       "executor": "ngx-build-plus:browser",
       "options": {
-        "outputPath": "dist/shell-app",
+        "outputPath": "dist/yv-app",
         "index": "src/index.html",
         "polyfills": [
           "zone.js"
@@ -67,11 +67,11 @@
       "executor": "ngx-build-plus:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "shell-app:build:production",
+          "buildTarget": "yv-app:build:production",
           "extraWebpackConfig": "webpack.prod.config.js"
         },
         "development": {
-          "buildTarget": "shell-app:build:development"
+          "buildTarget": "yv-app:build:development"
         }
       },
       "defaultConfiguration": "development",

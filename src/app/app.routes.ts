@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { ShellLayoutComponent } from './layouts/shell-layout/shell-layout.component';
 import { AuthGuard } from './core/auth/auth.guard';
+import { routes as contentViewerRoutes } from './mfes/content-viewer/app/app.routes';
 
 export const routes: Routes = [
   {
@@ -63,6 +64,94 @@ export const routes: Routes = [
           breadcrumb: 'Features',
           icon: 'bi-list-check'
         }
+      },
+      {
+        path: 'content-viewer',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./mfes/content-viewer/app/components/home/home.component').then(m => m.HomeComponent),
+            data: { 
+              breadcrumb: 'Content Viewer',
+              icon: 'bi-puzzle'
+            }
+          },
+          {
+            path: 'category/:key',
+            loadComponent: () => import('./mfes/content-viewer/app/components/content-loader/content-loader.component').then(m => m.ContentLoaderComponent)
+          },
+          {
+            path: 'home',
+            loadComponent: () => import('./mfes/content-viewer/app/components/home/home.component').then(m => m.HomeComponent)
+          },
+          {
+            path: 'home/:key',
+            loadComponent: () => import('./mfes/content-viewer/app/components/home/home.component').then(m => m.HomeComponent)
+          },
+          {
+            path: 'reader',
+            loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent),
+            data: { partId: '1', sectionId: '1' }
+          },
+          {
+            path: 'content/:locale/:category/:contentId',
+            loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent)
+          },
+          {
+            path: 'settings',
+            loadComponent: () => import('./mfes/content-viewer/app/components/settings/settings.component').then(m => m.SettingsComponent)
+          },
+          {
+            path: 'search',
+            loadComponent: () => import('./mfes/content-renderer/components/search/search.component').then(m => m.SearchComponent)
+          },
+          {
+            path: 'quiz-list/:category/:bookId',
+            loadComponent: () => import('./mfes/content-renderer/components/quiz/quiz-list/quiz-list.component').then(m => m.QuizListComponent)
+          },
+          {
+            path: 'quiz-viewer/:category/:bookId/:partId',
+            loadComponent: () => import('./mfes/content-renderer/components/quiz/quiz-viewer/quiz-viewer.component').then(m => m.QuizViewerComponent)
+          },
+          {
+            path: 'quiz-report/:category/:bookId/:partId/:studentName',
+            loadComponent: () => import('./mfes/content-renderer/components/quiz/quiz-report/quiz-report.component').then(m => m.QuizReportComponent)
+          },
+          {
+            path: 'hackathons',
+            loadComponent: () => import('./mfes/content-viewer/app/components/hackathons/hackathons.component').then(m => m.HackathonsComponent)
+          }
+        ]
+      },
+      {
+        path: 'category/:key',
+        redirectTo: 'content-viewer/category/:key',
+        pathMatch: 'full'
+      },
+      {
+        path: 'reader',
+        redirectTo: 'content-viewer/reader',
+        pathMatch: 'full'
+      },
+      {
+        path: 'content/:locale/:category/:contentId',
+        redirectTo: 'content-viewer/content/:locale/:category/:contentId',
+        pathMatch: 'full'
+      },
+      {
+        path: 'quiz-list/:category/:bookId',
+        redirectTo: 'content-viewer/quiz-list/:category/:bookId',
+        pathMatch: 'full'
+      },
+      {
+        path: 'quiz-viewer/:category/:bookId/:partId',
+        redirectTo: 'content-viewer/quiz-viewer/:category/:bookId/:partId',
+        pathMatch: 'full'
+      },
+      {
+        path: 'quiz-report/:category/:bookId/:partId/:studentName',
+        redirectTo: 'content-viewer/quiz-report/:category/:bookId/:partId/:studentName',
+        pathMatch: 'full'
       }
     ]
   },

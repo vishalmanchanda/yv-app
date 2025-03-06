@@ -1,0 +1,47 @@
+[
+    {
+        "id": "4",
+        "title": "శ్రీమద్ భగవద్గీత - స్వామి ముకుందానంద తెలుగులో రాసినది",
+        "description": "",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "course",
+        "language": "te",
+        "coverImage": "/assets/images/sbg_1.jpg",
+        "zipUrl": "/assets/smf_sbg_te.zip",
+        "authors": [],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    },
+    {
+        "id": "5",
+        "title": "શ્રીમદ્ ભગવદ્ ગીતા - સ્વામી મુકુન્દાનંદ દ્વારા",
+        "description": "",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "course",
+        "language": "gu",
+        "coverImage": "/assets/images/sbg_1.jpg",
+        "zipUrl": "/assets/smf_sbg_gu.zip",
+        "authors": [],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    },
+    {
+        "id": "6",
+        "title": "ଶ୍ରୀମଦ୍ ଭଗବଦ୍ ଗୀତା - ସ୍ବାମୀ ମୁକୁନ୍ଦାନନ୍ଦଙ୍କ ଦ୍ବାରା",
+        "description": "",
+        "status": "published",
+        "categoryKey": "atma-gyan",
+        "type": "course",
+        "language": "or",
+        "coverImage": "/assets/images/sbg_1.jpg",
+        "zipUrl": "/assets/smf_sbg_or.zip",
+        "authors": [],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    }
+]

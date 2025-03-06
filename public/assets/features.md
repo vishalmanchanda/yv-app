@@ -1,4 +1,4 @@
-# Shell Application Features
+# Application Features
 
 ## 📋 Feature List
 
@@ -25,7 +25,7 @@
 
 ### 🔐 Authentication System
 
-The shell application includes a complete authentication system with login, logout, and session management. It uses JWT tokens for secure API communication and includes route guards to protect private routes. The authentication state is managed centrally and shared with micro frontends.
+The Application includes a complete authentication system with login, logout, and session management. It uses JWT tokens for secure API communication and includes route guards to protect private routes. The authentication state is managed centrally and shared with micro frontends.
 
 **Key components:**
 

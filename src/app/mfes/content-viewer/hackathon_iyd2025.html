@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The IYD Hackathon 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e97618, #e4f42c);;
+            color: #ffffff;
+        }
+        header {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #e4f42c,#e97618);
+            color: #fff;
+        }
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            animation: pop-in 1s ease-in-out;
+        }
+        header p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #222;
+            padding: 10px 0;
+        }
+        nav a {
+            color: #e4f42c;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 1em;
+            transition: background 0.3s, transform 0.3s;
+        }
+        nav a:hover {
+            background: white;
+            color: #222;
+            border-radius: 5px;
+            transform: scale(1.1);
+        }
+        section {
+            padding: 30px 20px;
+            margin: 20px auto;
+            max-width: 900px;
+            background: #1c1c1c;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            animation: fade-in 1s ease-in-out;
+        }
+        section h2 {
+            text-align: center;
+            color: #e4f42c;
+            margin-bottom: 20px;
+        }
+        .to-do ul, .rules ul {
+            list-style: none;
+            padding: 0;
+        }
+        .to-do ul li, .rules ul li {
+            background: #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        .sponsors img {
+            display: block;
+            margin: 10px auto;
+            max-width: 150px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .sponsors img:hover {
+            transform: scale(1.1);
+        }
+
+        .rules ul li a {
+        color: #e4f42c; /* Set link color to white */
+        text-decoration: underline; /* Optional: to keep the style consistent */
+        }
+
+        .rules ul li a:hover {
+            text-decoration: underline; /* Optional: add hover effect if desired */
+        }
+
+        .registration-form input, .registration-form button {
+            width: calc(100% - 40px);
+            margin: 10px 20px;
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+        }
+        .registration-form input {
+            background: #333;
+            color: #fff;
+        }
+        .registration-form button {
+            background: #ff7eb3;
+            color: #222;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .registration-form button:hover {
+            background: #ff758c;
+            transform: scale(1.05);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #222;
+            color: #e97618;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 0;
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes pop-in {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- add option to go back to home -->
+        <a href="hackathon.html" style="position: absolute; top: 10px; left: 10px; color: #1c1c1c; text-decoration: none; font-size: 1.2em;"> < Back to Hackathon Home</a>
+        <h1>The IYD Hackathon 2025</h1>
+        <p>Code. Collaborate. Conquer.</p>
+    </header>
+    <nav>
+        <a href="#todo">TO DO</a>
+        <!--a href="#chatbotthemes">THEMES</a-->
+        <a href="#rules">RULES</a>
+        <a href="#participation">PROCESS</a>
+        <a href="#sponsors">SPONSORS</a>
+        
+    </nav>
+    
+    <table style="width: 60%; margin: 30px auto; border-collapse: collapse; text-align: center; background: #1c1c1c; color: #ffffff; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden;">
+        <tr>
+            <td style="padding: 20px; font-size: 1.5em; font-weight: bold; color: #ff7eb3; border: 1px solid #333;">1st Prize<br><span style="font-size: 2em; color: #ffd700;">INR 20k</span></td>
+            <td style="padding: 20px; font-size: 1.5em; font-weight: bold; color: #ff7eb3; border: 1px solid #333;">2nd Prize<br><span style="font-size: 2em; color: #c0c0c0;">INR 10k</span></td>
+            <td style="padding: 20px; font-size: 1.5em; font-weight: bold; color: #ff7eb3; border: 1px solid #333;">3rd Prize<br><span style="font-size: 2em; color: #cd7f32;">INR 5k</span></td>
+        </tr>
+    </table>
+    
+
+    <section id="todo" class="rules">
+        <h2>WHAT DO I NEED TO DO?</h2>
+        <ul>
+            <li>Create a dataset of Valmiki Ramayana verses (English translations only) through web scraping.</li>
+            <li>Write a function which takes a statement as input from the user (relevant to Ramayana), and returns True if its factually correct and False if its incorrect.</li>
+            <li>If the user statement is not relevant to Ramayana or vague, return None.</li>
+            <li> Evaluation Criteria : <br><br>Accuracy of the responses for 100 test sentences (20 of these will be shared with the registered participants for testing, and rest 80 to be revealed after submission).</li>
+
+        </ul>
+    </section>
+
+    <!--section id="chatbotthemes" class="to-do">
+        <h2>CHATBOT THEMES</h2>
+        <ul>
+            <li>Mental Health & Stress Management</li>
+            <li>Relationship Issues</li>
+            <li>Career Counseling</li>
+            <li>Corporate Decision Making</li>
+            <li>Spiritual Guidance</li>
+
+        </ul>
+    </section-->
+
+    <section id="rules" class="rules">
+        <h2>HACKATHON RULES</h2>
+        <ul>
+            <li>Each team should have 1-3 members.</li>
+            <li>Team members can be students or working professionals.</li>
+            <li>All the code or ideas used from elsewhere must be properly cited in the submission report.</li>
+            <li> Use only Open Source LLMs like SBERT, LLaMA, etc for all tasks like embeddings, text generation, etc.
+            <li>The code submitted for final evaluation must be made openly available for anyone to use.</li>
+            <li>Incomplete or inappropriate submissions will be rejected.</li>
+            <li>Prize money will be distributed through UPI or as Amazon Gift Vouchers to the team lead.</li>
+            <li>Decision of the judges will be final.</li>
+        </ul>
+    </section>
+    
+    <section id="participation" class="rules">
+        <h2>PARTICIPATION PROCESS & IMPORTANT DATES</h2>
+        <ul>
+            <li>Register for free on <a href="" target="_blank">UnStop</a> by April 06, 2025 (Sunday).</li>
+            <li>First Webinar on April 13, 2024 (Sunday) for registered participants.</li>
+            <li>Progress monitoring meetings on May 11 and June 01.</li>
+            <li><font color="#e4f42c">Final submission on June 08, 2025 (Sunday).</font></li>
+            <li>Presentation of top 10 submissions on June 15, 2025 (Sunday).</li>
+            <li><font color="#e4f42c">Prize Announcement on June 21, 2025 (Saturday).</font></li>
+        </ul>
+    </section>
+
+    <section id="sponsors" class="rules">
+        <h2>ORGANISERS & SPONSORS</h2>
+        <ul>
+            <li><a href="https://www.linkedin.com/in/kushal-shah-95b9a3b/" target="_blank">Dr. Kushal Shah</a><br>Chief Advisor to the Founders and Professor, Sitare University</li>
+            <li><a href="https://www.linkedin.com/in/vishal-manchanda-097a6643/" target="_blank">Mr. Vishal Manchanda</a><br>Senior Principal Technology Architect, Infosys</li>
+            <li>and other well wishers</li>
+        </ul>
+        <br>
+        For any queries, please this email ID : info [domain : yogavivek.org]
+    </section>
+
+    <footer>
+        <p>© 2024 The Yoga Vivek Group</p>
+    </footer>
+</body>
+</html>

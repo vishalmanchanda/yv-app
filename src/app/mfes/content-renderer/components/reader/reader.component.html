@@ -1,0 +1,125 @@
+<div class="reader-wrapper  mx-auto">
+  <cr-generic-navbar 
+  [title]="(state.metadata?.title || 'Reader' | sentenceCase | truncate: 20) || ''"
+  [leadingActionIcon]="'fas fa-chevron-left'"
+  [leadingActionClick]="leadingAction.bind(this)"
+  [actions]="[
+    { icon: 'fa-solid fa-gear', label: 'More', click: toggleSettings.bind(this) },
+    { icon: 'fa-solid fa-search', label: 'Search', click: openSearch.bind(this) },  
+      
+
+  ]"
+  [dropdownActions]="[  
+    { type: 'link', icon: 'fas fa-info-circle', label: 'About', link: '/about' },
+    { type: 'link', icon: 'fas fa-question-circle', label: 'Help', link: '/help' }
+  ]"
+  >
+</cr-generic-navbar>
+
+  <cr-toolbar 
+    (toggleImageShow)="onToggleImageShow()"
+    (shareClicked)="shareSectionAsPDF()"
+  ></cr-toolbar>
+
+  <div class="search-header border-bottom" *ngIf="hasActiveSearch && !searchModalOpen">
+    <div class="container-fluid pt-3 px-2">
+      <div class="d-flex align-items-center">
+        <span class="ms-1">Showing results for: "{{currentSearchQuery}}"</span>
+      </div>
+    </div>
+    <div class="container-fluid d-flex justify-content-between align-items-center py-3 px-2">
+      <button class="btn btn-primary me-3" (click)="returnToSearch()">
+        <i class="fas fa-search me-2"></i>
+        Back to Results
+      </button>
+      <button class="btn btn-danger" (click)="clearSearch()">
+        <i class="fas fa-times me-1"></i>
+        Clear Search
+      </button>
+    </div>
+  </div>
+  
+  <div class="reader-container" [class.mt-5]="!showImages && this.toolbar.isVisible" >
+    <!-- Main Content -->
+    <div class="content-area">
+      <div class="content-wrapper" *ngIf="state.currentPart">
+        <cr-section-view 
+          [section]="state.currentSection" 
+          [partId]="state.currentPart.id.toString()"
+          [partTitle]="state.currentPart.title"
+          [contentTitle]="state.metadata?.title || ''"
+          [showImages]="showImages"
+          [contentId]="state.metadata?.id || ''"
+          [audios_path]="state.metadata?.audios_path || ''"
+          *ngIf="state.currentSection" 
+          id="subsection-content">
+        </cr-section-view>
+      
+        <!-- Navigation Controls -->
+        <div class="navigation-controls d-flex justify-content-between fixed-bottom m-2">
+         
+          <button class="btn btn-secondary px-3 py-2"                   
+                  [disabled]="!hasPreviousSection() && !hasPreviousPart()"
+                  (click)="navigatePrevious()">
+            <i class="fa fa-chevron-left fs-5"></i> 
+          </button>
+
+          <button class="btn btn-secondary navigation-menu" (click)="openNavigationOverlay()">
+            <span class="current-section">{{state.currentSection?.title}}</span>
+          </button>
+
+          <button class="btn btn-secondary px-3 py-2" 
+                  [disabled]="!hasNextSection() && !hasNextPart()"
+                  (click)="navigateNext()">
+             <i class="fa fa-chevron-right fs-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Navigation Overlay Template -->
+<ng-template #navigationOverlay>
+  <div class="navigation-overlay">
+    <div class="overlay-header">
+      <h3>{{state.currentPart?.id}}. {{state.currentPart?.title}}</h3>
+      <button class="btn-close" (click)="closeNavigationOverlay()" aria-label="Close"></button>
+    </div>
+
+    <div class="navigation-content">
+      <div class="subsections-list row overflow-auto" style="max-height:75vh;">
+        <div *ngFor="let section of state.currentPart?.sections; let i = index"
+             [ngClass]="deriveSectionClass(section)"
+             class="subsection-item"
+             [class.active]="i === state.currentSectionIndex"
+             (click)="navigateToSection(i)"
+             tabindex="0"
+             (keydown.enter)="navigateToSection(i)"
+             >
+          <button class="title-color btn btn-outline-secondary btn-sm w-100 p-2">            
+            {{section.title}}
+          </button>
+        </div>
+      </div>
+
+      <div class="part-navigation d-flex justify-content-between m-2 fixed-bottom">
+        <button class="btn btn-secondary" 
+                [disabled]="!hasPreviousPart()"
+                (click)="navigateToPreviousPart()">
+          <i class="fa fa-chevron-left"></i> Prev 
+        </button>
+
+        <button class="btn btn-primary p-3" style="font-size: 1.1rem;" (click)="showPartsList()">
+          {{state.currentPart?.id}}. {{state.currentPart?.title}}
+        </button>
+
+        <button class="btn btn-secondary"
+                [disabled]="!hasNextPart()"
+                (click)="navigateToNextPart()">
+          Next <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

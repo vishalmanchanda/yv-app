@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h5 class="modal-title">Reader Settings</h5>
+  <button type="button" class="btn-close" (click)="dismiss()"></button>
+</div>
+<div class="modal-body">
+  <form #settingsForm="ngForm">
+    <div class="mb-3">
+      <label class="form-label">Theme</label>
+      <select class="form-select" [(ngModel)]="preferences.theme" name="theme" (ngModelChange)="onThemeChange()">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="sepia">Sepia</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Font Size (px)</label>
+      <input type="range" class="form-range" 
+             [(ngModel)]="preferences.fontSize" 
+             name="fontSize"
+             min="12" max="24" step="1">
+      <div class="text-center">{{preferences.fontSize}}px</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Line Spacing</label>
+      <input type="range" class="form-range" 
+             [(ngModel)]="preferences.lineSpacing" 
+             name="lineSpacing"
+             min="1" max="2" step="0.1">
+      <div class="text-center">{{preferences.lineSpacing}}</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Font Family</label>
+      <select class="form-select" [(ngModel)]="preferences.fontFamily" name="fontFamily">
+        <option value="Arial">Arial</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Verdana">Verdana</option>
+      </select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="dismiss()">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="saveAndClose()">Save Changes</button>
+</div> 

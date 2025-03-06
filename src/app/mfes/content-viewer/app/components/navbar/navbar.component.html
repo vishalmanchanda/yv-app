@@ -1,0 +1,36 @@
+<!-- Start of Selection -->
+<nav class="navbar navbar-expand-lg border-bottom fixed-top mx-2" crScrollHide>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" (click)="leadingAction();$event.preventDefault();">
+      <span class="text-truncate d-inline-block w-200" style="text-overflow: ellipsis;"> <i class="fas fa-bars"></i>&nbsp; {{title}}</span>
+    </a>
+    <app-sidebar 
+    [showOffcanvas]="showOffcanvas" (closeSidebar)="closeSidebar()" 
+    [categoryKey]="categoryKey" 
+    (contentLoaded)="loadContent($event)"
+
+    (openSettings)="openAdvancedSettings()"    
+    ></app-sidebar>
+    <div class="d-flex align-items-center gap-2 ms-auto ">
+      <button class="btn btn-outline-secondary btn-sm border-0" (click)="goToHome()">
+        <i class="fa-solid fa-house fa-lg"></i> <span class="d-none d-sm-inline"> Home</span>
+      </button>
+
+      <button class="btn btn-outline-secondary btn-sm border-0" (click)="showContent()">
+        <i class="fa-solid fa-book fa-lg"></i> <span class="d-none d-sm-inline"> Content</span>
+      </button>
+      <button class="btn btn-outline-secondary btn-sm border-0" (click)="goToHackathons()">
+        <i class="fa-solid fa-code fa-lg"></i> <span class="d-none d-sm-inline"> Hackathons</span>
+      </button>
+
+      <button class="btn btn-outline-secondary btn-sm border-0" (click)="aboutUs()">
+        <i class="fa-solid fa-user fa-lg"></i> <span class="d-none d-sm-inline"> About Us</span>
+      </button>
+     
+    </div>
+  </div>
+<!-- write loading indicator -->
+<div *ngIf="isLoading" class="loading-indicator">
+  <i class="fas fa-spinner fa-spin"></i>
+</div>
+</nav> 

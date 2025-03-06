@@ -1,0 +1,92 @@
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  // background: linear-gradient(to right, #fff, #f3f4f6);
+}
+
+.card {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.badge {
+  padding: 0.5em 1em;
+  font-weight: 500;
+}
+
+.author-info img {
+  object-fit: cover;
+}
+
+.jumbotron-container {
+  position: relative;
+  height: 500px;
+  background-image: url('/assets/images/meditation.jpg');
+  background-size: cover;
+  background-position: center;
+  margin-top: 60px; // Adjust based on your navbar height
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.jumbotron-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.jumbotron-content {
+  color: white;
+  max-width: 800px;
+
+  h1 {
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .lead {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-primary {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .jumbotron-container {
+    height: 400px;
+  }
+
+  .jumbotron-content {
+    h1 {
+      font-size: 2rem;
+    }
+
+    .lead {
+      font-size: 1.1rem;
+    }
+  }
+}

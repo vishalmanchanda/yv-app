@@ -1,0 +1,77 @@
+.toolbar {
+    position: fixed;
+    top: 66px;
+    left: 0;
+    right: 0;
+    background: var(--bs-body-bg);
+    backdrop-filter: blur(10px);
+    transform: translateY(-100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1030;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+    &.show {
+      transform: translateY(0);
+    }
+  
+    .toolbar-content {
+      max-width: 768px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .toolbar-group {
+      display: flex;
+      // gap: 0.35rem;
+    }
+  
+    .toolbar-btn {
+      border: none;
+      background: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      // padding: 0.8rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      font-size: 1.25rem;
+      
+      &:hover {
+        background-color: var(--bs-body-bg-subtle);
+      }
+  
+      &.active {
+        color: var(--bs-primary);
+        // background-color: var(--bs-primary-bg-subtle);
+      }
+  
+      &.close-btn {        
+        &:hover {
+          background-color: var(--bs-danger-bg-subtle);
+          color: var(--bs-danger);
+        }
+      }
+  
+      
+    }
+  
+    @media (max-width: 576px) {
+      padding: 0.5rem;
+      
+      .toolbar-content {
+        gap: 0.5rem;
+      }
+  
+      .toolbar-btn {
+        padding: 0.4rem;
+        
+        .material-icons {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
