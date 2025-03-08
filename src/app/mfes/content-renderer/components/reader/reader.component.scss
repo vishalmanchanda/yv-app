@@ -189,7 +189,6 @@
 }
 
 .navigation-controls {
-  z-index: 1520;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -197,6 +196,7 @@
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
   gap: 1rem;
+  transition: margin-left 0.3s ease;
 
   .navigation-menu {
     flex: 1;
@@ -380,28 +380,30 @@
 .sticky-button {
   position: fixed;
   top: 130px;
-  right: 30px;
-  width: 45px; // Reduced size
-  height: 45px; // Reduced size
+  right: 60px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background-color: var(--bs-primary);
-  color: var(--bs-white);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 999;
   transition: all 0.3s ease;
-}
 
-.sticky-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-}
+  &:hover {
+    transform: scale(1.05);
+    background-color: var(--bs-secondary-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
 
-.sticky-button i {
-  font-size: 20px;
+  i {
+    font-size: 20px;
+  }
 }
 
 // Updated toolbar with theme variables
@@ -409,21 +411,26 @@
   position: fixed;
   top: 75px;
   right: 20px;
-  background-color: var(--bs-dark);
+  background-color: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
   border-radius: 10px;
   padding: 10px 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: none;
   z-index: 998;
   transform: translateY(-20px);
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
 
-.toolbar.active {
-  display: flex;
-  transform: translateY(0);
-  opacity: 1;
+  &.active {
+    display: flex;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  &.closing {
+    animation: slideOut 0.3s forwards;
+  }
 }
 
 .toolbar-button {
@@ -435,22 +442,17 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: var(--bs-light);
+  color: var(--bs-body-color);
   transition: all 0.2s ease;
-}
 
-.toolbar-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
-}
+  &:hover {
+    background-color: var(--bs-secondary-bg);
+    transform: translateY(-2px);
+  }
 
-.toolbar-button i {
-  font-size: 18px;
-}
-
-.text-size-button {
-  font-weight: bold;
-  font-size: 16px;
+  i {
+    font-size: 18px;
+  }
 }
 
 /* Tooltip styling */
@@ -460,12 +462,14 @@
   top: -35px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  color: var(--bs-white);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
   padding: 5px 10px;
   border-radius: 4px;
   font-size: 12px;
   white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Animation for the toolbar when closing */
@@ -480,8 +484,9 @@
   }
 }
 
-.toolbar.closing {
-  animation: slideOut 0.3s forwards;
+.text-size-button {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 /* Dark mode toggle animation */
@@ -507,3 +512,19 @@
     background-color: var(--bs-gray-800);
   }
 }
+
+// Add media query for responsive behavior
+
+// if the screen is less than 1024px, then the margin-left is 0px else it is 80px
+@media (max-width: 1024px) {
+  .navigation-controls {
+    margin-left: 0px !important; // Override margin on mobile
+  }
+}
+
+@media (min-width: 1024px) {
+  .navigation-controls {
+    margin-left: 80px !important; // Override margin on mobile
+  }
+}
+
