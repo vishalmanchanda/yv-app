@@ -1,25 +1,33 @@
-<div class="reader-wrapper  mx-auto">
-  <cr-generic-navbar 
-  [title]="(state.metadata?.title || 'Reader' | sentenceCase | truncate: 20) || ''"
-  [leadingActionIcon]="'fas fa-chevron-left'"
-  [leadingActionClick]="leadingAction.bind(this)"
-  [actions]="[
-    { icon: 'fa-solid fa-gear', label: 'More', click: toggleSettings.bind(this) },
-    { icon: 'fa-solid fa-search', label: 'Search', click: openSearch.bind(this) },  
-      
+<div class="reader-wrapper mx-auto">
+  <!-- Sticky Button - moved to top right with vertical dots icon -->
+  <div class="sticky-button" id="stickyButton" (click)="toggleToolbar()">
+    <i class="fas fa-ellipsis-v"></i>
+  </div>
 
-  ]"
-  [dropdownActions]="[  
-    { type: 'link', icon: 'fas fa-info-circle', label: 'About', link: '/about' },
-    { type: 'link', icon: 'fas fa-question-circle', label: 'Help', link: '/help' }
-  ]"
-  >
-</cr-generic-navbar>
-
-  <cr-toolbar 
-    (toggleImageShow)="onToggleImageShow()"
-    (shareClicked)="shareSectionAsPDF()"
-  ></cr-toolbar>
+  <!-- Toolbar -->
+  <div class="toolbar" id="toolbar" [class.active]="showToolbar" [class.closing]="isClosing">
+    <div class="toolbar-button text-size-button" data-tooltip="Decrease Font" (click)="decreaseFontSize()">
+      <span>A</span>
+    </div>
+    <div class="toolbar-button text-size-button" data-tooltip="Increase Font" (click)="increaseFontSize()">
+      <span style="font-size: 20px;">A</span>
+    </div>
+    <div class="toolbar-button" data-tooltip="Toggle Images" (click)="onToggleImageShow()">
+      <i class="far fa-image"></i>
+    </div>
+    <div class="toolbar-button dark-mode-toggle" data-tooltip="Toggle Dark Mode" (click)="toggleTheme()">
+      <i [class]="isDarkTheme ? 'fas fa-sun' : 'fas fa-moon'"></i>
+    </div>
+    <div class="toolbar-button" data-tooltip="Share" (click)="shareSectionAsPDF()">
+      <i class="fas fa-share-alt"></i>
+    </div>
+    <div class="toolbar-button" data-tooltip="Search" (click)="openSearch()">
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="toolbar-button" data-tooltip="Close" (click)="closeToolbar()">
+      <i class="fas fa-times"></i>
+    </div>
+  </div>
 
   <div class="search-header border-bottom" *ngIf="hasActiveSearch && !searchModalOpen">
     <div class="container-fluid pt-3 px-2">
@@ -123,3 +131,4 @@
     </div>
   </div>
 </ng-template>
+</div>

@@ -15,23 +15,23 @@ interface GenericNavbarAction {
   imports: [CommonModule, TruncatePipe, NgbDropdownModule, ScrollHideDirective],
   selector: 'cr-generic-navbar',
   template: `
-    <nav class="navbar generic-navbar navbar-expand-lg border-bottom fixed-top" crScrollHide>
+    <nav class="navbar generic-navbar navbar-expand-lg navbar-dark bg-primary border-bottom fixed-navbar">
       <div class="container-fluid d-flex d-inline-block justify-content-between">
         <a class="navbar-brand" href="#" (click)="leadingActionClick(); $event.preventDefault();">
-          <span class="text-truncate" style="text-overflow: ellipsis; overflow: visible; display: inline-block">
+          <span class="text-truncate" style="text-overflow: ellipsis; overflow: visible; display: inline-block"> 
             <i [class]="leadingActionIcon"></i> &nbsp; {{ title | truncate: 20 }} 
           </span>
         </a>
 
         <div class="d-flex align-items-center gap-3 ms-auto">
           <button *ngFor="let action of actions" 
-                  class="btn btn-link text-secondary px-2" 
+                  class="btn btn-link text-white px-2" 
                   (click)="action.click()">
             <i [class]="action.icon"></i>
           </button>
 
           <div class="dropdown" ngbDropdown display="dynamic" placement="bottom-end">
-            <button class="btn btn-link text-secondary px-2" 
+            <button class="btn btn-link text-white px-2" 
                     id="actionDropdown" 
                     ngbDropdownToggle>
               <i class="fas fa-ellipsis-v"></i>
@@ -49,6 +49,10 @@ interface GenericNavbarAction {
                   <i [class]="action.icon" class="me-2"></i>
                   {{ action.label }}
                 </a>
+                <button *ngIf="action.type === 'button'" class="dropdown-item" (click)="action.click()">
+                  <i [class]="action.icon" class="me-2"></i>
+                  {{ action.label }}
+                </button>
               </ng-container>
             </div>
           </div>
@@ -66,7 +70,8 @@ export class GenericNavbarComponent {
   @Input() actions: GenericNavbarAction[] = [];
   @Input() dropdownActions: (
     { type: 'file-input', icon: string, label: string, click: (event: any) => void } |
-    { type: 'link', icon: string, label: string, link: string }
+    { type: 'link', icon: string, label: string, link: string } |
+    { type: 'button', icon: string, label: string, click: () => void }
   )[] = [];
 
   @Output() fileSelected: EventEmitter<File> = new EventEmitter<File>();

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbOffcanvas, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Theme, ThemeService } from '../../../../core/services/theme.service';
+import { Subscription } from 'rxjs';
 
 // Components
 
@@ -93,7 +95,14 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   currentSearchQuery = '';
 
   showImages = true;
+  
+  isDarkTheme = false;
 
+  showToolbar = false;
+  isClosing = false;
+  fontSize = 100; // percentage
+
+  private themeSubscription: Subscription;
 
   constructor(
     private contentService: ContentService,
@@ -109,9 +118,21 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     private route: ActivatedRoute,
     private searchStateService: SearchStateService,
     private toastr: ToastService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private themeService: ThemeService
+  ) {
+    this.isDarkTheme = this.themeService.isDarkTheme();
+  
+    // Subscribe to theme changes
+    this.themeSubscription = this.themeService.theme$.subscribe((theme: Theme) => {
+      this.isDarkTheme = theme === 'dark';
+    });
 
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
  
 
   async ngOnInit() {
@@ -195,6 +216,21 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
       this.hasActiveSearch = this.searchState.isActive;
       this.currentSearchQuery = this.searchState.query;
     }
+
+    // Close toolbar when clicking outside
+    document.addEventListener('click', (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const toolbar = document.getElementById('toolbar');
+      const button = document.getElementById('stickyButton');
+      
+      if (this.showToolbar && 
+          toolbar && 
+          button && 
+          !toolbar.contains(target) && 
+          !button.contains(target)) {
+        this.closeToolbar();
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -215,6 +251,10 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     // Revoke object URLs
     this.imageUrls.forEach(url => URL.revokeObjectURL(url));
 
+    // Clean up subscription
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 
 
@@ -584,6 +624,49 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
       'col-4 col-md-4': section.title.split(' ').some((word: string) => word.length >= 5 && word.length < 12),
       'col-3 col-md-3': section.title.split(' ').every((word: string) => word.length < 5)
     };
+  }
+
+  toggleToolbar(): void {
+    if (this.showToolbar) {
+      this.closeToolbar();
+    } else {
+      this.openToolbar();
+    }
+  }
+
+  openToolbar(): void {
+    this.isClosing = false;
+    this.showToolbar = true;
+  }
+
+  closeToolbar(): void {
+    this.isClosing = true;
+    
+    setTimeout(() => {
+      this.showToolbar = false;
+      this.isClosing = false;
+    }, 300);
+  }
+
+  increaseFontSize(): void {
+    if (this.fontSize < 150) {
+      this.fontSize += 10;
+      this.applyFontSize();
+    }
+  }
+
+  decreaseFontSize(): void {
+    if (this.fontSize > 70) {
+      this.fontSize -= 10;
+      this.applyFontSize();
+    }
+  }
+
+  applyFontSize(): void {
+    const contentElement = document.querySelector('.content-wrapper');
+    if (contentElement) {
+      (contentElement as HTMLElement).style.fontSize = `${this.fontSize}%`;
+    }
   }
 
 } 

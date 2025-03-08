@@ -33,7 +33,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   template: `
     <div class="d-flex flex-column min-vh-100">
     <app-navbar 
-      [brandName]="'App'" 
+      [brandName]="'Yoga Vivek'" 
       [user]="user" 
       (toggleSidebar)="toggleSidebar()">
     </app-navbar>
@@ -48,7 +48,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
       
       <main [ngClass]="{'content-area': true, 'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
         <app-breadcrumb></app-breadcrumb>
-        <div class="container-fluid py-3">
+        <div class="container-fluid py-1">
           <router-outlet></router-outlet>
         </div>
         <app-footer [appName]="'App'"></app-footer>
@@ -88,13 +88,14 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   `]
 })
 export class ShellLayoutComponent implements OnInit, OnDestroy {
-  appTitle = 'App';
+  appTitle = 'Yoga Vivek';
   appVersion = '1.0.0';
   sidebarExpanded = true;
   user: any;
   private subscriptions = new Subscription();
   
   menuItems = [
+    { label: 'Home', icon: 'bi bi-house', route: '/content-viewer' },
     { label: 'Dashboard', icon: 'bi bi-speedometer2', route: '/dashboard' },
     { label: 'MFE Example', icon: 'bi bi-puzzle', route: '/mfe1' },
     { label: 'Documentation', icon: 'bi bi-book', route: '/docs' },

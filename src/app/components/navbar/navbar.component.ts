@@ -111,7 +111,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   `]
 })
 export class NavbarComponent {
-  @Input() brandName: string = 'App';
+  @Input() brandName: string = 'Yoga Vivek';
   @Input() user: any;
   @Output() toggleSidebar = new EventEmitter<void>();
   

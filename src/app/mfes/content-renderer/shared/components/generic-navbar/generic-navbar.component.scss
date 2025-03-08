@@ -13,3 +13,46 @@
   ::ng-deep .no-caret.dropdown-toggle::after {
     display: none !important;
   }
+
+.generic-navbar.sticky-top {
+
+  top: 56px;
+}
+
+.generic-navbar.fixed-navbar {
+  position: sticky;
+  top: 56px; // Adjust this value based on your app navbar height
+  z-index: 1020;
+  width: 100%;
+}
+
+// Add additional styling as needed
+.navbar {
+  padding: 0.5rem 1rem;
+}
+
+// If using position: fixed, we need to add padding to the content below
+:host {
+  display: block;
+  padding-bottom: 56px; // Match the height of your navbar
+}
+
+// Ensure dropdown items are properly styled
+.dropdown-item {
+  cursor: pointer;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  i {
+    width: 20px;
+    text-align: center;
+    margin-right: 8px;
+  }
+}
+
+// Ensure the navbar doesn't overlap with content
+.navbar {
+  padding: 0.5rem 1rem;
+}

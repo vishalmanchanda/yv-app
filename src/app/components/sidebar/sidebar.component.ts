@@ -31,7 +31,7 @@ import { RouterModule } from '@angular/router';
       top: 56px;
       bottom: 0;
       left: 0;
-      z-index: 100;
+      z-index: 1200;
       padding: 0;
       box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
       background-color: #343a40;

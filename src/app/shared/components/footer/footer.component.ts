@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
       border-top: 1px solid var(--bs-border-color);
       padding: 1rem 2rem;
       margin-top: 2rem;
+      margin-bottom: 4rem;
     }
     
     .footer-content {
