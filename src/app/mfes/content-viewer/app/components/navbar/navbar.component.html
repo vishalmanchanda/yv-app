@@ -33,4 +33,26 @@
 <div *ngIf="isLoading" class="loading-indicator">
   <i class="fas fa-spinner fa-spin"></i>
 </div>
-</nav> 
+</nav>
+
+<style>
+.navbar {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navbar .btn-outline-secondary {
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+.navbar .btn-outline-secondary:hover {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-primary);
+}
+
+.loading-indicator {
+  color: var(--bs-primary);
+}
+</style> 

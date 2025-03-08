@@ -1,51 +1,55 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export type Theme = 'light' | 'dark';
-
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private themeSubject = new BehaviorSubject<Theme>(this.getInitialTheme());
-  theme$ = this.themeSubject.asObservable();
+  private darkTheme = new BehaviorSubject<boolean>(this.initializeTheme());
+  isDarkTheme$ = this.darkTheme.asObservable();
+
+  private initializeTheme(): boolean {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      return savedTheme === 'dark';
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
 
   constructor() {
-    // Apply theme on service initialization
-    this.applyTheme(this.themeSubject.value);
-  }
-
-  private getInitialTheme(): Theme {
-    // Check localStorage or system preference
-    const stored = localStorage.getItem('theme') as Theme;
-    if (stored) {
-      return stored;
-    }
+    // Apply theme immediately on service initialization
+    this.applyTheme(this.darkTheme.value);
     
-    // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          this.setTheme(e.matches);
+        }
+      });
+  }
+
+  private applyTheme(isDark: boolean) {
+    document.documentElement.setAttribute('data-bs-theme', isDark ? 'dark' : 'light');
+    // Add a transition class to the body for smooth theme changes
+    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
     
-    return 'light';
+    // Add specific theme class
+    document.body.classList.remove(isDark ? 'light-theme' : 'dark-theme');
+    document.body.classList.add(isDark ? 'dark-theme' : 'light-theme');
   }
 
-  private applyTheme(theme: Theme) {
-    document.body.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }
-
-  setTheme(theme: Theme) {
-    this.applyTheme(theme);
-    this.themeSubject.next(theme);
+  setTheme(isDark: boolean) {
+    this.darkTheme.next(isDark);
+    this.applyTheme(isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }
 
   toggleTheme() {
-    const newTheme = this.themeSubject.value === 'light' ? 'dark' : 'light';
-    this.setTheme(newTheme);
+    this.setTheme(!this.darkTheme.value);
   }
 
-  isDarkTheme(): boolean {
-    return this.themeSubject.value === 'dark';
+  getCurrentTheme(): boolean {
+    return this.darkTheme.value;
   }
 } 

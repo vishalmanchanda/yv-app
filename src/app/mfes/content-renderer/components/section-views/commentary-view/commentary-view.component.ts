@@ -44,6 +44,7 @@ import { TruncatePipe } from "../../../core/utils/string-utils";
 
    <!-- Author Selection Modal Template -->
 <ng-template #authorSelectionModal>
+  <div class ="container">
   <div class="modal-header border-0 pb-0">
     <h4 class="modal-title">Select Commentary</h4>
     <button type="button" class="btn-close" (click)="modalRef.dismiss()"
@@ -63,6 +64,7 @@ import { TruncatePipe } from "../../../core/utils/string-utils";
       </div>
     </div>
   </div>
+</div>
 </ng-template>
   `,
   styleUrls: ['./commentary-view.component.scss']

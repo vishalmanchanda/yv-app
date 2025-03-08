@@ -299,7 +299,7 @@ export class SettingsComponent implements OnInit {
   }
   
   onDarkModeChange(): void {
-    this.themeService.setTheme(this.settings.darkMode ? 'dark' : 'light');
+    this.themeService.setTheme(this.settings.darkMode ? true : false);
   }
   
   saveSettings(): void {

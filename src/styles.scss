@@ -10,13 +10,40 @@
   --gray-900: oklch(19.37% 0.006 300.98);
   --bs-primary: #0d6efd;
   --bs-primary-rgb: 13, 110, 253;
+  --bg-color: #ffffff;
+  --text-color: #000000;
+
+  // Light theme
+  --bs-navbar-color: #ffffff;
+  --bs-navbar-hover-color: rgba(255, 255, 255, 0.9);
+  --bs-navbar-color-rgb: 255, 255, 255;
+
+  &[data-bs-theme='dark'] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --bs-primary: #0d6efd;
+    --bs-secondary-bg: #2b3035;
+    --bs-tertiary-bg: #2c3034;
+    --bs-navbar-color: #ffffff;
+    --bs-navbar-hover-color: rgba(255, 255, 255, 0.9);
+    --bs-navbar-color-rgb: 255, 255, 255;
+  }
+
+  &[data-bs-theme='light'] {
+    --bs-primary: #0d6efd;
+    --bs-secondary-bg: #e9ecef;
+    --bs-tertiary-bg: #f8f9fa;
+    --bs-navbar-color: #ffffff;
+    --bs-navbar-hover-color: rgba(255, 255, 255, 0.9);
+    --bs-navbar-color-rgb: 255, 255, 255;
+  }
 }
 
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
+  background-color: var(--bg-color);
+  color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -46,9 +73,9 @@ body {
 /* Card hover effects */
 .card {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  background-color: var(--card-bg);
-  border-color: var(--border-color);
-  color: var(--text-primary);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
 }
 
 .card:hover {
@@ -131,4 +158,24 @@ body {
 
 .dropdown-divider {
   border-color: var(--border-color);
+}
+
+/* Add smooth transitions for common elements */
+button,
+.btn,
+.card,
+.navbar,
+.toolbar {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
+
+/* Add smooth transitions for navbar and sidebar */
+.navbar,
+.sidebar,
+.nav-link {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
 }

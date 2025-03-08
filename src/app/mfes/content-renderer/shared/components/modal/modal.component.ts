@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   selector: 'cr-modal',
   template: `
-    <div *ngIf="modalConfig" class="modal fade show" style="display: block;" tabindex="-1">
+    <div *ngIf="modalConfig" class="modal fade show container" style="display: block;" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

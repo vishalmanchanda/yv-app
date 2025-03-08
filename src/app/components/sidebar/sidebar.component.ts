@@ -34,7 +34,7 @@ import { RouterModule } from '@angular/router';
       z-index: 1200;
       padding: 0;
       box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-      background-color: #343a40;
+      background-color: var(--bs-tertiary-bg);
       transition: all 0.3s ease;
     }
 
@@ -48,7 +48,7 @@ import { RouterModule } from '@angular/router';
 
     .nav-link {
       padding: 1rem;
-      color: rgba(255,255,255,.75);
+      color: var(--bs-body-color);
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -56,13 +56,13 @@ import { RouterModule } from '@angular/router';
     }
 
     .nav-link:hover {
-      color: white;
-      background: rgba(255,255,255,.1);
+      color: var(--bs-primary);
+      background: var(--bs-tertiary-bg);
     }
 
     .nav-link.active {
-      color: white;
-      background: var(--bs-primary);
+      color: var(--bs-primary);
+      background: var(--bs-secondary-bg);
     }
 
     .nav-link i {

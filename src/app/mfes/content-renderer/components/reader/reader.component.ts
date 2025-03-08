@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbOffcanvas, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Theme, ThemeService } from '../../../../core/services/theme.service';
+
 import { Subscription } from 'rxjs';
 
 // Components
@@ -102,7 +102,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   isClosing = false;
   fontSize = 100; // percentage
 
-  private themeSubscription: Subscription;
+
 
   constructor(
     private contentService: ContentService,
@@ -119,21 +119,12 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     private searchStateService: SearchStateService,
     private toastr: ToastService,
     private router: Router,
-    private themeService: ThemeService
+
   ) {
-    this.isDarkTheme = this.themeService.isDarkTheme();
+
+  }
+
   
-    // Subscribe to theme changes
-    this.themeSubscription = this.themeService.theme$.subscribe((theme: Theme) => {
-      this.isDarkTheme = theme === 'dark';
-    });
-
-  }
-
-  toggleTheme() {
-    this.themeService.toggleTheme();
-  }
- 
 
   async ngOnInit() {
 
@@ -251,10 +242,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     // Revoke object URLs
     this.imageUrls.forEach(url => URL.revokeObjectURL(url));
 
-    // Clean up subscription
-    if (this.themeSubscription) {
-      this.themeSubscription.unsubscribe();
-    }
+    
   }
 
 
@@ -602,10 +590,9 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     this.openSearch();
   }
 
-  onToggleImageShow() {
-    console.log('onToggleImageShow', this.showImages);
+  onToggleImageShow() {    
     this.showImages = !this.showImages;
-    console.log('onToggleImageShow 2', this.showImages);
+    
   }
 
   

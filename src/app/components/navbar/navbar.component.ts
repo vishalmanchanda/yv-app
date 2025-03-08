@@ -10,7 +10,7 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
   standalone: true,
   imports: [CommonModule, RouterModule, UserMenuComponent],
   template: `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
         <button class="navbar-toggler sidebar-toggler me-2" type="button" (click)="onToggleSidebar()">
           <span class="navbar-toggler-icon"></span>
@@ -74,37 +74,45 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
     .navbar {
       padding: 0.5rem 1rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      background-color: var(--bs-primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
     
     .sidebar-toggler {
       border: none;
       padding: 0.25rem;
+      color: var(--bs-navbar-color);
     }
     
     .theme-toggle .btn {
-      color: white;
+      color: var(--bs-navbar-color);
       background: transparent;
       border: none;
       padding: 0.25rem;
       font-size: 1.25rem;
     }
     
+    .theme-toggle .btn:hover {
+      color: var(--bs-navbar-hover-color);
+    }
+    
     .search-box .form-control {
-      background-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(var(--bs-navbar-color-rgb), 0.2);
       border: none;
-      color: white;
+      color: var(--bs-navbar-color);
     }
     
     .search-box .form-control::placeholder {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(var(--bs-navbar-color-rgb), 0.7);
     }
     
     .search-box .btn {
-      border-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(var(--bs-navbar-color-rgb), 0.2);
+      color: var(--bs-navbar-color);
     }
     
     .notifications-icon .btn {
-      color: white;
+      color: var(--bs-navbar-color);
       font-size: 1.25rem;
       padding: 0.25rem;
     }
@@ -122,7 +130,9 @@ export class NavbarComponent {
     private themeService: ThemeService,
     private chatbotService: ChatbotService
   ) {
-    this.isDarkTheme = this.themeService.isDarkTheme();
+    this.themeService.isDarkTheme$.subscribe((isDark) => {
+      this.isDarkTheme = isDark;
+    });
   }
   
   onToggleSidebar(): void {

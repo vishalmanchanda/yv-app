@@ -15,9 +15,6 @@
     <div class="toolbar-button" data-tooltip="Toggle Images" (click)="onToggleImageShow()">
       <i class="far fa-image"></i>
     </div>
-    <div class="toolbar-button dark-mode-toggle" data-tooltip="Toggle Dark Mode" (click)="toggleTheme()">
-      <i [class]="isDarkTheme ? 'fas fa-sun' : 'fas fa-moon'"></i>
-    </div>
     <div class="toolbar-button" data-tooltip="Share" (click)="shareSectionAsPDF()">
       <i class="fas fa-share-alt"></i>
     </div>
@@ -89,6 +86,7 @@
 
 <!-- Navigation Overlay Template -->
 <ng-template #navigationOverlay>
+  <div class="container">
   <div class="navigation-overlay">
     <div class="overlay-header">
       <h3>{{state.currentPart?.id}}. {{state.currentPart?.title}}</h3>
@@ -130,5 +128,6 @@
       </div>
     </div>
   </div>
+</div>
 </ng-template>
 </div>

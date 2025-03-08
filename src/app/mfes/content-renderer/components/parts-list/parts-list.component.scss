@@ -1,3 +1,51 @@
+.container {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  flex-shrink: 0;
+}
+
+.modal-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.parts-list {
+  max-height: calc(90vh - 70px); // Adjust based on header height
+  overflow-y: auto;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--bs-secondary-bg);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--bs-primary);
+    border-radius: 3px;
+  }
+}
+
+.list-group-item {
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: var(--bs-secondary-bg);
+    cursor: pointer;
+  }
+
+  &.active {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    color: white;
+  }
+}
 
 .part-number {
   font-weight: 600;
