@@ -8,7 +8,7 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <nav class="breadcrumb-nav mt-2" aria-label="breadcrumb">
+    <nav class="breadcrumb-nav" aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a routerLink="/">
@@ -17,7 +17,7 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
         </li>
         @for (breadcrumb of breadcrumbs$ | async; track breadcrumb.url) {
           <li class="breadcrumb-item">
-            <a [routerLink]="breadcrumb.url">
+            <a [routerLink]="breadcrumb.url" (click)="onBreadcrumbClick(breadcrumb)">
               @if (breadcrumb.icon) {
                 <i [class]="'bi ' + breadcrumb.icon"></i>
               }
@@ -104,5 +104,20 @@ export class BreadcrumbComponent {
 
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$;
+  }
+
+  onBreadcrumbClick(clickedBreadcrumb: Breadcrumb) {
+    // Get current breadcrumbs
+    this.breadcrumbs$.subscribe(breadcrumbs => {
+      // Find the index of the clicked breadcrumb
+      const index = breadcrumbs.findIndex(b => b.url === clickedBreadcrumb.url);
+      
+      if (index !== -1) {
+        // Keep only the breadcrumbs up to and including the clicked one
+        const updatedBreadcrumbs = breadcrumbs.slice(0, index + 1);
+        // Update the breadcrumb service with the new array
+        this.breadcrumbService.setBreadcrumbs(updatedBreadcrumbs);
+      }
+    }).unsubscribe(); // Unsubscribe immediately since we only need this once
   }
 } 

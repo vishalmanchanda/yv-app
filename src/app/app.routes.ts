@@ -15,7 +15,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'content-viewer',
         pathMatch: 'full'
       },
       {
@@ -51,14 +51,14 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'content-viewer',
+        path: 'content-viewer',        
         children: [
           {
             path: '',
-            loadComponent: () => import('./mfes/content-viewer/app/components/home/home.component').then(m => m.HomeComponent),
+            loadComponent: () => import('./mfes/content-viewer/app/components/home/home.component').then(m => m.HomeComponent),            
             data: { 
-              breadcrumb: 'Content Viewer',
-              icon: 'bi-puzzle'
+              breadcrumb: '',
+              icon: ''
             }
           },
           {
@@ -76,11 +76,15 @@ export const routes: Routes = [
           {
             path: 'reader',
             loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent),
-            data: { partId: '1', sectionId: '1' }
+            data: { partId: '1', sectionId: '1',
+              breadcrumb: 'Reader',
+              icon: 'bi-book',
+             }
           },
           {
             path: 'content/:locale/:category/:contentId',
-            loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent)
+            loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent),
+            
           },
           {
             path: 'settings',
@@ -106,7 +110,13 @@ export const routes: Routes = [
             path: 'hackathons',
             loadComponent: () => import('./mfes/content-viewer/app/components/hackathons/hackathons.component').then(m => m.HackathonsComponent)
           }
-        ]
+
+        ],
+        data: { 
+          breadcrumb: 'Content',
+          icon: 'bi-puzzle'
+        }
+      
       },
       {
         path: 'category/:key',
@@ -136,6 +146,11 @@ export const routes: Routes = [
       {
         path: 'quiz-report/:category/:bookId/:partId/:studentName',
         redirectTo: 'content-viewer/quiz-report/:category/:bookId/:partId/:studentName',
+        pathMatch: 'full'
+      },
+      {
+        path: 'hackathons',
+        redirectTo: 'content-viewer/hackathons',
         pathMatch: 'full'
       }
     ]
