@@ -136,7 +136,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     // Load saved preferences first
     this.settingsService.getPreferences().subscribe(prefs => {
       this.applyPreferences(prefs);
-      // document.documentElement.dataset['theme'] = prefs.theme;
+
     });
 
 
@@ -300,7 +300,6 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     if (contentArea) {
       (contentArea as HTMLElement).style.fontSize = `${prefs.fontSize}px`;
        (contentArea as HTMLElement).style.lineHeight = prefs.lineSpacing.toString();
-      // (contentArea as HTMLElement).style.lineHeight = '1.5';
       (contentArea as HTMLElement).style.fontFamily = prefs.fontFamily;
     }
   }

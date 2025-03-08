@@ -17,7 +17,7 @@ import { AuthService } from '../../core/auth/auth.service';
 import { BreadcrumbService } from '../../core/services/breadcrumb.service';
 import { MfeCommunicationService } from '../../core/events/mfe-communication.service';
 import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
-
+import { ModernNavbarComponent } from '../../components/modern-navbar/modern-navbar.component';
 @Component({
   selector: 'app-shell-layout',
   standalone: true,
@@ -28,15 +28,23 @@ import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
     SidebarComponent,
     BreadcrumbComponent,
     FooterComponent,
-    ChatbotComponent
+    ChatbotComponent,
+    ModernNavbarComponent
   ],
   template: `
     <div class="d-flex flex-column min-vh-100">
-    <app-navbar 
+    <!-- <app-navbar 
       [brandName]="'Yoga Vivek'" 
       [user]="user" 
       (toggleSidebar)="toggleSidebar()">
-    </app-navbar>
+    </app-navbar> -->
+
+    <app-modern-navbar
+      [brandName]="'Yoga Vivek'"
+      [user]="user"
+      (toggleSidebar)="toggleSidebar()"
+
+    ></app-modern-navbar>
     
     <div class="shell-container">
       <app-sidebar 
