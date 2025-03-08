@@ -1,5 +1,3 @@
-
-
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -17,6 +15,7 @@ export class ContentImageComponent implements OnInit{
   @Input() sectionId = '1';
   @Input() height?: string;
   @Input() width?: string;
+  @Input() isVisible = true;
 
   imageSrc = '';
 

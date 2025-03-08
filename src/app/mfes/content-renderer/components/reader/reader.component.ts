@@ -80,7 +80,8 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
 
   @ViewChild('sidebarContent') sidebarContent!: TemplateRef<any>;
   @ViewChild('navigationOverlay') navigationOverlay!: TemplateRef<any>;
-  @ViewChild(ToolbarComponent) toolbar!: ToolbarComponent;
+
+
   
   private readonly imageCache = new Map<string, string>();
   private readonly imageUrls: string[] = [];
@@ -222,6 +223,10 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
         this.closeToolbar();
       }
     });
+
+    // Load image preference
+    const savedImagePreference = localStorage.getItem('showImages');
+    this.showImages = savedImagePreference ? savedImagePreference === 'true' : true;
   }
 
   ngAfterViewInit() {
@@ -368,12 +373,12 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     });
   }
 
-  toggleSettings() {
-    if (this.toolbar) {
-      this.toolbar.toggle();
-      this.toolbarVisible = !this.toolbarVisible;
-    }
-  }
+  // toggleSettings() {
+  //   if (this.toolbar) {
+  //     this.toolbar.toggle();
+  //     this.toolbarVisible = !this.toolbarVisible;
+  //   }
+  // }
 
   loadPreviousPart() {
     if (this.state.currentPart && this.state.currentPart.id > 1) {
@@ -592,7 +597,8 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
 
   onToggleImageShow() {    
     this.showImages = !this.showImages;
-    
+    // Store the preference
+    localStorage.setItem('showImages', this.showImages.toString());
   }
 
   
