@@ -1,0 +1,209 @@
+// Theme Variables
+:host {
+  --navbar-height: 56px;
+  --navbar-padding: 0.5rem 1rem;
+  --navbar-brand-font-size: 1.25rem;
+  --navbar-transition: all 0.3s ease;
+}
+
+// Base Navbar Styles
+.navbar {
+  height: var(--navbar-height);
+  transition: var(--navbar-transition);
+  border-bottom: 1px solid var(--bs-border-color);
+  
+  &.navbar-dark {
+    --bs-navbar-color: rgba(255, 255, 255, 0.75);
+    --bs-navbar-hover-color: rgba(255, 255, 255, 0.9);
+    --bs-navbar-active-color: rgba(255, 255, 255, 1);
+  }
+}
+
+// Brand Styles
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--navbar-brand-font-size);
+  font-weight: 500;
+  
+  img {
+    height: 30px;
+    width: auto;
+  }
+}
+
+// Navigation Links
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--bs-navbar-color);
+  border-radius: 0.375rem;
+  transition: var(--navbar-transition);
+  
+  &:hover {
+    color: var(--bs-navbar-hover-color);
+    background-color: rgba(var(--bs-emphasis-color-rgb), 0.04);
+  }
+  
+  &.active {
+    color: var(--bs-navbar-active-color);
+    background-color: rgba(var(--bs-emphasis-color-rgb), 0.08);
+  }
+  
+  i {
+    font-size: 1.25rem;
+  }
+}
+
+// Action Buttons
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--bs-body-color);
+  transition: var(--navbar-transition);
+  
+  &:hover {
+    background: var(--bs-secondary-bg);
+    color: var(--bs-primary);
+  }
+  
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+// Notification Badge
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--bs-danger);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Mobile Menu
+.mobile-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0.5rem;
+  min-width: 200px;
+  padding: 0.5rem 0;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color);
+  z-index: 1030;
+
+  .dropdown-item {
+    padding: 0.75rem 1rem;
+    color: var(--bs-body-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &:hover, &.active {
+      background-color: var(--bs-primary-bg-subtle);
+      color: var(--bs-primary);
+    }
+
+    i {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+.btn-action {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--bs-body-color);
+  background: transparent;
+  border: none;
+  text-align: left;
+  
+  &:hover {
+    background: var(--bs-secondary-bg);
+  }
+  
+  i {
+    font-size: 1.2rem;
+  }
+}
+
+// Animation
+@keyframes dropdownAnimation {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.mobile-menu.show {
+  animation: dropdownAnimation 0.2s ease-out forwards;
+}
+
+// Mobile specific styles
+@media (max-width: 991.98px) {
+  .container-fluid {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+  }
+  
+  .navbar {
+    padding: 0.25rem 0;
+  }
+
+  .nav-link {
+    padding: 0.5rem;
+    
+    i {
+      font-size: 1.4rem;
+    }
+  }
+
+  .mobile-user-menu {
+    ::ng-deep .nav-link {
+      padding: 0.25rem;
+      
+      img {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  // Tighter spacing between mobile actions
+  .gap-1 {
+    gap: 0.25rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar-nav {
+    gap: 0.5rem;
+  }
+} 
