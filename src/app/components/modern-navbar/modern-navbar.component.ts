@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { ThemeService } from '../../core/services/theme.service';
 import { ChatbotService } from '../../mfes/chatbot/chatbot.service';
 import { SettingsService } from '../../mfes/content-renderer/services/settings.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { NavigationEnd } from '@angular/router';
+import { UserMenuComponent } from '../user-menu/user-menu.component';
 
 @Component({
   selector: 'app-modern-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, UserMenuComponent],
   template: `
     <nav class="navbar navbar-expand-lg fixed-top" [class.light-theme]="!isDarkTheme" [class.dark-theme]="isDarkTheme">
       <div class="container-fluid">
@@ -153,29 +153,8 @@ import { NavigationEnd } from '@angular/router';
             </a>
           </div>
 
-          <!-- User Avatar with Dropdown -->
-          <div class="user-avatar-dropdown dropdown" *ngIf="user">
-            <div class="avatar-container" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <img *ngIf="user.photoURL" [src]="user.photoURL" alt="User avatar" class="avatar">
-              <div *ngIf="!user.photoURL" class="avatar-placeholder">
-                {{ getUserInitials() }}
-              </div>
-              <div class="status-indicator" [class.online]="user.isOnline"></div>
-            </div>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li class="dropdown-header">
-                <div class="user-info">
-                  <div class="user-name">{{ user.displayName || 'User' }}</div>
-                  <div class="user-email">{{ user.email }}</div>
-                </div>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" routerLink="/profile"><i class="fas fa-user me-2"></i>Profile</a></li>
-              <li><a class="dropdown-item" routerLink="/settings"><i class="fas fa-cog me-2"></i>Settings</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-            </ul>
-          </div>
+          <!-- User Menu Component -->
+          <app-user-menu *ngIf="user" [user]="user"></app-user-menu>
         </div>
       </div>
     </nav>
@@ -298,7 +277,7 @@ import { NavigationEnd } from '@angular/router';
       top: 70px; /* adjust based on navbar height */
       left: 0;
       right: 0;
-      background-color: inherit;
+      background-color: var(--bs-body-bg);
       border-bottom: 1px solid var(--bs-border-color);
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       max-height: 0;
@@ -328,81 +307,44 @@ import { NavigationEnd } from '@angular/router';
     
     .mobile-nav-link {
       padding: 0.85rem 1rem;
+      color: var(--bs-body-color);
       text-decoration: none;
       font-weight: 500;
       border-radius: 8px;
       display: flex;
       align-items: center;
-    }
-    
-    .light-theme .mobile-nav-link {
-      color: var(--bs-dark);
       
       &:hover, &.active {
-        background-color: var(--bs-light);
-        color: var(--bs-primary);
-      }
-    }
-    
-    .dark-theme .mobile-nav-link {
-      color: var(--bs-white);
-      
-      &:hover, &.active {
-        background-color: var(--bs-gray-800);
+        background-color: var(--bs-secondary-bg);
         color: var(--bs-primary);
       }
     }
     
     .mobile-divider {
-      margin: 0.5rem 0;
-      opacity: 0.1;
+      margin: 1rem 0;
+      opacity: 0.2;
     }
     
     .mobile-menu-header {
-      font-weight: 600;
       padding: 0.5rem 1rem;
-      font-size: 0.85rem;
+      color: var(--bs-secondary-color);
+      font-size: 0.875rem;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     
-    .light-theme .mobile-menu-header {
-      color: var(--bs-gray-600);
-    }
-    
-    .dark-theme .mobile-menu-header {
-      color: var(--bs-gray-400);
-    }
-    
     .mobile-feature-link {
       padding: 0.75rem 1rem;
+      color: var(--bs-body-color);
       text-decoration: none;
       display: flex;
       align-items: center;
       border-radius: 8px;
-    }
-    
-    .light-theme .mobile-feature-link {
-      color: var(--bs-dark);
       
       &:hover {
-        background-color: var(--bs-light);
-        color: var(--bs-primary);
+        background-color: var(--bs-secondary-bg);
       }
-    }
-    
-    .dark-theme .mobile-feature-link {
-      color: var(--bs-white);
-      
-      &:hover {
-        background-color: var(--bs-gray-800);
-        color: var(--bs-primary);
-      }
-    }
-    
-    .mobile-feature-link i {
-      width: 20px;
-      text-align: center;
     }
 
     .product-dropdown {
@@ -414,6 +356,7 @@ import { NavigationEnd } from '@angular/router';
       top: 100%;
       left: 50%;
       transform: translateX(-50%);
+      background-color: var(--bs-body-bg);
       border: 1px solid var(--bs-border-color);
       border-radius: 12px;
       padding: 2rem;
@@ -430,14 +373,6 @@ import { NavigationEnd } from '@angular/router';
         visibility: visible;
       }
     }
-    
-    .light-theme .flyout-menu {
-      background-color: var(--bs-white);
-    }
-    
-    .dark-theme .flyout-menu {
-      background-color: var(--bs-dark);
-    }
 
     .feature-item {
       padding: 1rem;
@@ -446,54 +381,33 @@ import { NavigationEnd } from '@angular/router';
       cursor: pointer;
 
       &:hover {
+        background-color: var(--bs-secondary-bg);
         transform: translateY(-2px);
       }
-    }
-    
-    .light-theme .feature-item:hover {
-      background-color: var(--bs-light);
-    }
-    
-    .dark-theme .feature-item:hover {
-      background-color: var(--bs-gray-800);
-    }
 
-    .feature-item .icon-wrapper {
-      width: 40px;
-      height: 40px;
-      border-radius: 8px;
-      background-color: var(--bs-primary);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
+      .icon-wrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background-color: var(--bs-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
 
-    .feature-item h5 {
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    
-    .light-theme .feature-item h5 {
-      color: var(--bs-dark);
-    }
-    
-    .dark-theme .feature-item h5 {
-      color: var(--bs-white);
-    }
+      h5 {
+        color: var(--bs-body-color);
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
 
-    .feature-item p {
-      font-size: 0.875rem;
-      margin: 0;
-    }
-    
-    .light-theme .feature-item p {
-      color: var(--bs-gray-600);
-    }
-    
-    .dark-theme .feature-item p {
-      color: var(--bs-gray-400);
+      p {
+        color: var(--bs-secondary-color);
+        font-size: 0.875rem;
+        margin: 0;
+      }
     }
 
     .theme-toggle,
@@ -532,139 +446,6 @@ import { NavigationEnd } from '@angular/router';
     
     .dark-theme .notifications-icon .btn:hover {
       background-color: var(--bs-gray-800);
-    }
-
-    /* User Avatar Styles */
-    .user-avatar-dropdown {
-      margin-left: 0.5rem;
-    }
-    
-    .avatar-container {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid transparent;
-      transition: all 0.2s ease;
-      
-      &:hover {
-        border-color: var(--bs-primary);
-      }
-    }
-    
-    .light-theme .avatar-container {
-      background-color: var(--bs-light);
-    }
-    
-    .dark-theme .avatar-container {
-      background-color: var(--bs-gray-800);
-    }
-    
-    .avatar {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    
-    .avatar-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      background-color: var(--bs-primary);
-      color: white;
-      font-weight: 600;
-      font-size: 0.875rem;
-    }
-    
-    .status-indicator {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      border: 2px solid;
-      
-      &.online {
-        background-color: #10b981;
-      }
-    }
-    
-    .light-theme .status-indicator {
-      background-color: var(--bs-gray-600);
-      border-color: var(--bs-white);
-    }
-    
-    .dark-theme .status-indicator {
-      background-color: var(--bs-gray-400);
-      border-color: var(--bs-dark);
-    }
-    
-    .dropdown-menu {
-      padding: 0.5rem 0;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      border: 1px solid var(--bs-border-color);
-      min-width: 240px;
-    }
-    
-    .dropdown-header {
-      padding: 0.75rem 1rem;
-    }
-    
-    .user-info {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .user-name {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    
-    .light-theme .user-name {
-      color: var(--bs-dark);
-    }
-    
-    .dark-theme .user-name {
-      color: var(--bs-white);
-    }
-    
-    .user-email {
-      font-size: 0.8rem;
-    }
-    
-    .light-theme .user-email {
-      color: var(--bs-gray-600);
-    }
-    
-    .dark-theme .user-email {
-      color: var(--bs-gray-400);
-    }
-    
-    .dropdown-item {
-      padding: 0.65rem 1rem;
-      cursor: pointer;
-    }
-    
-    .light-theme .dropdown-item:hover {
-      background-color: var(--bs-light);
-    }
-    
-    .dark-theme .dropdown-item:hover {
-      background-color: var(--bs-gray-800);
-    }
-    
-    .dropdown-item i {
-      width: 20px;
-      text-align: center;
     }
 
     @media (max-width: 992px) {
@@ -764,19 +545,5 @@ export class ModernNavbarComponent implements OnInit, OnDestroy {
   
   toggleChatbot(): void {
     this.chatbotService.toggle();
-  }
-  
-  getUserInitials(): string {
-    if (!this.user || !this.user.displayName) return '?';
-    return this.user.displayName
-      .split(' ')
-      .map((name: string) => name[0])
-      .join('')
-      .toUpperCase()
-      .substring(0, 2);
-  }
-  
-  logout(): void {
-    this.router.navigate(['/login']);
   }
 } 
