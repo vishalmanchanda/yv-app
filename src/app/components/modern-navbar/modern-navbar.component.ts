@@ -274,7 +274,7 @@ import { UserMenuComponent } from '../user-menu/user-menu.component';
     /* Mobile Menu Styles */
     .mobile-menu-collapse {
       position: fixed;
-      top: 70px; /* adjust based on navbar height */
+      top: 65px; /* adjust based on navbar height */
       left: 0;
       right: 0;
       background-color: var(--bs-body-bg);

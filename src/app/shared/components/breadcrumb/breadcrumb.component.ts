@@ -8,7 +8,7 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <nav class="breadcrumb-nav px-5" aria-label="breadcrumb">
+    <nav class="breadcrumb-nav mt-2" aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a routerLink="/">
@@ -30,43 +30,72 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
   `,
   styles: [`
     .breadcrumb-nav {
-      padding: 0.75rem 1rem;
-      background: var(--card-bg);
-      border-radius: 0.25rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 56px; /* Height of the navbar */
+      z-index: 1020; /* Just below navbar's z-index */
+      padding: 0.75rem 1.5rem;
+      background: var(--bs-body-bg);
+      border-bottom: 1px solid var(--bs-border-color);
+      margin-bottom: 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .breadcrumb {
       margin: 0;
       padding: 0;
       background: transparent;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .breadcrumb-item {
       display: flex;
       align-items: center;
-      color: var(--text-secondary);
+      color: var(--bs-secondary-color);
+      font-size: 0.875rem;
     }
 
     .breadcrumb-item a {
-      color: var(--text-primary);
+      color: var(--bs-secondary-color);
       text-decoration: none;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      transition: all 0.2s ease-in-out;
     }
 
     .breadcrumb-item a:hover {
       color: var(--bs-primary);
+      background: var(--bs-secondary-bg);
+    }
+
+    .breadcrumb-item.active {
+      color: var(--bs-emphasis-color);
     }
 
     .breadcrumb-item + .breadcrumb-item::before {
-      color: var(--text-secondary);
+      color: var(--bs-secondary-color);
+      content: "/";
+      padding: 0 0.5rem;
     }
 
     .bi {
-      font-size: 1.1rem;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    @media (max-width: 768px) {
+      .breadcrumb-nav {
+        padding: 0.5rem 1rem;
+      }
+      
+      .breadcrumb-item {
+        font-size: 0.8125rem;
+      }
     }
   `]
 })

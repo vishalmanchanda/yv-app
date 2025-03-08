@@ -68,7 +68,7 @@ interface ChatMessage {
   styles: [`
     .chatbot-container {
       position: fixed;
-      bottom: 20px;
+      bottom: 80px;
       right: 20px;
       z-index: 1000;
       width: 350px;

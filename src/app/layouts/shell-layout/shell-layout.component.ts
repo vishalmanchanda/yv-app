@@ -56,10 +56,12 @@ import { ModernNavbarComponent } from '../../components/modern-navbar/modern-nav
       
       <main [ngClass]="{'content-area': true, 'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
         <app-breadcrumb></app-breadcrumb>
-        <div class="container-fluid py-1">
-          <router-outlet></router-outlet>
+        <div class="content-wrapper">
+          <div class="container-fluid py-3">
+            <router-outlet></router-outlet>
+          </div>
+          <app-footer [appName]="'App'"></app-footer>
         </div>
-        <app-footer [appName]="'App'"></app-footer>
       </main>
     </div>
     
@@ -75,8 +77,15 @@ import { ModernNavbarComponent } from '../../components/modern-navbar/modern-nav
     
     .content-area {
       flex: 1;
-      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
       transition: margin-left 0.3s ease;
+    }
+    
+    .content-wrapper {
+      flex: 1;
+      overflow-y: auto;
+      position: relative;
     }
     
     .sidebar-expanded {
