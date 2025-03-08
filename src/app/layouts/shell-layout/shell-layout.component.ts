@@ -60,7 +60,7 @@ import { ModernNavbarComponent } from '../../components/modern-navbar/modern-nav
           <div class="container-fluid py-3">
             <router-outlet></router-outlet>
           </div>
-          <app-footer [appName]="'App'"></app-footer>
+          <app-footer [appName]="'Yoga Vivek'"></app-footer>
         </div>
       </main>
     </div>

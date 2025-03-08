@@ -21,6 +21,15 @@
           <i class="bi" [class.bi-sun]="isDarkTheme" [class.bi-moon]="!isDarkTheme"></i>
         </button>
 
+        <!-- Updated Notifications Button -->
+        <button class="btn btn-link nav-link p-1">
+          <i class="bi bi-bell position-relative">
+            <span class="notification-badge" *ngIf="unreadNotifications > 0">
+              {{ unreadNotifications }}
+            </span>
+          </i>
+        </button>
+
         <!-- Mobile Menu Toggle -->
         <div class="dropdown">
           <button class="btn btn-link nav-link p-1" 
@@ -97,17 +106,14 @@
           <i class="bi" [class.bi-sun]="isDarkTheme" [class.bi-moon]="!isDarkTheme"></i>
         </button>
 
-        <div class="nav-item dropdown">
-          <button class="btn btn-link nav-link position-relative" 
-                  data-bs-toggle="dropdown" 
-                  aria-expanded="false">
-            <i class="bi bi-bell"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
-                  *ngIf="unreadNotifications">
+        <!-- Updated Notifications Button -->
+        <button class="btn btn-link nav-link position-relative">
+          <i class="bi bi-bell position-relative">
+            <span class="notification-badge" *ngIf="unreadNotifications > 0">
               {{ unreadNotifications }}
             </span>
-          </button>
-        </div>
+          </i>
+        </button>
 
         <button class="btn btn-link nav-link" (click)="toggleChatbot()">
           <i class="bi bi-chat-dots"></i>
