@@ -26,23 +26,8 @@ export const routes: Routes = [
           icon: 'bi-speedometer2'
         }
       },
-      {
-        path: 'mfe1',
-        loadComponent: () => import('./mfes/mfe1/example.component').then(m => m.ExampleComponent),
-        data: { 
-          breadcrumb: 'MFE Example',
-          icon: 'bi-puzzle'
-        }
-      },
-      {
-        path: 'docs',
-        loadComponent: () => import('./mfes/docs/documentation.component')
-          .then(m => m.DocumentationComponent),
-        data: { 
-          breadcrumb: 'Documentation',
-          icon: 'bi-book'
-        }
-      },
+      
+      
       {
         path: 'chatbot',
         loadComponent: () => import('./mfes/chatbot/chatbot-mfe.component').then(m => m.ChatbotMfeComponent),

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { HealthService } from '../../core/services/health.service';
 import { AuthService } from '../../core/auth/auth.service';
+import { ThemeService } from '../../core/services/theme.service';
 
 
 interface DashboardWidget {
@@ -20,7 +22,7 @@ interface DashboardWidget {
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div class="dashboard">
+    <div class="dashboard" [attr.data-bs-theme]="isDarkTheme ? 'dark' : 'light'">
       <div class="stats-grid">
         <div class="stat-card">
           <span class="material-icons">trending_up</span>
@@ -63,6 +65,9 @@ interface DashboardWidget {
   styles: [`
     .dashboard {
       padding: 20px;
+      color: var(--bs-body-color);
+      background-color: var(--bs-body-bg);
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .stats-grid {
@@ -73,16 +78,19 @@ interface DashboardWidget {
     }
 
     .stat-card {
-      background: var(--card-bg);
+      background-color: var(--bs-body-bg-color);
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: 1px solid var(--bs-border-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       text-align: center;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
     }
 
     .stat-card:hover {
       transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-color: var(--bs-primary);
     }
 
     .stat-card .material-icons {
@@ -92,21 +100,30 @@ interface DashboardWidget {
 
     .stat-card h3 {
       margin: 10px 0;
-      color: var(--text-secondary);
+      color: var(--bs-body-color);
+      font-size: 1rem;
+      font-weight: 500;
     }
 
     .stat-card .stat {
       font-size: 2rem;
       font-weight: bold;
       margin: 0;
-      color: var(--text-primary);
+      color: var(--bs-body-color);
     }
 
     .recent-activity {
-      background: var(--card-bg);
+      background: var(--bs-secondary-bg);
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border: 1px solid var(--bs-border-color);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .recent-activity h2 {
+      color: var(--bs-body-color);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
     }
 
     .activity-list {
@@ -119,26 +136,49 @@ interface DashboardWidget {
       display: flex;
       align-items: center;
       gap: 15px;
-      padding: 10px;
+      padding: 15px;
       border-radius: 8px;
-      background: var(--bg-secondary);
+      background: var(--bs-body-bg);
+      border: 1px solid var(--bs-border-color);
+      transition: all 0.2s ease;
+    }
+
+    .activity-item:hover {
+      transform: translateX(5px);
+      border-color: var(--bs-primary);
     }
 
     .activity-item .material-icons {
       color: var(--bs-primary);
+      font-size: 1.5rem;
     }
 
     .activity-content p {
       margin: 0;
-      color: var(--text-primary);
+      color: var(--bs-body-color);
     }
 
     .activity-content small {
-      color: var(--text-secondary);
+      color: var(--bs-secondary-color);
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-card {
+        padding: 15px;
+      }
+
+      .stat-card .stat {
+        font-size: 1.5rem;
+      }
     }
   `]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   recentActivity = [
     { id: 1, icon: 'person_add', description: 'New user registered', time: '5 minutes ago' },
     { id: 2, icon: 'task_alt', description: 'Task "Update Documentation" completed', time: '1 hour ago' },
@@ -147,14 +187,30 @@ export class DashboardComponent implements OnInit {
   ];
 
   widgets: DashboardWidget[] = [];
+  isDarkTheme = false;
+  private themeSubscription?: Subscription;
 
   constructor(
     private healthService: HealthService,
-    private authService: AuthService
+    private authService: AuthService,
+    private themeService: ThemeService
   ) {}
 
   ngOnInit(): void {
     this.loadWidgets();
+    
+    // Subscribe to theme changes
+    this.themeSubscription = this.themeService.isDarkTheme$.subscribe(
+      isDark => {
+        this.isDarkTheme = isDark;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 
   private loadWidgets(): void {
