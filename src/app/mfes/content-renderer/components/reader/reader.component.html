@@ -1,6 +1,6 @@
 <div class="reader-wrapper mx-auto">
   <!-- Sticky Button - moved to top right with vertical dots icon -->
-  <div class="sticky-button" id="stickyButton" (click)="toggleToolbar()">
+  <div class="sticky-button" id="stickyButton" (click)="toggleToolbar()" *ngIf="!showToolbar">
     <i class="fas fa-ellipsis-v"></i>
   </div>
 

@@ -71,27 +71,27 @@ body {
 }
 
 /* Card hover effects */
-// .card {
-//   transition: transform 0.2s ease, box-shadow 0.2s ease;
-//   background-color: var(--bs-body-bg);
-//   color: var(--bs-body-color);
-//   border-color: var(--bs-border-color);
-// }
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
 
-// .card:hover {
-//   transform: translateY(-5px);
-//   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-// }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
 
 // /* Animations */
-// .fade-in {
-//   animation: fadeIn 0.1s ease-in;
-// }
+.fade-in {
+  animation: fadeIn 0.1s ease-in;
+}
 
-// @keyframes fadeIn {
-//   from { opacity: 0; }
-//   to { opacity: 1; }
-// }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 // /* Navbar customization */
 
@@ -157,22 +157,22 @@ body {
 //   border-color: var(--border-color);
 // }
 
-// /* Add smooth transitions for common elements */
-// button,
-// .btn,
-// .card,
-// .navbar,
-// .toolbar {
-//   transition: background-color 0.3s ease, 
-//               color 0.3s ease,
-//               border-color 0.3s ease;
-// }
+/* Add smooth transitions for common elements */
+button,
+.btn,
+.card,
+.navbar,
+.toolbar {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
 
-// /* Add smooth transitions for navbar and sidebar */
-// .navbar,
-// .sidebar,
-// .nav-link {
-//   transition: background-color 0.3s ease,
-//               color 0.3s ease,
-//               border-color 0.3s ease;
-// }
+/* Add smooth transitions for navbar and sidebar */
+.navbar,
+.sidebar,
+.nav-link {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease;
+}
