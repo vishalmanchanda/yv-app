@@ -1,13 +1,15 @@
 :host {
   --input-bg: var(--bs-white);
-  --input-border: #dee2e6;
-  --input-focus: #86b7fe;
+  --input-border: #e9ecef;
+  --input-focus: #0d6efd;
   --button-color: #0d6efd;
+  --button-hover-bg: rgba(13, 110, 253, 0.1);
   
   @media (prefers-color-scheme: dark) {
     --input-bg: #2b2b2b;
     --input-border: #404040;
     --input-focus: #0d6efd;
+    --button-hover-bg: rgba(13, 110, 253, 0.2);
   }
 }
 
@@ -15,12 +17,14 @@
   width: 100%;
   background-color: var(--input-bg);
   border-top: 1px solid var(--input-border);
+  position: relative;
 }
 
 .input-area {
+  position: relative;
   border-radius: 1.5rem;
   background-color: var(--input-bg);
-  border: 1px solid var(--input-border);
+  border: 2px solid var(--input-border);
   overflow: hidden;
   transition: all 0.2s ease;
   
@@ -28,13 +32,24 @@
     border-color: var(--input-focus);
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
   }
+}
 
-  .form-control {
+.input-wrapper {
+  position: relative;
+  
+  textarea.form-control {
+    resize: none;
+    border: none;
     background-color: var(--input-bg);
     color: inherit;
+    padding: 0.75rem 1rem;
+    line-height: 1.5;
+    max-height: 150px;
+    overflow-y: auto;
     
     &:focus {
       box-shadow: none;
+      outline: none;
       background-color: var(--input-bg);
       color: inherit;
     }
@@ -43,30 +58,54 @@
       color: #6c757d;
       opacity: 0.7;
     }
+    
+    &:disabled {
+      background-color: var(--input-bg);
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
   }
+}
+
+.loading-indicator {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .send-button {
   min-width: 42px;
   height: 42px;
-  margin-right: 0.25rem;
   padding: 0;
   color: var(--button-color);
   border-radius: 50%;
   transition: all 0.2s ease;
+  border: none;
+  background: transparent;
   
   &:hover:not(:disabled) {
     color: var(--button-color);
-    background-color: rgba(13, 110, 253, 0.1);
+    background-color: var(--button-hover-bg);
     transform: scale(1.05);
   }
   
   &:disabled {
     opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &.pulse {
+    animation: pulse 2s infinite;
   }
   
   i {
-    font-size: 1rem;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+  }
+  
+  &:active:not(:disabled) i {
+    transform: translateX(2px);
   }
 }
 
@@ -75,5 +114,17 @@
     color: #6c757d;
     opacity: 0.8;
     font-size: 0.75rem;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 253, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(13, 110, 253, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(13, 110, 253, 0);
   }
 } 

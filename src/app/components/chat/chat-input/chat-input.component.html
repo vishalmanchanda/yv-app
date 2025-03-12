@@ -1,28 +1,40 @@
 <div class="chat-input-container p-3">
   <div class="input-area d-flex align-items-center">
-    <input
-      type="text"
-      class="form-control border-0 py-2 px-3"
-      [(ngModel)]="inputValue"
-      (ngModelChange)="onInputChange()"
-      (keydown)="onKeyDown($event)"
-      placeholder="Type a message..."
-      [disabled]="isLoading"
-    >
+    <div class="input-wrapper flex-grow-1 position-relative">
+      <textarea
+        #messageInput
+        class="form-control"
+        [(ngModel)]="inputValue"
+        (ngModelChange)="onInputChange()"
+        (keydown)="onKeyDown($event)"
+        placeholder="Type a message..."
+        [disabled]="isLoading"
+        rows="1"
+      ></textarea>
+      <div *ngIf="isLoading" class="loading-indicator">
+        <div class="spinner-grow spinner-grow-sm text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
     <button 
-      class="btn send-button d-flex align-items-center justify-content-center"
+      class="btn send-button ms-2 d-flex align-items-center justify-content-center"
       (click)="onSendMessage()"
       [disabled]="!inputValue.trim() || isLoading"
+      [class.pulse]="inputValue.trim() && !isLoading"
     >
-      <i class="fas fa-paper-plane"></i>
+      <i class="fas fa-paper-plane" [class.fa-spin]="isLoading"></i>
     </button>
   </div>
-  <div class="input-hint mt-2">
-    <small class="d-flex align-items-center">
+  <div class="input-hint mt-2 d-flex align-items-center justify-content-between">
+    <small class="d-flex align-items-center text-muted">
       <i class="fas fa-keyboard me-2"></i>
       Press Enter to send
       <span class="mx-2">•</span>
       Shift+Enter for new line
+    </small>
+    <small *ngIf="inputValue.length > 0" class="text-muted">
+      {{inputValue.length}} characters
     </small>
   </div>
 </div> 
