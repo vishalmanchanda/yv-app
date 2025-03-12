@@ -1,0 +1,116 @@
+<div class="chat-container">
+  <div class="chat-content">
+    <!-- Welcome screen when no messages -->
+    <div *ngIf="messages.length === 0" class="welcome-screen">
+      <div class="welcome-header">
+        <div class="welcome-icon">
+          <i class="fas fa-om"></i>
+        </div>
+        <h1 class="welcome-title">Start Your Spiritual Journey</h1>
+        <p class="welcome-subtitle">Explore the wisdom of ancient texts through modern conversation.</p>
+      </div>
+
+      <div class="category-container">
+        <!-- Spiritual Concepts -->
+        <div class="category-card spiritual-concepts">
+          <div class="card-header">
+            <i class="category-icon fas fa-om"></i>
+            <h2 class="category-title">Spiritual Concepts</h2>
+          </div>
+          <div class="card-body">
+            <div class="question-list">
+              <button *ngFor="let question of suggestionCategories[0].questions" 
+                      class="question-item" 
+                      (click)="handleSendMessage(question)">
+                <span>{{question}}</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Meditation & Practice -->
+        <div class="category-card meditation">
+          <div class="card-header">
+            <i class="category-icon fas fa-pray"></i>
+            <h2 class="category-title">Meditation & Practice</h2>
+          </div>
+          <div class="card-body">
+            <div class="question-list">
+              <button *ngFor="let question of suggestionCategories[1].questions" 
+                      class="question-item" 
+                      (click)="handleSendMessage(question)">
+                <span>{{question}}</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gita Teachings -->
+        <div class="category-card gita">
+          <div class="card-header">
+            <i class="category-icon fas fa-book"></i>
+            <h2 class="category-title">Gita Teachings</h2>
+          </div>
+          <div class="card-body">
+            <div class="question-list">
+              <button *ngFor="let question of suggestionCategories[2].questions" 
+                      class="question-item" 
+                      (click)="handleSendMessage(question)">
+                <span>{{question}}</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Life Application -->
+        <div class="category-card life-application">
+          <div class="card-header">
+            <i class="category-icon fas fa-bullseye"></i>
+            <h2 class="category-title">Life Application</h2>
+          </div>
+          <div class="card-body">
+            <div class="question-list">
+              <button *ngFor="let question of suggestionCategories[3].questions" 
+                      class="question-item" 
+                      (click)="handleSendMessage(question)">
+                <span>{{question}}</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message list when there are messages -->
+    <div *ngIf="messages.length > 0" class="message-container">
+      <app-message-list [messages]="messages"></app-message-list>
+      <div *ngIf="isLoading" class="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fixed input section at bottom -->
+  <div class="chat-input-container">
+    <div class="input-wrapper">
+      <app-query-suggestions
+        [suggestions]="suggestions"
+        [predictedQuery]="predictedQuery"
+        (clearInput)="suggestions = []"
+        (selectSuggestion)="handleSendMessage($event)">
+      </app-query-suggestions>
+      <app-chat-input 
+        (sendMessage)="handleSendMessage($event)" 
+        (clearInput)="suggestions = []"
+        (inputChange)="handleInputChange($event)" 
+        [isLoading]="isLoading">
+      </app-chat-input>
+    </div>
+  </div>
+</div> 

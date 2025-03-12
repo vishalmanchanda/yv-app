@@ -26,8 +26,12 @@ export const routes: Routes = [
           icon: 'bi-speedometer2'
         }
       },
-      
-      
+      {
+        path: 'chat',
+        loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
+        canActivate: [AuthGuard],
+        data: { breadcrumb: 'Chat' }
+      },
       {
         path: 'chatbot',
         loadComponent: () => import('./mfes/chatbot/chatbot-mfe.component').then(m => m.ChatbotMfeComponent),

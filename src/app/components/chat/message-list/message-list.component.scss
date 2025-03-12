@@ -1,0 +1,85 @@
+:host {
+  --message-bg-user: #0d6efd;
+  --message-text-user: #fff;
+  --message-bg-bot: var(--bs-light);
+  --message-text-bot: var(--bs-dark);
+  
+  @media (prefers-color-scheme: dark) {
+    --message-bg-bot: #2b2b2b;
+    --message-text-bot: #fff;
+  }
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  min-height: 100%;
+}
+
+.message-item {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  gap: 0.5rem;
+}
+
+.user-message, .bot-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  
+  .message-content {
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+  
+  .message-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    opacity: 0.7;
+    font-size: 0.75rem;
+    
+    i {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.user-message {
+  align-self: flex-end;
+  
+  .message-content {
+    background-color: var(--message-bg-user);
+    color: var(--message-text-user);
+    border-bottom-right-radius: 0.25rem;
+  }
+  
+  .message-meta {
+    justify-content: flex-end;
+  }
+}
+
+.bot-message {
+  align-self: flex-start;
+  
+  .message-content {
+    background-color: var(--message-bg-bot);
+    color: var(--message-text-bot);
+    border-bottom-left-radius: 0.25rem;
+  }
+  
+  .message-meta {
+    justify-content: flex-start;
+  }
+}
+
+.message-time {
+  font-size: 12px;
+}

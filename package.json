@@ -27,6 +27,7 @@
     "@ngrx/store": "^18.1.1",
     "@ngrx/store-devtools": "^18.1.1",
     "@popperjs/core": "^2.11.8",
+    "animate.css": "^4.1.1",
     "html2canvas": "^1.4.1",
     "idb": "^8.0.2",
     "idp": "^0.0.0",

@@ -1,0 +1,18 @@
+<div *ngIf="suggestions.length > 0 || predictedQuery" class="suggestions-container">
+  <!-- Predicted query -->
+  <div *ngIf="predictedQuery" class="predicted-query">
+    <span>Predicted: <strong>{{ predictedQuery }}</strong></span>
+    <button (click)="onSelectSuggestion(predictedQuery!)">Use this</button>
+  </div>
+  
+  <!-- Suggestions list -->
+  <div *ngIf="suggestions.length > 0" class="suggestions-list">
+    <button 
+      *ngFor="let suggestion of suggestions"
+      class="suggestion-item"
+      (click)="onSelectSuggestion(suggestion)"
+    >
+      {{ suggestion }}
+    </button>
+  </div>
+</div> 

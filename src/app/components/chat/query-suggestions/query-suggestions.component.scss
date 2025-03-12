@@ -1,0 +1,51 @@
+.suggestions-container {
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.predicted-query {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  
+  button {
+    background: none;
+    border: none;
+    color: #0056b3;
+    cursor: pointer;
+    font-size: 14px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-item {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  font-size: 14px;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:hover {
+    background-color: #f9f9f9;
+  }
+} 
