@@ -1,0 +1,71 @@
+:host {
+  // Light theme variables
+  --ref-bg: var(--bs-white);
+  --ref-border: var(--bs-border-color);
+  --ref-text: var(--bs-body-color);
+  --ref-muted: var(--bs-secondary-color);
+  --ref-link: var(--bs-primary);
+  --ref-hover-bg: var(--bs-gray-100);
+  
+  &.dark-theme, [data-bs-theme="dark"] & {
+    --ref-bg: var(--bs-dark);
+    --ref-border: rgba(255, 255, 255, 0.1);
+    --ref-text: var(--bs-white);
+    --ref-muted: rgba(255, 255, 255, 0.75);
+    --ref-link: var(--bs-primary-text-emphasis);
+    --ref-hover-bg: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.references-container {
+  background-color: var(--ref-bg);
+  border-radius: 0.5rem;
+  
+  .reference-title {
+    color: var(--ref-muted);
+    font-weight: 600;
+  }
+}
+
+.list-group-item {
+  background-color: transparent;
+  border-color: var(--ref-border);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: var(--ref-hover-bg);
+  }
+  
+  a {
+    color: var(--ref-link);
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+    
+    .reference-text {
+      color: var(--ref-muted);
+    }
+  }
+}
+
+// Animation
+.reference-item {
+  animation: slideIn 0.3s ease-out forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@for $i from 1 through 10 {
+  .reference-item:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.1}s;
+  }
+}

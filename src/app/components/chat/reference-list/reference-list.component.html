@@ -1,15 +1,21 @@
-<div class="mt-3">
-  <p class="text-muted fw-semibold mb-2">References:</p>
-  <ul class="list-group">
-    <li *ngFor="let ref of references" class="list-group-item list-group-item-action">
+<div class="references-container p-3">
+  <p class="reference-title mb-2">References:</p>
+  <div class="list-group">
+    <div *ngFor="let ref of references; let i = index" 
+         class="list-group-item reference-item">
       <a [href]="ref.link"
          target="_blank"
          rel="noopener noreferrer"
-         class="text-decoration-none link-primary"
+         class="d-block"
          [attr.aria-label]="'Reference from ' + ref.source">
-        {{ref.source}}
-        <span *ngIf="ref.text" class="text-muted"> - {{ref.text}}</span>
+        <div class="d-flex align-items-center">
+          <span class="me-2">📖</span>
+          <span>{{ref.source}}</span>
+        </div>
+        <span *ngIf="ref.text" class="reference-text d-block mt-1">
+          {{ref.text}}
+        </span>
       </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div> 

@@ -1,0 +1,154 @@
+:host {
+  // Light theme variables
+  --card-bg: var(--bs-white);
+  --card-border: var(--bs-border-color);
+  --text-primary: var(--bs-body-color);
+  --text-muted: var(--bs-secondary-color);
+  --icon-bg: var(--bs-gray-100);
+  
+  // Section specific colors
+  --summary-bg: rgba(255, 193, 7, 0.1);
+  --summary-border: rgba(255, 193, 7, 0.2);
+  --explanation-bg: rgba(13, 202, 240, 0.1);
+  --explanation-border: rgba(13, 202, 240, 0.2);
+  --reference-bg: rgba(108, 117, 125, 0.1);
+  --reference-border: rgba(108, 117, 125, 0.2);
+  --error-bg: rgba(220, 53, 69, 0.1);
+  --error-border: rgba(220, 53, 69, 0.2);
+  
+  &.dark-theme, [data-bs-theme="dark"] & {
+    --card-bg: var(--bs-dark);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-primary: var(--bs-white);
+    --text-muted: rgba(255, 255, 255, 0.75);
+    --icon-bg: rgba(255, 255, 255, 0.1);
+    
+    // Darker versions of section backgrounds
+    --summary-bg: rgba(255, 193, 7, 0.15);
+    --summary-border: rgba(255, 193, 7, 0.3);
+    --explanation-bg: rgba(13, 202, 240, 0.15);
+    --explanation-border: rgba(13, 202, 240, 0.3);
+    --reference-bg: rgba(108, 117, 125, 0.15);
+    --reference-border: rgba(108, 117, 125, 0.3);
+    --error-bg: rgba(220, 53, 69, 0.15);
+    --error-border: rgba(220, 53, 69, 0.3);
+  }
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  
+  .card-header {
+    background-color: var(--card-bg);
+    border-color: var(--card-border);
+  }
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+// Icon containers
+.icon-container {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  
+  &.warning {
+    background-color: var(--summary-bg);
+    border: 1px solid var(--summary-border);
+  }
+  
+  &.info {
+    background-color: var(--explanation-bg);
+    border: 1px solid var(--explanation-border);
+  }
+  
+  &.secondary {
+    background-color: var(--reference-bg);
+    border: 1px solid var(--reference-border);
+  }
+  
+  &.error {
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+  }
+}
+
+// Content sections
+.content-section {
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  
+  &.summary {
+    background-color: var(--summary-bg);
+    border: 1px solid var(--summary-border);
+  }
+  
+  &.explanation {
+    background-color: var(--explanation-bg);
+    border: 1px solid var(--explanation-border);
+  }
+  
+  &.references {
+    background-color: var(--reference-bg);
+    border: 1px solid var(--reference-border);
+  }
+}
+
+// Markdown content
+::ng-deep .markdown-content {
+  color: var(--text-primary);
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+  }
+  
+  p, li {
+    color: var(--text-muted);
+  }
+  
+  code {
+    background-color: var(--reference-bg);
+    color: var(--text-primary);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+  }
+  
+  pre {
+    background-color: var(--reference-bg);
+    border: 1px solid var(--reference-border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    
+    code {
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+}
+
+// Animations
+.animate__animated {
+  animation-duration: 0.5s;
+}
+
+.animate__fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
