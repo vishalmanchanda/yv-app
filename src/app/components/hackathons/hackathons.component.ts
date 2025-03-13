@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 interface Hackathon {
+  id: string;
   title: string;
   link: string;
   status?: string;
@@ -24,6 +25,7 @@ export class HackathonsComponent implements OnInit {
   
   upcomingHackathons: Hackathon[] = [
     {
+      id: 'iyd-2025',
       title: 'IYD Hackathon 2025',
       link: '/hackathon',
       status: 'Coming Soon',
@@ -34,6 +36,7 @@ export class HackathonsComponent implements OnInit {
 
   completedHackathons: Hackathon[] = [
     {
+      id: 'iyd-2025',
       title: 'NYD Hackathon 2025',
       link: '/hackathon_iyd2025',
       date: 'January 2025',

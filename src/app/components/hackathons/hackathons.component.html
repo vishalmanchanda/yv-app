@@ -89,10 +89,13 @@
                 25+ Projects
               </span>
             </div>
-            <button class="view-btn">
+            
+            <button class="view-btn" [routerLink]="['/hackathons', hackathon.id]">
               View Results
-              <i class="fas fa-arrow-right"></i>
+              <i class="fas fa-arrow-right"></i>              
+
             </button>
+            
           </div>
         </div>
       </div>
@@ -101,9 +104,9 @@
 
   <footer>
     <div class="footer-content">
-      <div class="footer-brand">
+      <div class="footer-brand ">
         <h3>The Yoga Vivek Group</h3>
-        <p>Empowering innovation through technology</p>
+        <p>Transforming access to IKS through technology</p>
       </div>
       <div class="footer-social">
         <a href="#" class="social-link"><i class="fab fa-github"></i></a>

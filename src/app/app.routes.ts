@@ -110,11 +110,7 @@ export const routes: Routes = [
             path: 'quiz-report/:category/:bookId/:partId/:studentName',
             loadComponent: () => import('./mfes/content-renderer/components/quiz/quiz-report/quiz-report.component').then(m => m.QuizReportComponent)
           },
-          {
-            path: 'hackathons',
-            loadComponent: () => import('./components/hackathons/hackathons.component')
-              .then(m => m.HackathonsComponent)
-          }
+          
 
         ],
         data: { 
@@ -152,12 +148,8 @@ export const routes: Routes = [
         path: 'quiz-report/:category/:bookId/:partId/:studentName',
         redirectTo: 'content-viewer/quiz-report/:category/:bookId/:partId/:studentName',
         pathMatch: 'full'
-      },
-      {
-        path: 'hackathons',
-        redirectTo: 'content-viewer/hackathons',
-        pathMatch: 'full'
       }
+      
     ]
   },
   {
@@ -180,6 +172,16 @@ export const routes: Routes = [
     loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent),
     canActivate: [AuthGuard],
     data: { breadcrumb: 'Settings' }
+  },
+  {
+    path: 'hackathons',
+    loadComponent: () => import('./components/hackathons/hackathons.component')
+      .then(m => m.HackathonsComponent)
+  },
+  {
+    path: 'hackathons/:id',
+    loadComponent: () => import('./components/hackathon-details/hackathon-details.component')
+      .then(m => m.HackathonDetailsComponent)
   },
   {
     path: '**',
