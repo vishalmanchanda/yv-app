@@ -29,27 +29,27 @@ export class ModernNavbarComponent implements OnInit, OnDestroy {
   
   navLinks = [
     { 
-      label: 'Dashboard', 
-      route: '/dashboard', 
-      icon: 'bi bi-speedometer2',
-      exact: true 
-    },
-    { 
       label: 'Content', 
       route: '/content-viewer', 
       icon: 'bi bi-book',
       exact: false 
     },
     { 
-      label: 'Users', 
-      route: '/users', 
-      icon: 'bi bi-people',
+      label: 'Chat', 
+      route: '/chat', 
+      icon: 'bi bi-chat',
       exact: true 
     },
     { 
-      label: 'Features', 
-      route: '/features', 
+      label: 'Hackathons', 
+      route: '/hackathons', 
       icon: 'bi bi-list-check',
+      exact: true 
+    },
+    { 
+      label: 'About Us', 
+      route: '/about-us', 
+      icon: 'bi bi-person',
       exact: true 
     }
   ];
