@@ -22,6 +22,7 @@ export class ChatResponseComponent {
   isSummaryComplete: boolean = false;
   isExplanationComplete: boolean = false;
 
+
   ngOnInit() {
     if (this.summary) {
       this.typewriterEffect(this.summary, (text) => this.displayedSummary = text, 15)
@@ -33,7 +34,9 @@ export class ChatResponseComponent {
         });
     } else if (this.explanation) {
       this.typewriterEffect(this.explanation, (text) => this.displayedExplanation = text, 10)
-        .then(() => this.isExplanationComplete = true);
+        .then(() => this.isExplanationComplete = true
+      
+      );
     }
   }
 
@@ -59,6 +62,7 @@ export class ChatResponseComponent {
     });
   }
   get showReferences(): boolean {
+    console.log(this.isExplanationComplete, this.isSummaryComplete);
     return (!this.summary && !this.explanation) || 
            (!!this.summary && !this.explanation && this.isSummaryComplete) || 
            (!!this.summary && !!this.explanation && this.isExplanationComplete);

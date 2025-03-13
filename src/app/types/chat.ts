@@ -4,7 +4,7 @@ export interface ChatMessage {
   content: string;
   timestamp: Date;
   summary?: string;
-  explanation?: string;
+  details?: string;
   references?: Reference[];
   error?: boolean;
 }
@@ -13,12 +13,13 @@ export interface Reference {
     verse?: string;
     text?: string;
     source?: string;
-    link?: string;
+    chapter?: string;
+    
 } 
 
 export interface ChatResponse {
-    summary?: string;
-    explanation?: string;
+    summary_answer?: string;
+    detailed_answer?: string;
     references?: Reference[];
     error?: boolean;
 }

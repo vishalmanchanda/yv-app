@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatMessage } from '../../types/chat';
-import { ApiService } from '../../services/api.service';
+import { ChatService } from '../../services/chat.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { MessageListComponent } from './message-list/message-list.component';
@@ -80,7 +80,7 @@ export class ChatComponent implements OnInit {
   // Categories for suggestions
   suggestionCategories = suggestionCategories;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {}
 
@@ -109,7 +109,7 @@ export class ChatComponent implements OnInit {
     // Fetch response from API
     this.isLoading = true;
     try {
-      const response = await this.apiService.getChatResponse(content);
+        const response = await this.chatService.getChatResponse(content);
       this.messages = [...this.messages, response]; // Append bot response
     } catch (error) {
       console.error("Error fetching response:", error);
@@ -131,8 +131,8 @@ export class ChatComponent implements OnInit {
 
     try {
       const [newSuggestions, predicted] = await Promise.all([
-        this.apiService.getSuggestions(input),
-        this.apiService.getPredictedQuery(input),
+        this.chatService.getSuggestions(input),
+        this.chatService.getPredictedQuery(input),
       ]);
       this.suggestions = newSuggestions;
       this.predictedQuery = predicted;

@@ -62,7 +62,7 @@
       </div>
 
       <!-- References Section -->
-      <div *ngIf="references?.length && showReferences" class="animate__animated animate__fadeIn">
+      <div *ngIf="references?.length && isSummaryComplete" class="animate__animated animate__fadeIn">
         <div class="d-flex align-items-center mb-3">
           <div class="icon-container secondary me-2">
             <span class="fs-5">💬</span>
@@ -76,7 +76,7 @@
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <span class="badge rounded-pill" [ngClass]="{'bg-warning text-dark': reference.verse}">
                   <span class="me-2">📖</span>
-                  {{reference.verse}}
+                  {{reference.source}} {{reference.chapter}}.{{reference.verse}}
                 </span>
               </div>
               <p class="text-muted fst-italic mb-0">

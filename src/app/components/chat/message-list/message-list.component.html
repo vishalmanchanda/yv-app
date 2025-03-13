@@ -2,7 +2,7 @@
   <div *ngFor="let message of messages" class="message-item">
     <!-- User message -->
     <div *ngIf="message.role === 'user'" class="user-message">
-      <div class="message-content">{{ message.content }}</div>
+      <div class="message-content">{{ message.content}}</div>
       <div class="message-meta">
         <span class="message-time">{{ formatTime(message.timestamp) }}</span>
         <i class="fas fa-user"></i>
@@ -11,18 +11,21 @@
     
     <!-- Bot message -->
     <div *ngIf="message.role !== 'user'" class="bot-message">
-      <div class="message-content" [innerHTML]="message.content"></div>
+      <!-- <div class="message-content" [innerHTML]="message.content | json">
+        
+      </div> -->
       <!-- <div class="message-meta">
         <i class="fas fa-robot"></i>
         <span class="message-time">{{ formatTime(message.timestamp) }}</span>
       </div> -->
 
       <app-chat-response
-  [summary]="message.summary"
-  [explanation]="message.explanation"
-  [references]="message.references"
-  [error]="message.error">
-</app-chat-response>
+        [summary]="message.summary"
+        [explanation]="message.details"
+        [references]="message.references"
+        [error]="message.error">
+      </app-chat-response>
+      
     </div>
   </div>
 </div> 

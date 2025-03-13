@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  padding: 1.5rem;
+//   padding: 1.5rem;
   min-height: 100%;
 }
 
@@ -28,7 +28,7 @@
 .user-message, .bot-message {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
+  max-width: 100%;
   
   .message-content {
     padding: 0.75rem 1rem;
