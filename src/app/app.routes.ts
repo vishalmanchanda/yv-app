@@ -112,7 +112,8 @@ export const routes: Routes = [
           },
           {
             path: 'hackathons',
-            loadComponent: () => import('./mfes/content-viewer/app/components/hackathons/hackathons.component').then(m => m.HackathonsComponent)
+            loadComponent: () => import('./components/hackathons/hackathons.component')
+              .then(m => m.HackathonsComponent)
           }
 
         ],

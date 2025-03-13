@@ -1,0 +1,118 @@
+<div class="page-wrapper">
+  <header>
+    <div class="header-content">
+      
+      <div class="header-main text-secondary">
+        <h1>Hackathons</h1>
+        <p class="tagline">
+          <span>Code.</span>
+          <span>Collaborate.</span>
+          <span>Conquer.</span>
+        </p>
+      </div>
+    </div>
+    <div class="header-wave">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+  </header>
+
+  <main>
+    <section class="upcoming-section">
+      <div class="section-header">
+        <h2>Upcoming Hackathons</h2>
+        <div class="section-line"></div>
+      </div>
+      
+      <div class="hackathon-grid">
+        <div *ngFor="let hackathon of upcomingHackathons" 
+             class="hackathon-card upcoming"
+             [routerLink]="hackathon.link">
+          <div class="card-content">
+            <div class="status-badge" *ngIf="hackathon.status">
+              {{ hackathon.status }}
+            </div>
+            <h3>{{ hackathon.title }}</h3>
+            <div class="card-details">
+              <span class="date">
+                <i class="far fa-calendar-alt"></i>
+                Coming Soon
+              </span>
+              <span class="prize">
+                <i class="fas fa-trophy"></i>
+                Prize Pool TBA
+              </span>
+            </div>
+            <button class="register-btn">
+              Register Interest
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="completed-section">
+      <div class="section-header">
+        <h2>Completed Hackathons</h2>
+        <div class="section-line"></div>
+      </div>
+      
+      <div class="prize-banner">
+        <div class="prize-content">
+          <i class="fas fa-award"></i>
+          <div class="prize-text">
+            <span class="prize-amount">₹{{ totalPrizeWorth }}</span>
+            <span class="prize-label">Total Prizes Distributed</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hackathon-grid">
+        <div *ngFor="let hackathon of completedHackathons" 
+             class="hackathon-card completed"
+             [routerLink]="hackathon.link">
+          <div class="card-content">
+            <div class="completed-badge">
+              <i class="fas fa-check-circle"></i>
+              Completed
+            </div>
+            <h3>{{ hackathon.title }}</h3>
+            <div class="card-details">
+              <span class="participants">
+                <i class="fas fa-users"></i>
+                100+ Participants
+              </span>
+              <span class="projects">
+                <i class="fas fa-code-branch"></i>
+                25+ Projects
+              </span>
+            </div>
+            <button class="view-btn">
+              View Results
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>The Yoga Vivek Group</h3>
+        <p>Empowering innovation through technology</p>
+      </div>
+      <div class="footer-social">
+        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+      </div>
+      <div class="footer-copyright">
+        <p>© {{ currentYear }} The Yoga Vivek Group. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div> 
