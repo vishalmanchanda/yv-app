@@ -22,13 +22,13 @@
         </button>
 
         <!-- Updated Notifications Button -->
-        <button class="btn btn-link nav-link p-1">
+        <!-- <button class="btn btn-link nav-link p-1">
           <i class="bi bi-bell position-relative">
             <span class="notification-badge" *ngIf="unreadNotifications > 0">
               {{ unreadNotifications }}
             </span>
           </i>
-        </button>
+        </button> -->
 
         <!-- Mobile Menu Toggle -->
         <div class="dropdown">
@@ -55,16 +55,15 @@
             </div>
             <div class="dropdown-divider"></div>
             <!-- Additional Actions -->
-            <a class="dropdown-item d-flex align-items-center" (click)="toggleChatbot()">
+            <a class="dropdown-item d-flex align-items-center disabled" style="cursor: not-allowed; opacity: 0.6">
               <i class="bi bi-chat-dots me-2"></i>
               <span>Support</span>
+              <small class="ms-2 text-muted">(Coming Soon)</small>
             </a>
-            <a class="dropdown-item d-flex align-items-center" href="#">
+            <a class="dropdown-item d-flex align-items-center disabled" style="cursor: not-allowed; opacity: 0.6">
               <i class="bi bi-bell me-2"></i>
               <span>Notifications</span>
-              <span class="ms-auto badge bg-danger" *ngIf="unreadNotifications">
-                {{ unreadNotifications }}
-              </span>
+              <small class="ms-2 text-muted">(Coming Soon)</small>
             </a>
           </div>
         </div>
@@ -110,7 +109,7 @@
         </button>
 
         <!-- Updated Notifications Button -->
-        <button class="btn btn-link nav-link position-relative">
+        <!-- <button class="btn btn-link nav-link position-relative">
           <i class="bi bi-bell position-relative">
             <span class="notification-badge" *ngIf="unreadNotifications > 0">
               {{ unreadNotifications }}
@@ -120,7 +119,7 @@
 
         <button class="btn btn-link nav-link" (click)="toggleChatbot()">
           <i class="bi bi-chat-dots"></i>
-        </button>
+        </button> -->
 
         <app-user-menu [user]="user"></app-user-menu>
       </div>
