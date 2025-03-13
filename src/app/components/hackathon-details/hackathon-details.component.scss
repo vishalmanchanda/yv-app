@@ -2,21 +2,21 @@
 :root {
   --primary-gradient: linear-gradient(135deg, #ff6b6b, #ffd93d);
   --secondary-gradient: linear-gradient(135deg, #4facfe, #00f2fe);
-  --text-primary: #2d3436;
-  --text-secondary: #636e72;
-  --background-light: #ffffff;
-  --background-dark: #f8f9fa;
+  // --text-primary: #2d3436;
+  // --text-secondary: #636e72;
+  // --background-light: #ffffff;
+  // --background-dark: #f8f9fa;
   --border-radius: 1rem;
   --transition: all 0.3s ease;
 }
 
 // Base Styles
-:host {
-  display: block;
-  font-family: 'Poppins', sans-serif;
-  background: var(--background-light);
-  color: var(--text-primary);
-}
+// :host {
+//   display: block;
+//   font-family: 'Poppins', sans-serif;
+//   background: var(--background-light);
+//   color: var(--text-primary);
+// }
 
 .container {
   max-width: 1200px;
@@ -26,8 +26,7 @@
 
 // Hero Section
 .hero-section {
-  background: var(--primary-gradient);
-  color: white;
+  background: var(--bs-body-bg);
   padding: 6rem 0 8rem;
   position: relative;
   overflow: hidden;
@@ -58,13 +57,14 @@
     margin-top: 2rem;
 
     .badge {
-      background: rgba(255, 255, 255, 0.2);
+      
+      color: var(--bs-body-color);
       padding: 0.5rem 1rem;
       border-radius: 2rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      backdrop-filter: blur(10px);
+      // backdrop-filter: blur(10px);
       
       i {
         font-size: 1.2rem;
@@ -83,10 +83,10 @@
 
 // Navigation
 .section-nav {
-  background: white;
+  background: var(--bs-body-bg);
   padding: 1rem 0;
   transition: var(--transition);
-  z-index: 100;
+  z-index: 1100;
 
   &.sticky {
     position: fixed;
@@ -137,7 +137,7 @@
     padding: 0 1rem;
 
     .prize-card {
-      background: white;
+      background: var(--bs-body-bg);
       border-radius: var(--border-radius);
       padding: 2rem;
       text-align: center;
@@ -166,17 +166,17 @@
 
       &.prize-1st {
         background: linear-gradient(135deg, #ffd700, #ffa500);
-        color: white;
+        color: var(--bs-body-color);
       }
 
       &.prize-2nd {
         background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
-        color: white;
+        color: var(--bs-body-color);
       }
 
       &.prize-3rd {
         background: linear-gradient(135deg, #cd7f32, #a0522d);
-        color: white;
+        color: var(--bs-body-color);
       }
     }
   }
@@ -211,7 +211,7 @@
   gap: 1.5rem;
 
   .task-card {
-    background: white;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     display: flex;
@@ -228,7 +228,7 @@
       width: 40px;
       height: 40px;
       background: var(--primary-gradient);
-      color: white;
+      color: var(--bs-body-color);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -262,7 +262,7 @@
   gap: 1.5rem;
 
   .rule-card {
-    background: white;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     display: flex;
@@ -305,7 +305,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: #e9ecef;
+    background: var(--bs-border-color);
   }
 
   .timeline-item {
@@ -322,8 +322,8 @@
       width: 1rem;
       height: 1rem;
       border-radius: 50%;
-      background: white;
-      border: 2px solid #ff6b6b;
+      background: var(--bs-body-bg);
+      border: 2px solid var(--bs-primary);
       margin-top: 0.5rem;
     }
 
@@ -333,12 +333,12 @@
       }
 
       .timeline-content {
-        background: #fff5f5;
+        background: var(--bs-primary-bg-subtle);
       }
     }
 
     .timeline-content {
-      background: white;
+      background: var(--bs-body-bg);
       border-radius: var(--border-radius);
       padding: 1.5rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -376,7 +376,7 @@
   gap: 1.5rem;
 
   .sponsor-card {
-    background: white;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius);
     padding: 1.5rem;
     display: flex;
@@ -398,7 +398,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      color: var(--bs-body-color);
       font-size: 1.5rem;
     }
 
@@ -435,7 +435,7 @@
   margin: 4rem 0;
 
   .contact-card {
-    background: white;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius);
     padding: 3rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -472,7 +472,7 @@
 // Footer
 .site-footer {
   background: #2d3436;
-  color: white;
+  color: var(--bs-body-color);
   padding: 4rem 0;
   margin-top: 6rem;
 
@@ -501,7 +501,7 @@
     margin-bottom: 2rem;
 
     .social-link {
-      color: white;
+      color: var(--bs-body-color);
       font-size: 1.5rem;
       transition: var(--transition);
 

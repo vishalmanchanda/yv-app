@@ -31,7 +31,7 @@
   <!-- Navigation -->
   <nav class="section-nav" [class.sticky]="isNavSticky">
     <div class="container">
-      <div class="nav-links">
+      <div class="nav-links d-flex justify-content-center mb-3">
         <a *ngFor="let section of sections"
            [class.active]="activeSection === section.id"
            (click)="scrollToSection(section.id)">
@@ -43,7 +43,7 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="main-content">
+  <main class="main-content mt-5">
     <div class="container">
       <!-- Prize Cards -->
       <section class="prizes-section">
