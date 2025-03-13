@@ -1,18 +1,31 @@
-<div *ngIf="suggestions.length > 0 || predictedQuery" class="suggestions-container">
+<div *ngIf="suggestions.length > 0 || predictedQuery" class="card shadow-sm mb-3">
   <!-- Predicted query -->
-  <div *ngIf="predictedQuery" class="predicted-query">
-    <span>Predicted: <strong>{{ predictedQuery }}</strong></span>
-    <button (click)="onSelectSuggestion(predictedQuery!)">Use this</button>
+  <div *ngIf="predictedQuery" class="card-header bg-light">
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="text-muted">
+        Predicted Query: <strong class="text-dark">{{ predictedQuery.charAt(0).toUpperCase() + predictedQuery.slice(1) }}</strong>
+      </span>
+      <button 
+        class="btn btn-sm btn-primary" 
+        (click)="onSelectSuggestion(predictedQuery!)"
+      >
+        Use this
+      </button>
+    </div>
   </div>
   
   <!-- Suggestions list -->
-  <div *ngIf="suggestions.length > 0" class="suggestions-list">
+  <div *ngIf="suggestions.length > 0" class="list-group list-group-flush">
     <button 
       *ngFor="let suggestion of suggestions"
-      class="suggestion-item"
+      class="list-group-item list-group-item-action text-start p-2"
       (click)="onSelectSuggestion(suggestion)"
+      [ngClass]="{'hover:bg-gray-100 hover:shadow-sm transition-all duration-200': true}"
     >
-      {{ suggestion }}
+      <div class="d-flex align-items-center">
+        <span class="me-2">💡</span>
+        {{ suggestion.charAt(0).toUpperCase() + suggestion.slice(1) }}
+      </div>
     </button>
   </div>
-</div> 
+</div>
