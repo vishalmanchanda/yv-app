@@ -49,16 +49,15 @@ export class HackathonDetailsComponent implements OnInit {
 
   scrollToSection(sectionId: string) {
     this.activeSection = sectionId;
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const navHeight = document.querySelector('.section-nav')?.clientHeight || 0;
-      const offset = 80; // Additional offset for better positioning
-      
-      window.scrollTo({
-        top: element.offsetTop - navHeight - offset,
-        behavior: 'smooth'
-      });
-    }
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 100);
   }
 
   getPrizeIcon(position: string): string {
