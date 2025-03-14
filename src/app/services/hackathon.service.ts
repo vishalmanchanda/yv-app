@@ -54,16 +54,17 @@ export class HackathonService {
         {
           name: 'Dr. Kushal Shah',
           title: 'Chief Advisor to the Founders and Professor, Sitare University',
-          link: 'https://www.linkedin.com/in/kushal-shah-95b9a3b/'
+          link: 'https://www.yogavivek.org/assets/images/Kushal_Shah.jpeg'
         },
         {
           name: 'Mr. Vishal Manchanda',
           title: 'Senior Principal Technology Architect, Infosys',
-          link: 'https://www.linkedin.com/in/vishal-manchanda-097a6643/'
+          link: 'https://www.yogavivek.org/assets/images/Vishal-Manchanda.jpg',
         },
         {
           name: 'and other well wishers',
-          title: ''
+          title: '',
+          link: 'https://placehold.co/600x400/transparent/F00?text=others'
         }
       ],
       contactEmail: 'info@yogavivek.org',
@@ -78,31 +79,124 @@ export class HackathonService {
         { position: '2nd Prize', amount: 'INR 10k', color: '#c0c0c0' },
         { position: '3rd Prize', amount: 'INR 5k', color: '#cd7f32' }
       ],
-      tasks: [],
-      rules: [],
+      tasks: [
+        {
+          description: 'Find a few relevant shlokas (verses) from the <b>Bhagavad Gita</b> and <b>Patanjali Yoga Sutras (PYS)</b> for a user query using LLMs and other information retrieval techniques. You can use this <a href="https://www.github.com/atmabodha/Vedanta_Datasets" target="_blank">dataset</a> as a starting point to build upon. Feel free to explore various strategies for chunking, reranking, fine-tuning, etc.'
+        },
+        {
+          description: 'Feed the retrieved shlokas along with the user query to an open source LLM like LLaMA to generate a summary of the answer. You are expected to work on creating a suitable prompt for this purpose that minimizes hallucinations.'
+        },
+        {
+          description: 'Generate the output in a suitable JSON format.'
+        },
+        {
+          description: 'Need to identify irrelevant or inappropriate user queries.'
+        },
+        {
+          description: 'Do a thorough analysis of the generated answers for a wide variety of user queries.'
+        },
+        {
+          description: 'Evaluation Criteria:',
+          subTasks: [
+            'Accuracy of the top verse retrieved for these curated questions from <a href="https://github.com/atmabodha/Vedanta_Datasets/blob/main/Bhagwad_Gita/Bhagwad_Gita_Verses_English_Questions.csv" target="_blank">Gita</a> and <a href="https://github.com/atmabodha/Vedanta_Datasets/blob/main/Patanjali_Yoga_Sutras/Patanjali_Yoga_Sutras_Verses_English_Questions.csv" target="_blank">PYS</a>.',
+            'Quality of the prompt written and summarised answers generated using an open source LLM.',
+            'Depth and quality of the analysis of the results.',
+            'Cost of generating answer per query and lean architecture of the pipeline.'
+          ]
+        }
+      ],
+      rules: [
+        { rule: 'Each team should have 1-3 members.' },
+        { rule: 'Team members can be students or working professionals.' },
+        { rule: 'All the code or ideas used from elsewhere must be properly cited in the submission report.' },
+        { rule: 'Use only Open Source LLMs like SBERT, LLaMA, etc for all tasks like embeddings, text generation, etc.' },
+        { rule: 'The code submitted for final evaluation must be made openly available for anyone to use.' },
+        { rule: 'Incomplete or inappropriate submissions will be rejected.' },
+        { rule: 'Prize money will be distributed through UPI or as Amazon Gift Vouchers to the team lead.' },
+        { rule: 'Decision of the judges will be final.' }
+      ],
       dates: [
-        
+        { 
+          event: 'Register for free on UnStop', 
+          date: 'December 20, 2024',
+          link: 'https://unstop.com/hackathons/the-nyd-hackathon-2025-the-yoga-vivek-group-1281825'
+        },
+        { 
+          event: 'First Webinar for registered participants',
+          date: 'December 22, 2024'
+        },
+        { 
+          event: 'Progress monitoring meetings',
+          date: 'Dec 29 and Jan 05'
+        },
+        { 
+          event: 'Final submission',
+          date: 'January 12, 2025',
+          isHighlighted: true
+        },
+        { 
+          event: 'Presentation of top 10 submissions',
+          date: 'January 19, 2025'
+        },
+        { 
+          event: 'Prize Announcement',
+          date: 'January 26, 2025',
+          isHighlighted: true
+        }
+      ],
+      winners: [
+        {
+          position: "#1 Prize",
+          names: ["Kabir Arora", "Aryan Kaul", "Bhavya Pratap Singh"],
+          institute: "Punjab Engineering College, Chandigarh",
+          image: "https://www.yogavivek.org/assets/images/nyd2025_Kabir_Bhavya_Aryan.jpeg"
+        },
+        {
+          position: "#2 Prize",
+          names: ["Anushree Ghosh", "Agniva Saha", "Srinjoy Das"],
+          institute: "IIT Kharagpur",
+          image: "https://www.yogavivek.org/assets/images/nyd2025_Anushree_Agniva_Srinjoy.png"
+        },
+        {
+          position: "#3 Prize",
+          names: ["Rakshit Sawarn", "Ananya Priyaroop"],
+          institute: "IIT Bombay",
+          image: "https://www.yogavivek.org/assets/images/nyd2025_Rakshit_Ananya.jpeg"
+        },
+        {
+          position: "#4 Prize",
+          names: ["Hritish Maikap"],
+          institute: "Vishwakarma Institute of Technology, Pune",
+          image: "https://www.yogavivek.org/assets/images/nyd2025_hriteshImage.png"
+        },
+        {
+          position: "#5 Prize",
+          names: ["Nikhil Yadav", "Sanjay VP", "Nikhil Raj Soni"],
+          institute: "Sitare University",
+          image: "https://www.yogavivek.org/assets/images/nyd2025_Nikhil_Sanjay_Nikhil.jpeg"
+        }
       ],
       sponsors: [
         {
           name: 'Dr. Kushal Shah',
           title: 'Chief Advisor to the Founders and Professor, Sitare University',
-          link: 'https://www.linkedin.com/in/kushal-shah-95b9a3b/'
+          link: 'https://www.yogavivek.org/assets/images/Kushal_Shah.jpeg'
         },
         {
           name: 'Mr. Vishal Manchanda',
           title: 'Senior Principal Technology Architect, Infosys',
-          link: 'https://www.linkedin.com/in/vishal-manchanda-097a6643/'
+          link: 'https://www.yogavivek.org/assets/images/Vishal-Manchanda.jpg',
+
         },
         {
           name: 'and other well wishers',
-          title: ''
+          title: '',
+          link: 'https://placehold.co/600x400/transparent/F00?text=others'
         }
       ],
       contactEmail: 'info@yogavivek.org',
       isCompleted: true
     }
-    
   };
 
   getHackathonDetails(id: string): HackathonDetails | undefined {

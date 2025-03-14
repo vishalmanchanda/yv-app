@@ -195,6 +195,88 @@
   }
 }
 
+// Winners Grid
+.winners-grid {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0;
+
+  .winner-card {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: stretch;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 1rem 3rem rgba(var(--bs-dark-rgb), 0.175);
+    }
+
+    .winner-image {
+      flex: 0 0 300px;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .winner-content {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .winner-position {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--bs-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      i {
+        font-size: 2rem;
+      }
+    }
+
+    .winner-names {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--bs-body-color);
+    }
+
+    .winner-institute {
+      color: var(--bs-secondary);
+      font-size: 1rem;
+    }
+
+    // Special styling for top 3 winners
+    &.winner-1 {
+      background: linear-gradient(135deg, var(--bs-warning-bg-subtle), var(--bs-warning));
+      .winner-position { color: var(--bs-warning); }
+    }
+
+    &.winner-2 {
+      background: linear-gradient(135deg, var(--bs-gray-200), var(--bs-gray-300));
+      .winner-position { color: var(--bs-gray-700); }
+    }
+
+    &.winner-3 {
+      background: linear-gradient(135deg, var(--bs-orange-bg-subtle), var(--bs-orange));
+      .winner-position { color: var(--bs-orange); }
+    }
+  }
+}
+
 // Content Sections
 .content-section {
   margin: 4rem 0;
@@ -578,5 +660,20 @@
 
   .timeline {
     padding-left: 2rem;
+  }
+
+  .winners-grid {
+    .winner-card {
+      flex-direction: column;
+
+      .winner-image {
+        flex: 0 0 auto;
+        height: 200px;
+      }
+
+      .winner-content {
+        padding: 1.5rem;
+      }
+    }
   }
 } 

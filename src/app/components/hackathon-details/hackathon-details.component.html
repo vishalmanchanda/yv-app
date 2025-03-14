@@ -60,6 +60,31 @@
         </div>
       </section>
 
+      <!-- Winners Section -->
+      <section id="winners" class="content-section" *ngIf="hackathon.isCompleted && hackathon.winners?.length">
+        <div class="section-header">
+          <i class="fas fa-trophy section-icon"></i>
+          <h2>Hackathon Winners</h2>
+        </div>
+        <div class="winners-grid">
+          <div *ngFor="let winner of hackathon.winners; let i = index" 
+               class="winner-card"
+               [class]="'winner-' + (i + 1)">
+            <div class="winner-image">
+              <img [src]="winner.image" [alt]="winner.names.join(', ')" style="width: 100%; height: 300px; object-fit: contain;">
+            </div>
+            <div class="winner-content">
+              <div class="winner-position">
+                <i [class]="getPrizeIcon(winner.position)"></i>
+                {{ winner.position }}
+              </div>
+              <div class="winner-names">{{ winner.names.join(', ') }}</div>
+              <div class="winner-institute">{{ winner.institute }}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Tasks Section -->
       <section id="todo" class="content-section">
         <div class="section-header">
@@ -137,7 +162,7 @@
           <div *ngFor="let sponsor of hackathon.sponsors" 
                class="sponsor-card">
             <div class="sponsor-avatar">
-              <i class="fas fa-user-tie"></i>
+              <img [src]="sponsor.link" [alt]="sponsor.name" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="sponsor-info">
               <h3>

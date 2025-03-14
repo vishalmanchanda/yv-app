@@ -27,6 +27,13 @@ export interface HackathonSponsor {
   link?: string;
 }
 
+export interface Winner {
+  position: string;
+  names: string[];
+  institute: string;
+  image: string;
+}
+
 export interface HackathonDetails {
   id: string;
   title: string;
@@ -37,5 +44,6 @@ export interface HackathonDetails {
   dates: HackathonDate[];
   sponsors: HackathonSponsor[];
   contactEmail: string;
-  isCompleted: boolean;
+  isCompleted?: boolean;
+  winners?: Winner[];
 } 
