@@ -1,0 +1,152 @@
+<!-- Hero Section -->
+<header class="hero-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">      
+        <h1 class="display-4 fw-bold mb-4">About Yoga Vivek</h1>
+        <p class="lead">Arise! Awake! And stop not till the goal is reached.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Navigation -->
+<nav class="section-nav sticky-top bg-body-tertiary py-3 shadow-sm">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="nav-links d-flex justify-content-center gap-3">
+          <a *ngFor="let section of sections"
+             (click)="scrollToSection(section.id)"
+             class="btn btn-outline-primary">
+            <i [class]="section.icon + ' me-2'"></i>
+            {{ section.label }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content py-5">
+  <div class="container">
+    <!-- Vision Section -->
+    <section id="vision" class="content-section mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body text-center p-5">
+          <h2 class="card-title mb-4">
+            <i class="fas fa-eye text-primary me-2"></i>Vision
+          </h2>
+          <p class="lead">
+            To empower India's future by bridging ancient Indian Knowledge Systems (IKS) 
+            with cutting-edge AI, fostering innovation that benefits society.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section id="mission" class="content-section mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-5">
+          <h2 class="card-title mb-4 text-center">
+            <i class="fas fa-bullseye text-primary me-2"></i>Mission
+          </h2>
+          <ul class="list-unstyled">
+            <li class="mb-4">
+              <h5 class="text-primary">Democratize IKS</h5>
+              <p class="mb-0">Make IKS accessible to all through an engaging AI-powered platform 
+                built using our <a href="https://github.com/atmabodha/Vedanta_Datasets" target="_blank" class="text-decoration-none">curated datasets on GitHub</a>.</p>
+            </li>
+            <li class="mb-4">
+              <h5 class="text-primary">Drive Innovation</h5>
+              <p class="mb-0">Host biannual hackathons on January 12 (Swami Vivekananda's Birth Anniversary) and June 21 (International Day of Yoga) to explore modern applications of IKS.</p>
+            </li>
+            <li class="mb-4">
+              <h5 class="text-primary">Cultivate an AI/ML Ecosystem</h5>
+              <p class="mb-0">Build a community of innovators leveraging IKS for impactful solutions.</p>
+            </li>
+            <li class="mb-4">
+              <h5 class="text-primary">Create Ethical AI</h5>
+              <p class="mb-0">Develop AI/ML tools that align with IKS values and address societal challenges.</p>
+            </li>
+            <li class="mb-4">
+              <h5 class="text-primary">Inspire IKS Literacy</h5>
+              <p class="mb-0">Cultivate a generation that appreciates and applies IKS principles in their lives.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lead Members Section -->
+    <section id="leadmembers" class="content-section mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-5">
+          <h2 class="card-title mb-4 text-center">
+            <i class="fas fa-users text-primary me-2"></i>Lead Members
+          </h2>
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-6">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <img src="assets/images/Kushal_Shah.jpeg" alt="Kushal Shah" class="rounded-circle mb-4" style="width: 150px; height: 150px; object-fit: cover;">
+                  <h3 class="card-title">
+                    <a href="https://www.linkedin.com/in/kushal-shah-95b9a3b/" target="_blank" class="text-decoration-none">Kushal Shah</a>
+                  </h3>
+                  <p class="card-text">IIT Madras alumnus</p>
+                  <p class="card-text">Educator and Scientist</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center">
+                  <img src="assets/images/Vishal-Manchanda.jpg" alt="Vishal Manchanda" class="rounded-circle mb-4" style="width: 150px; height: 150px; object-fit: cover;">
+                  <h3 class="card-title">
+                    <a href="https://www.linkedin.com/in/vishal-manchanda-097a6643/" target="_blank" class="text-decoration-none">Vishal Manchanda</a>
+                  </h3>
+                  <p class="card-text">Senior Principal Technology Architect</p>
+                  <p class="card-text">Infosys</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Join Us Section -->
+    <section id="joinus" class="content-section mb-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body p-5">
+          <h2 class="card-title mb-4 text-center">
+            <i class="fas fa-user-plus text-primary me-2"></i>Join Us
+          </h2>
+          <div class="text-center">
+            <h5 class="mb-4">We are looking for:</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">Volunteers willing to help in achieving our Vision and Mission</li>
+              <li class="mb-4">Sponsors for our biannual Hackathons</li>
+            </ul>
+            <p class="mb-4">
+              If you are interested, please drop us an email: 
+              <a href="mailto:info&#64;yogavivek.org" class="text-decoration-none">info&#64;yogavivek.org</a>
+            </p>
+            <a href="https://chat.whatsapp.com/E3erN4OoFoMIIw5GzDO0Go" target="_blank" class="btn btn-success">
+              <i class="fab fa-whatsapp me-2"></i>Join our WhatsApp group
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-body-tertiary py-4 mt-5">
+  <div class="container text-center">
+    <p class="mb-0">© {{ currentYear }} The Yoga Vivek Group</p>
+  </div>
+</footer> 

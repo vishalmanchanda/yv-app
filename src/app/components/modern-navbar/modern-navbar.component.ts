@@ -48,7 +48,7 @@ export class ModernNavbarComponent implements OnInit, OnDestroy {
     },
     { 
       label: 'About Us', 
-      route: '/about-us', 
+      route: '/about', 
       icon: 'bi bi-person',
       exact: true 
     }

@@ -128,6 +128,10 @@ export const routes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'about',
+        loadComponent: () => import('./components/about/about.component').then(m => m.AboutComponent)
+      },
+      {
         path: 'hackathons',
         children: [
           {
@@ -173,6 +177,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { breadcrumb: 'Settings' }
   },
+  
   {
     path: '**',
     redirectTo: '404'
