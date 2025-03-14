@@ -28,7 +28,7 @@
       <div class="hackathon-grid">
         <div *ngFor="let hackathon of upcomingHackathons" 
              class="hackathon-card upcoming"
-             [routerLink]="['/hackathons', hackathon.id]">
+             [routerLink]="hackathon.id">
           <div class="card-content">
             <div class="status-badge" *ngIf="hackathon.status">
               {{ hackathon.status }}
@@ -72,7 +72,7 @@
       <div class="hackathon-grid">
         <div *ngFor="let hackathon of completedHackathons" 
              class="hackathon-card completed"
-             [routerLink]="['/hackathons', hackathon.id]">
+             [routerLink]="hackathon.id">
           <div class="card-content">
             <div class="completed-badge">
               <i class="fas fa-check-circle"></i>

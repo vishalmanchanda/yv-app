@@ -52,11 +52,10 @@ export class HackathonDetailsComponent implements OnInit {
     const element = document.getElementById(sectionId);
     if (element) {
       const navHeight = document.querySelector('.section-nav')?.clientHeight || 0;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-
+      const offset = 80; // Additional offset for better positioning
+      
       window.scrollTo({
-        top: offsetPosition,
+        top: element.offsetTop - navHeight - offset,
         behavior: 'smooth'
       });
     }

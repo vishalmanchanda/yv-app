@@ -68,7 +68,41 @@ export class HackathonService {
       ],
       contactEmail: 'info@yogavivek.org',
       isCompleted: false
+    },
+    'nyd-2025': {
+      id: 'nyd-2025',
+      title: 'The NYD Hackathon 2025',
+      subtitle: 'Code. Collaborate. Conquer.',
+      prizes: [
+        { position: '1st Prize', amount: 'INR 20k', color: '#ffd700' },
+        { position: '2nd Prize', amount: 'INR 10k', color: '#c0c0c0' },
+        { position: '3rd Prize', amount: 'INR 5k', color: '#cd7f32' }
+      ],
+      tasks: [],
+      rules: [],
+      dates: [
+        
+      ],
+      sponsors: [
+        {
+          name: 'Dr. Kushal Shah',
+          title: 'Chief Advisor to the Founders and Professor, Sitare University',
+          link: 'https://www.linkedin.com/in/kushal-shah-95b9a3b/'
+        },
+        {
+          name: 'Mr. Vishal Manchanda',
+          title: 'Senior Principal Technology Architect, Infosys',
+          link: 'https://www.linkedin.com/in/vishal-manchanda-097a6643/'
+        },
+        {
+          name: 'and other well wishers',
+          title: ''
+        }
+      ],
+      contactEmail: 'info@yogavivek.org',
+      isCompleted: true
     }
+    
   };
 
   getHackathonDetails(id: string): HackathonDetails | undefined {

@@ -27,26 +27,24 @@ export class HackathonsComponent implements OnInit {
     {
       id: 'iyd-2025',
       title: 'IYD Hackathon 2025',
-
       status: 'Coming Soon',
       date: 'June 2025',
-      prizePool: '₹15k'
+      prizePool: '₹60k'
     }
   ];
 
   completedHackathons: Hackathon[] = [
     {
-      id: 'iyd-2025',
+      id: 'nyd-2025',
       title: 'NYD Hackathon 2025',
-
       date: 'January 2025',
       participants: 120,
       projects: 28,
-      prizePool: '₹20k'
+      prizePool: '₹35k'
     }
   ];
 
-  totalPrizeWorth = '35k';
+  totalPrizeWorth = '95k';
 
   ngOnInit() {
     // Add any initialization logic here
