@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 interface Hackathon {
   id: string;
   title: string;
-  link: string;
+
   status?: string;
   date?: string;
   prizePool?: string;
@@ -27,7 +27,7 @@ export class HackathonsComponent implements OnInit {
     {
       id: 'iyd-2025',
       title: 'IYD Hackathon 2025',
-      link: '/hackathon',
+
       status: 'Coming Soon',
       date: 'June 2025',
       prizePool: '₹15k'
@@ -38,7 +38,7 @@ export class HackathonsComponent implements OnInit {
     {
       id: 'iyd-2025',
       title: 'NYD Hackathon 2025',
-      link: '/hackathon_iyd2025',
+
       date: 'January 2025',
       participants: 120,
       projects: 28,

@@ -18,14 +18,7 @@ export const routes: Routes = [
         redirectTo: 'content-viewer',
         pathMatch: 'full'
       },
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent),
-        data: { 
-          breadcrumb: 'Dashboard',
-          icon: 'bi-speedometer2'
-        }
-      },
+     
       {
         path: 'chat',
         loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
@@ -38,22 +31,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { breadcrumb: 'Chatbot' }
       },
-      {
-        path: 'users',
-        loadComponent: () => import('./features/user-management/user-management.component').then(m => m.UserManagementComponent),
-        data: { 
-          breadcrumb: 'User Management',
-          icon: 'bi-people'
-        }
-      },
-      {
-        path: 'features',
-        loadComponent: () => import('./features/features-display/features-display.component').then(m => m.FeaturesDisplayComponent),
-        data: { 
-          breadcrumb: 'Features',
-          icon: 'bi-list-check'
-        }
-      },
+     
       {
         path: 'content-viewer',        
         children: [
