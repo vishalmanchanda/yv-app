@@ -66,7 +66,15 @@ export class HomeComponent implements OnInit {
   }
 
   scrollDown() {
-    window.scrollTo({ top: 500, behavior: 'smooth' });
+    setTimeout(() => {
+      const contentElement = document.querySelector('app-category-content');
+      if (contentElement) {
+        contentElement.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, 100);
   }
 
   navigateToCategory(categoryKey: string) {
