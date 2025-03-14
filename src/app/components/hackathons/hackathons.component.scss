@@ -5,15 +5,16 @@
 
 .page-wrapper {
   min-height: 100vh;
-  background: #f8f9fa;
+  background: var(--bs-body-bg);
 }
 
 // Header Styles
 header {
   position: relative;
   background: linear-gradient(135deg, #ff6b6b, #ffd93d);
-  padding: 6rem 2rem 8rem;
-  color: white;
+  padding: 6rem 2rem 6rem;
+  margin-bottom: 6rem;
+  color: var(--bs-body-color);
   overflow: hidden;
 
   .header-content {
@@ -27,7 +28,7 @@ header {
     position: absolute;
     top: -3rem;
     left: 0;
-    color: white;
+    color: var(--bs-body-color);
     text-decoration: none;
     font-size: 1rem;
     display: flex;
@@ -47,6 +48,7 @@ header {
       font-size: 3.5rem;
       font-weight: 700;
       margin: 0;
+      color: var(--bs-body-color);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       animation: slideDown 0.8s ease-out;
     }
@@ -56,6 +58,7 @@ header {
       font-size: 1.5rem;
       display: flex;
       justify-content: center;
+      color: var(--bs-body-color);
       gap: 1.5rem;
 
       span {
@@ -100,7 +103,7 @@ main {
 
   h2 {
     font-size: 2rem;
-    color: #2d3436;
+    color: var(--bs-body-color);
     margin: 0;
   }
 
@@ -121,7 +124,7 @@ main {
 }
 
 .hackathon-card {
-  background: white;
+  background: var(--bs-secondary-bg);
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -139,7 +142,7 @@ main {
 
   h3 {
     font-size: 1.5rem;
-    color: #2d3436;
+    color: var(--bs-body-color);
     margin: 1rem 0;
   }
 
@@ -200,7 +203,7 @@ main {
 
   .register-btn {
     background: linear-gradient(135deg, #ff6b6b, #ffd93d);
-    color: white;
+    color: var(--bs-body-color);
 
     &:hover {
       background: linear-gradient(135deg, darken(#ff6b6b, 5%), darken(#ffd93d, 5%));
@@ -208,11 +211,12 @@ main {
   }
 
   .view-btn {
-    background: #f8f9fa;
-    color: #2d3436;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
 
     &:hover {
-      background: #e9ecef;
+      background: var(--bs-body-color);
+      color: var(--bs-body-bg);
     }
   }
 }
@@ -229,7 +233,7 @@ main {
     align-items: center;
     justify-content: center;
     gap: 1.5rem;
-    color: white;
+    color: var(--bs-body-color);
 
     i {
       font-size: 3rem;
@@ -255,10 +259,11 @@ main {
 
 // Footer Styles
 footer {
-  background: #2d3436;
-  color: white;
+  background: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
   padding: 4rem 2rem;
-  margin-top: 6rem;
+
+
 
   .footer-content {
     max-width: 1200px;
@@ -275,7 +280,7 @@ footer {
     }
 
     p {
-      color: #a0a0a0;
+      color: var(--bs-gray-600);
       margin: 0.5rem 0 0;
     }
   }
@@ -287,7 +292,7 @@ footer {
     margin-bottom: 2rem;
 
     .social-link {
-      color: white;
+      color: var(--bs-body-color);
       font-size: 1.5rem;
       transition: transform 0.3s ease;
 
@@ -298,7 +303,7 @@ footer {
   }
 
   .footer-copyright {
-    color: #a0a0a0;
+    color: var(--bs-gray-600);
     font-size: 0.875rem;
   }
 }

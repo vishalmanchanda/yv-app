@@ -7,7 +7,7 @@
   // --background-light: #ffffff;
   // --background-dark: #f8f9fa;
   --border-radius: 1rem;
-  --transition: all 0.3s ease;
+  // --transition: all 0.3s ease;
 }
 
 // Base Styles
@@ -545,6 +545,8 @@
     .hero-badges {
       flex-wrap: wrap;
       justify-content: center;
+      font-size: 1.5rem;      
+      gap: 0.5rem;
     }
   }
 
