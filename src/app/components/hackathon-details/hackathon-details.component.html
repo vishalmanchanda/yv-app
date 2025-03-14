@@ -68,8 +68,8 @@
         </div>
         <div class="task-list">
           <div *ngFor="let task of hackathon.tasks; let i = index" 
-               class="task-card">
-            <div class="task-number px-3 py-2">{{ i + 1 }}</div>
+               class="task-card d-flex align-items-start gap-3">
+            <span class="task-number px-3 py-2">{{ i + 1 }}</span>
             <div class="task-content">
               <p [innerHTML]="task.description"></p>
               <ul *ngIf="task.subTasks">
@@ -175,7 +175,7 @@
       <div class="footer-content">
         <div class="footer-brand">
           <h3>The Yoga Vivek Group</h3>
-          <p>Empowering innovation through technology</p>
+          <p>Transforming access to IKS through technology</p>
         </div>
         <div class="footer-social">
           <a href="#" class="social-link">

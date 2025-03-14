@@ -214,7 +214,7 @@
     h2 {
       font-size: 2rem;
       margin: 0;
-      color: var(--text-primary);
+      color: var(--bs-body-color);
     }
   }
 }
@@ -277,11 +277,11 @@
     }
 
     &.highlighted {
-      border-left: 4px solid #ff6b6b;
+      border-left: 4px solid var(--bs-primary);
     }
 
     .rule-icon {
-      color: #ff6b6b;
+      color: var(--bs-primary);
       font-size: 1.5rem;
       flex-shrink: 0;
     }
@@ -318,7 +318,7 @@
 
     .timeline-marker {
       position: absolute;
-      left: -3rem;
+      left: -2.5rem;
       width: 1rem;
       height: 1rem;
       border-radius: 50%;
@@ -474,8 +474,8 @@
 
 // Footer
 .site-footer {
-  background: var(--bs-dark);
-  color: var(--bs-light);
+  // background: var(--bs-dark);
+  // color: var(--bs-light);
   padding: 4rem 0;
   margin-top: 6rem;
 
@@ -492,7 +492,7 @@
     }
 
     p {
-      color: var(--bs-gray-500);
+      color: var(--bs-gray-600);
       margin: 0.5rem 0 0;
     }
   }
@@ -504,7 +504,7 @@
     margin-bottom: 2rem;
 
     .social-link {
-      color: var(--bs-light);
+      // color: var(--bs-light);
       font-size: 1.5rem;
       transition: var(--transition);
 
@@ -516,7 +516,7 @@
   }
 
   .footer-copyright {
-    color: var(--bs-gray-500);
+     color: var(--bs-gray-600);
     font-size: 0.875rem;
   }
 }
