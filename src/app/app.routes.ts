@@ -61,6 +61,7 @@ export const routes: Routes = [
             data: { partId: '1', sectionId: '1',
               breadcrumb: 'Reader',
               icon: 'bi-book',
+              hideBreadcrumb: true
              }
           },
           {

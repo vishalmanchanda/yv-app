@@ -100,7 +100,7 @@
 .content-area {
   flex: 1;
   overflow-y: auto;
-  padding: 1.5rem;
+  padding: 0.5rem;
   transition: margin-left 0.3s ease;
   background-color: var(--bs-body-bg);
   &.sidebar-collapsed {
