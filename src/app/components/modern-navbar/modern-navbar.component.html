@@ -8,11 +8,7 @@
           <i class="bi bi-list fs-4"></i>
         </button>
         <a class="navbar-brand d-flex align-items-center p-0" routerLink="/">
-          <!-- <img [src]="logoUrl" 
-               alt="Logo" 
-               height="30"
-               (error)="onLogoError($event)"> -->
-               <span>{{ brandName }}</span>
+          <span>{{ brandName }}</span>
         </a>
       </div>
 
@@ -22,14 +18,10 @@
           <i class="bi" [class.bi-sun]="isDarkTheme" [class.bi-moon]="!isDarkTheme"></i>
         </button>
 
-        <!-- Updated Notifications Button -->
-        <!-- <button class="btn btn-link nav-link p-1">
-          <i class="bi bi-bell position-relative">
-            <span class="notification-badge" *ngIf="unreadNotifications > 0">
-              {{ unreadNotifications }}
-            </span>
-          </i>
-        </button> -->
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link nav-link p-1 d-none d-md-block d-lg-none" (click)="toggleSidebarVisibility()">
+          <i class="bi" [class.bi-layout-sidebar]="!showSidebar" [class.bi-layout-sidebar-inset]="showSidebar"></i>
+        </button>
 
         <!-- Mobile Menu Toggle -->
         <div class="dropdown">
@@ -42,7 +34,7 @@
           <!-- Mobile Menu Dropdown -->
           <div class="dropdown-menu dropdown-menu-end mobile-menu" 
                [class.show]="isMobileMenuOpen">
-            <!-- Navigation Links -->
+            
             <div class="mobile-menu-items">
               <a *ngFor="let link of navLinks" 
                  class="dropdown-item d-flex align-items-center"
@@ -56,15 +48,9 @@
             </div>
             <div class="dropdown-divider"></div>
             <!-- Additional Actions -->
-            <a class="dropdown-item d-flex align-items-center disabled" style="cursor: not-allowed; opacity: 0.6">
-              <i class="bi bi-chat-dots me-2"></i>
-              <span>Support</span>
-              <small class="ms-2 text-muted">(Coming Soon)</small>
-            </a>
-            <a class="dropdown-item d-flex align-items-center disabled" style="cursor: not-allowed; opacity: 0.6">
-              <i class="bi bi-bell me-2"></i>
-              <span>Notifications</span>
-              <small class="ms-2 text-muted">(Coming Soon)</small>
+            <a class="dropdown-item d-flex align-items-center" (click)="toggleSidebarVisibility()">
+              <i class="bi" [class.bi-layout-sidebar]="!showSidebar" [class.bi-layout-sidebar-inset]="showSidebar"></i>
+              <span>{{ showSidebar ? 'Hide Sidebar' : 'Show Sidebar' }}</span>
             </a>
           </div>
         </div>
@@ -79,20 +65,12 @@
       <!-- Left section with brand and navigation -->
       <div class="d-flex align-items-center">
         <a class="navbar-brand d-flex align-items-center" routerLink="/">
-          <!-- <img [src]="logoUrl" 
-               alt="Logo" 
-               height="30" 
-               class="me-2"
-               (error)="onLogoError($event)"> -->
           <span>{{ brandName }}</span>
         </a>
-        
-       
       </div>
 
       <!-- Right section with actions -->
       <div class="d-flex align-items-center gap-2">
-
         <ul class="navbar-nav ms-4">
           <li class="nav-item" *ngFor="let link of navLinks">
             <a class="nav-link d-flex align-items-center" 
@@ -109,21 +87,13 @@
           <i class="bi" [class.bi-sun]="isDarkTheme" [class.bi-moon]="!isDarkTheme"></i>
         </button>
 
-        <!-- Updated Notifications Button -->
-        <!-- <button class="btn btn-link nav-link position-relative">
-          <i class="bi bi-bell position-relative">
-            <span class="notification-badge" *ngIf="unreadNotifications > 0">
-              {{ unreadNotifications }}
-            </span>
-          </i>
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-link nav-link" (click)="toggleSidebarVisibility()">
+          <i class="bi" [class.bi-layout-sidebar]="!showSidebar" [class.bi-layout-sidebar-inset]="showSidebar"></i>
         </button>
-
-        <button class="btn btn-link nav-link" (click)="toggleChatbot()">
-          <i class="bi bi-chat-dots"></i>
-        </button> -->
 
         <app-user-menu [user]="user"></app-user-menu>
       </div>
     </div>
   </div>
-</nav> 
+</nav>
