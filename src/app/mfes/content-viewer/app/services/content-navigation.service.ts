@@ -19,5 +19,9 @@ export class ContentNavigationService {
     this.router.navigate(['/content-viewer/content', locale, category, contentId]);
   }
 
+  navigateToSection(locale: string, category: string, contentId: string, partId: string, sectionId: string): void {
+    this.router.navigate(['/content-viewer/content', locale, category, contentId, partId, sectionId]);
+  }
+
   // Add other navigation methods as needed
 } 

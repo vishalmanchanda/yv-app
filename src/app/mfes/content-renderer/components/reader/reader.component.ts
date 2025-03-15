@@ -128,69 +128,112 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   
 
   async ngOnInit() {
-
     let partIdParam = 0;
     let sectionIdParam = 0;
     let contentIdParam = '';
     let localeParam = 'en';
+    
     // Load saved preferences first
     this.settingsService.getPreferences().subscribe(prefs => {
       this.applyPreferences(prefs);
-
     });
 
-
-    // Wait for metadata to be available
+    // Get route parameters first
     await new Promise<void>(resolve => {
-      this.contentService.getMetadata().subscribe(metadata => {
-        this.state.metadata = metadata;
+      this.route.params.subscribe(params => {
+        if (params['contentId']) {
+          contentIdParam = params['contentId'];
+          console.log('contentId from route params on init', contentIdParam);
+        }
+        if (params['locale']) {
+          localeParam = params['locale'];
+          console.log('locale from route params on init', localeParam);
+        }
+        if (params['category']) {
+          this.categoryKey = params['category'];
+          console.log('categoryKey from route params on init', this.categoryKey);
+        }
+        if (params['partId']) {
+          partIdParam = parseInt(params['partId']);
+          console.log('partId from route params', partIdParam);
+        }
+        if (params['sectionId']) {
+          sectionIdParam = parseInt(params['sectionId']);
+          console.log('sectionId from route params', sectionIdParam);
+        }
         resolve();
       });
     });
 
-    this.route.params.subscribe(params => {
-      if (params['contentId']) {
-        contentIdParam = params['contentId'];
-        console.log('contentId from route params on init', contentIdParam);
-      }
-      if (params['locale']) {
-        localeParam = params['locale'];
-        console.log('locale from route params on init', localeParam);
-      }
-      if (params['category']) {
-        this.categoryKey = params['category'];
-        console.log('categoryKey from route params on init', this.categoryKey);
-      }
-    });
-
+    // If we have direct section parameters, load the content first
     if (contentIdParam && localeParam && this.categoryKey) {
+      console.log('Loading content item:', this.categoryKey, localeParam, contentIdParam);
       await this.categoryContentService.loadContentItem(this.categoryKey, localeParam, contentIdParam);
+      
+      // Wait for metadata to be available
+      await new Promise<void>(resolve => {
+        this.contentService.getMetadata().subscribe(metadata => {
+          this.state.metadata = metadata;
+          resolve();
+        });
+      });
+
+      // If partId and sectionId are provided in the route, use them
+      if (partIdParam > 0 && sectionIdParam > 0) {
+        console.log('Loading specific part and section:', partIdParam, sectionIdParam);
+        await this.loadPart(partIdParam);
+        // Wait for part to be loaded
+        await new Promise<void>(resolve => {
+          this.contentService.getCurrentPart().subscribe(part => {
+            this.state.currentPart = part;
+            resolve();
+          });
+        });
+        
+        // Ensure section index is valid
+        const sectionIndex = sectionIdParam - 1;
+        if (this.state.currentPart && sectionIndex >= 0 && sectionIndex < this.state.currentPart.sections.length) {
+          this.state.currentSectionIndex = sectionIndex;
+          await this.loadSection();
+        } else {
+          console.error('Invalid section index:', sectionIndex);
+          // Load first section as fallback
+          this.state.currentSectionIndex = 0;
+          await this.loadSection();
+        }
+        return;
+      }
+      
+      // Otherwise use defaults
       partIdParam = 1;
       sectionIdParam = 1;
-    }else{
-     
-    this.route.queryParams.subscribe(params => {
-      if (params['category']) {
-        this.categoryKey = params['category'];
-        console.log('categoryKey from query params on init', this.categoryKey);
-      }
-      if (params['partId'] && params['sectionId']){
-        partIdParam = parseInt(params['partId']);
-        sectionIdParam = parseInt(params['sectionId']);
-      }
-      if (params['contentId']) {
-        contentIdParam = params['contentId'];
-        console.log('contentId from query params on init', contentIdParam);
-      }
-    });
-  }
+    } else {
+      // Check query params if no route params
+      this.route.queryParams.subscribe(params => {
+        if (params['category']) {
+          this.categoryKey = params['category'];
+          console.log('categoryKey from query params on init', this.categoryKey);
+        }
+        if (params['partId'] && params['sectionId']) {
+          partIdParam = parseInt(params['partId']);
+          sectionIdParam = parseInt(params['sectionId']);
+        }
+        if (params['contentId']) {
+          contentIdParam = params['contentId'];
+          console.log('contentId from query params on init', contentIdParam);
+        }
+      });
+    }
+
     // Subscribe to part changes
-    this.contentService.getCurrentPart().subscribe(async part => {
-      this.state.currentPart = part;     
+    this.contentService.getCurrentPart().subscribe(part => {
+      this.state.currentPart = part;
     });
 
-    // Load content based on route params
-    await this.loadPartAndSection(partIdParam, sectionIdParam);
+    // Load content based on parameters if not already loaded
+    if (!this.state.currentSection) {
+      await this.loadPartAndSection(partIdParam, sectionIdParam);
+    }
     this.splitPassage();
   
 
