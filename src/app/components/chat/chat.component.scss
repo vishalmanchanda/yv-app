@@ -1,10 +1,10 @@
-
-
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4rem);
+  height: 100vh;
   background-color: var(--bs-gray-100);
+  position: relative;
+  overflow: hidden;
 }
 
 .chat-content {
@@ -13,20 +13,23 @@
   padding: var(--bs-content-padding, 1rem);
   position: relative;
   background-color: var(--bs-body-bg);
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 .welcome-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 2rem 1rem;
-  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
 }
 
 .welcome-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin: 2rem 0 3rem;
+  padding: 0 1rem;
 }
 
 .welcome-icon {
@@ -44,14 +47,14 @@
 }
 
 .welcome-title {
-  font-size: 2.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
   color: var(--bs-heading-color);
   margin-bottom: 1rem;
 }
 
 .welcome-subtitle {
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: var(--bs-secondary-color);
   max-width: 600px;
   margin: 0 auto;
@@ -59,10 +62,12 @@
 
 .category-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   width: 100%;
   max-width: 1200px;
+  padding: 0 1rem;
+  margin: 0 auto;
 }
 
 .category-card {
@@ -210,7 +215,7 @@
 }
 
 .chat-input-container {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
@@ -218,9 +223,39 @@
   border-top: 1px solid var(--bs-border-color);
   padding: 1rem;
   box-shadow: var(--bs-box-shadow);
+  z-index: 1000;
 }
 
 .input-wrapper {
   max-width: 800px;
   margin: 0 auto;
+}
+
+// Media queries for better responsiveness
+@media (max-width: 768px) {
+  .chat-container {
+    height: 100vh;
+    height: -webkit-fill-available;
+  }
+
+  .welcome-screen {
+    padding: 1rem 0.5rem;
+  }
+
+  .category-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .chat-input-container {
+    padding: 0.75rem;
+  }
+}
+
+// Fix for mobile browsers
+@supports (-webkit-touch-callout: none) {
+  .chat-container {
+    height: -webkit-fill-available;
+  }
 } 

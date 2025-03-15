@@ -3,10 +3,15 @@
   --message-text-user: #fff;
   --message-bg-bot: var(--bs-light);
   --message-text-bot: var(--bs-dark);
+  --message-max-width: 100%;
   
   @media (prefers-color-scheme: dark) {
     --message-bg-bot: #2b2b2b;
     --message-text-bot: #fff;
+  }
+
+  @media (max-width: 768px) {
+    --message-max-width: 92%;
   }
 }
 
@@ -14,15 +19,19 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-//   padding: 1.5rem;
+//   padding: 1rem;
   min-height: 100%;
+//   max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .message-item {
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+//   max-width: var(--message-max-width);
   gap: 0.5rem;
+  animation: messageSlideIn 0.3s ease-out forwards;
 }
 
 .user-message, .bot-message {
@@ -31,11 +40,12 @@
   max-width: 100%;
   
   .message-content {
-    padding: 0.75rem 1rem;
-    border-radius: 1rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 1.25rem;
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.6;
     word-break: break-word;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
   
   .message-meta {
@@ -82,4 +92,16 @@
 
 .message-time {
   font-size: 12px;
+  opacity: 0.8;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
