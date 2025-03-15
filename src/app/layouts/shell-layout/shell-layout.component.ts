@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
@@ -48,13 +49,19 @@ import { ModernNavbarComponent } from '../../components/modern-navbar/modern-nav
     
     <div class="shell-container">
       <app-sidebar 
+        *ngIf="showSidebar"
         [menuItems]="menuItems" 
         [isExpanded]="sidebarExpanded"
         (toggleSidebar)="toggleSidebar()"
         (sidebarStateChanged)="onSidebarStateChanged($event)">
       </app-sidebar>
       
-      <main [ngClass]="{'content-area': true, 'sidebar-expanded': sidebarExpanded, 'sidebar-collapsed': !sidebarExpanded}">
+      <main [ngClass]="{
+        'content-area': true, 
+        'sidebar-expanded': showSidebar && sidebarExpanded, 
+        'sidebar-collapsed': showSidebar && !sidebarExpanded,
+        'no-sidebar': !showSidebar
+      }">
         <app-breadcrumb></app-breadcrumb>
         <div class="content-wrapper">
           <div class="container-fluid py-3">
@@ -95,11 +102,24 @@ import { ModernNavbarComponent } from '../../components/modern-navbar/modern-nav
     .sidebar-collapsed {
       margin-left: 70px;
     }
+
+    .no-sidebar {
+      margin-left: 0 !important;
+    }
     
     @media (max-width: 768px) {
       .content-area {
         margin-left: 0 !important;
         width: 100%;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .content-area {
+        margin-left: 0;
+      }
+      .sidebar-expanded {
+        margin-left: 250px;
       }
     }
   `]
@@ -108,6 +128,7 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
   appTitle = 'Yoga Vivek';
   appVersion = '1.0.0';
   sidebarExpanded = true;
+  showSidebar = true;
   user: any;
   private subscriptions = new Subscription();
   
@@ -125,14 +146,56 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private breadcrumbService: BreadcrumbService,
     private mfeCommunication: MfeCommunicationService,
-    private chatbotService: ChatbotService
-  ) {}
+    private chatbotService: ChatbotService,
+    private router: Router
+  ) {
+    // Check route data to determine if sidebar should be shown
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      const currentRoute = this.router.routerState.snapshot.root;
+      let child = currentRoute.firstChild;
+      
+      // First check route data
+      let routeHideSidebar = false;
+      while (child) {
+        if (child.data['hideSidebar'] !== undefined) {
+          routeHideSidebar = child.data['hideSidebar'];
+          break;
+        }
+        child = child.firstChild;
+      }
+
+      // Only update if route doesn't specify hideSidebar
+      if (!routeHideSidebar) {
+        this.showSidebar = this.userPreferences.getPreference('showSidebar');
+      } else {
+        this.showSidebar = false;
+      }
+    });
+  }
   
   ngOnInit() {
     // Get user preferences
     this.subscriptions.add(
       this.userPreferences.preferences$.subscribe(prefs => {
         this.sidebarExpanded = prefs.sidebarExpanded;
+        // Only update showSidebar if route doesn't specify hideSidebar
+        const currentRoute = this.router.routerState.snapshot.root;
+        let child = currentRoute.firstChild;
+        let routeHideSidebar = false;
+        
+        while (child) {
+          if (child.data['hideSidebar'] !== undefined) {
+            routeHideSidebar = child.data['hideSidebar'];
+            break;
+          }
+          child = child.firstChild;
+        }
+        
+        if (!routeHideSidebar) {
+          this.showSidebar = prefs.showSidebar;
+        }
       })
     );
     
@@ -164,7 +227,13 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
   }
   
   toggleSidebar() {
-    this.userPreferences.toggleSidebar();
+    if (this.showSidebar) {
+      this.userPreferences.toggleSidebar();
+    }
+  }
+  
+  toggleSidebarVisibility() {
+    this.userPreferences.toggleSidebarVisibility();
   }
   
   onSidebarStateChanged(expanded: boolean) {

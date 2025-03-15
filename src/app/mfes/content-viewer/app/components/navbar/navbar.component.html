@@ -1,8 +1,15 @@
 <!-- Start of Selection -->
 <nav class="navbar navbar-expand-lg border-bottom fixed-top mx-2" crScrollHide>
   <div class="container-fluid">
+    <!-- Sidebar Toggle Button - Always visible on tablet -->
+    <button class="btn btn-outline-secondary btn-sm border-0 d-none d-md-block d-lg-none me-2" (click)="leadingAction()">
+      <i class="fas fa-bars"></i>
+    </button>
+
     <a class="navbar-brand" href="#" (click)="leadingAction();$event.preventDefault();">
-      <span class="text-truncate d-inline-block w-200" style="text-overflow: ellipsis;"> <i class="fas fa-bars"></i>&nbsp; {{title}}</span>
+      <span class="text-truncate d-inline-block w-200" style="text-overflow: ellipsis;"> 
+        <i class="fas fa-bars d-md-none"></i>&nbsp; {{title}}
+      </span>
     </a>
     <app-sidebar 
     [showOffcanvas]="showOffcanvas" (closeSidebar)="closeSidebar()" 
@@ -54,5 +61,12 @@
 
 .loading-indicator {
   color: var(--bs-primary);
+}
+
+/* Tablet-specific styles */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .navbar .btn-outline-secondary.d-none.d-md-block.d-lg-none {
+    display: block !important;
+  }
 }
 </style> 

@@ -75,6 +75,7 @@ import { RouterModule } from '@angular/router';
       display: none;
     }
 
+    /* Mobile styles */
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
@@ -83,6 +84,22 @@ import { RouterModule } from '@angular/router';
 
       .sidebar.expanded {
         transform: translateX(0);
+      }
+
+      .collapsed .menu-text {
+        display: inline;
+      }
+    }
+
+    /* Tablet styles */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.expanded {
+        transform: translateX(0);
+        width: 250px;
       }
 
       .collapsed .menu-text {
@@ -99,6 +116,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   
   private resizeHandler: () => void;
   private isDesktop = false;
+  private isTablet = false;
   private isHovering = false;
 
   constructor() {
@@ -118,9 +136,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   checkScreenSize() {
-    this.isDesktop = window.innerWidth > 768;
+    const width = window.innerWidth;
+    this.isDesktop = width > 1024;
+    this.isTablet = width > 768 && width <= 1024;
     
-    // On mobile, we don't auto-expand
+    // On mobile/tablet, we don't auto-expand
     if (!this.isDesktop) {
       const wasExpanded = this.isExpanded;
       if (wasExpanded !== this.isExpanded) {
@@ -146,10 +166,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   onMenuClick() {
-    if (window.innerWidth <= 768) {
+    if (!this.isDesktop) {
       this.toggleSidebar.emit();
     }
   }
-
-  
 } 

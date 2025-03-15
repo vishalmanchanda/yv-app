@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 export interface UserPreferences {
   theme: 'light' | 'dark';
   sidebarExpanded: boolean;
+  showSidebar: boolean;
   fontSize: 'small' | 'medium' | 'large';
   language: string;
   notifications: {
@@ -20,7 +21,8 @@ export interface UserPreferences {
 
 const DEFAULT_PREFERENCES: UserPreferences = {
   theme: 'light',
-  sidebarExpanded: true,
+  sidebarExpanded:  false,
+  showSidebar: false,
   fontSize: 'medium',
   language: 'en',
   notifications: {
@@ -127,6 +129,13 @@ export class UserPreferencesService {
         ...current.dashboardLayout,
         favorites: current.dashboardLayout.favorites.filter(id => id !== itemId)
       }
+    });
+  }
+
+  toggleSidebarVisibility() {
+    const current = this.preferencesSubject.value;
+    this.updatePreferences({
+      showSidebar: !current.showSidebar
     });
   }
 } 

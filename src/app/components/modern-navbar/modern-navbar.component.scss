@@ -84,6 +84,17 @@
   }
 }
 
+// Sidebar Toggle Button
+.btn-link.nav-link {
+  &:hover {
+    color: var(--bs-primary);
+  }
+
+  &.d-none.d-md-block.d-lg-none {
+    display: block !important;
+  }
+}
+
 // Notification Badge
 .notification-badge {
   position: absolute;
@@ -123,6 +134,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer;
 
     &:hover, &.active {
       background-color: var(--bs-primary-bg-subtle);
