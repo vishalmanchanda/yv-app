@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -93,7 +93,7 @@ import { RouterModule } from '@angular/router';
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   @Input() menuItems: any[] = [];
-  @Input() isExpanded: boolean = true;
+  @Input() isExpanded: boolean = false;
   @Output() toggleSidebar = new EventEmitter<void>();
   @Output() sidebarStateChanged = new EventEmitter<boolean>();
   
@@ -150,4 +150,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
       this.toggleSidebar.emit();
     }
   }
+
+  
 } 
