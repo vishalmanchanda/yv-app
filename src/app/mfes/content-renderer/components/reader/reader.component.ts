@@ -13,7 +13,7 @@ import { SearchComponent } from '../search/search.component';
 import { PartsListComponent } from '../parts-list/parts-list.component';
 
 import { SectionViewComponent } from '../section-view/section-view.component';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
+
 
 // Services
 import { ContentService } from '../../services/content.service';
@@ -40,7 +40,7 @@ import { ToastService } from '../../core/services/toast.service';
 
 import { SentenceCasePipe, TruncatePipe } from "../../core/utils/string-utils";
 
-import { GenericNavbarComponent } from '../../shared/components/generic-navbar/generic-navbar.component';
+
 import { CategoryContentService } from '../../services/category-content.service';
 
 @Component({
@@ -48,27 +48,18 @@ import { CategoryContentService } from '../../services/category-content.service'
   imports: [
     CommonModule,
     SectionViewComponent,
-    ToolbarComponent,
+
     SentenceCasePipe,
     TruncatePipe,
     FormsModule,
     MarkdownModule,
-    GenericNavbarComponent
+
 ],
   providers :[NgbActiveModal],
   selector: 'cr-reader',
   templateUrl: './reader.component.html',
   styleUrls: ['./reader.component.scss'],
-  styles: [`
-    .reader-content {
-      transition: font-size 0.2s ease;
-    }
-    
-    /* Ensure the base font size is set */
-    :host ::ng-deep .reader-content {
-      font-size: 100%;
-    }
-  `]
+ 
 })
 export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
@@ -111,7 +102,8 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
 
   showToolbar = false;
   isClosing = false;
-  fontSize = 100; // percentage
+  fontSize = 20; // percentage
+
 
 
 
@@ -131,29 +123,37 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     private router: Router,
 
   ) {
+    
 
   }
 
   
 
   async ngOnInit() {
+
+    
     let partIdParam = 0;
     let sectionIdParam = 0;
     let contentIdParam = '';
     let localeParam = 'en';
     
-    // Load saved preferences first
-    this.settingsService.getPreferences().subscribe(prefs => {
-      this.applyPreferences(prefs);
-    });
+   this.settingsService.getPreferences().subscribe(prefs => {
+    this.fontSize = prefs.fontSize;
+   });
 
     // Wait for metadata to be available
     await new Promise<void>(resolve => {
-      this.contentService.getMetadata().subscribe(metadata => {
+      this.contentService.getMetadata().subscribe(async (metadata) => {
         this.state.metadata = metadata;
-        resolve();
+        const bookmark = await this.getBookMark();
+        if(bookmark){
+          await this.resumeFromBookMark(bookmark);
+        }
+        resolve();        
       });
     });
+
+   
 
     // Get route parameters first
     await new Promise<void>(resolve => {
@@ -286,6 +286,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   ngAfterViewInit() {
     this.splitPassage();
    
+   
   }
 
   ngOnChanges(changes: SimpleChanges) { 
@@ -307,6 +308,8 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
 
 
   private async loadPartAndSection(partId?: number, sectionId?: number) {
+
+    
     const bookmark = await this.getBookMark();
     console.log('bookmark', bookmark, this.hasActiveSearch);
     if(bookmark && !this.hasActiveSearch){
@@ -326,6 +329,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
       this.state.currentSectionIndex = 0;
       await this.loadSection();
     }
+   
   
   }
 
@@ -349,7 +353,8 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   
 
   private applyPreferences(prefs: UserPreferences) {
-    const contentArea = document.querySelector('.content-area');
+    console.log('applyPreferences', prefs);
+    const contentArea = document.querySelector('.reader-content');
     if (contentArea) {
       (contentArea as HTMLElement).style.fontSize = `${prefs.fontSize}px`;
        (contentArea as HTMLElement).style.lineHeight = prefs.lineSpacing.toString();
@@ -485,6 +490,10 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
         
       await this.contentService.updateResumeBookMark(bookmark);
       console.log('updated bookmark inside '+bookmark);
+      this.settingsService.getPreferences().subscribe(prefs => {
+        console.log('prefs', prefs);
+        this.applyPreferences(prefs);
+      });
       }
       
       
@@ -692,16 +701,17 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   }
 
   increaseFontSize(): void {
-    if (this.fontSize < 180) {
-      this.fontSize += 10;
-      this.applyFontSize();
+    if (this.fontSize < 100 ) {
+      this.fontSize += 5;
+      this.settingsService.updatePreference('fontSize', this.fontSize);
     }
   }
 
   decreaseFontSize(): void {
-    if (this.fontSize > 70) {
-      this.fontSize -= 10;
-      this.applyFontSize();
+    if (this.fontSize > 20) {
+      this.fontSize -= 5;
+
+      this.settingsService.updatePreference('fontSize', this.fontSize);
     }
   }
 
