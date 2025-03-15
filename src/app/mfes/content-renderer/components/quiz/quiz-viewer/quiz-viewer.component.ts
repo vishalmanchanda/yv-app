@@ -10,7 +10,7 @@ import { ContentService } from '../../../services/content.service';
 import { ModalService } from '../../../core/services/modal.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { toCamelCase } from '../../../core/utils/string-utils';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'cr-quiz-viewer',

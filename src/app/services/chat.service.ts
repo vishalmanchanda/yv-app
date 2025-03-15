@@ -2,8 +2,9 @@
 
 import { Injectable } from "@angular/core";
 import { ChatMessage, ChatResponse } from "../types/chat";
+import { environment } from "../../environments/environment";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = environment.apiUrl ;
 
 interface BaseApiResponse {
   error?: string;

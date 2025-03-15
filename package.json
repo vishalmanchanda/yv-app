@@ -7,7 +7,9 @@
     "build": "nx build",
     "watch": "nx build --watch --configuration development",
     "test": "nx test",
-    "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
+    "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js",
+    "deploy:firebase": "nx build --configuration=production && firebase deploy",
+    "deploy:firebase:hosting": "nx build --configuration=production && firebase deploy --only hosting"
   },
   "private": true,
   "dependencies": {
@@ -31,7 +33,7 @@
     "html2canvas": "^1.4.1",
     "idb": "^8.0.2",
     "idp": "^0.0.0",
-    "jspdf": "^3.0.0",
+    "jspdf": "^1.5.3",
     "jszip": "^3.10.1",
     "marked": "^15.0.7",
     "ngx-markdown": "^19.1.0",
@@ -45,10 +47,12 @@
     "@angular-devkit/schematics": "^18.2.12",
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.0",
-    "@nx/angular": "20.4.6",
+    "@angular/fire": "^19.0.0",
+    "@nx/angular": "^20.5.0",
     "@nx/workspace": "20.4.6",
     "@schematics/angular": "^18.2.12",
     "@types/jasmine": "~5.1.0",
+    "@types/jspdf": "^1.3.3",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

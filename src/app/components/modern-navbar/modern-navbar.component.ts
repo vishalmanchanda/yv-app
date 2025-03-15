@@ -43,7 +43,7 @@ export class ModernNavbarComponent implements OnInit, OnDestroy {
     { 
       label: 'Hackathons', 
       route: '/hackathons', 
-      icon: 'bi bi-list-check',
+      icon: 'bi bi-award',
       exact: true 
     },
     { 

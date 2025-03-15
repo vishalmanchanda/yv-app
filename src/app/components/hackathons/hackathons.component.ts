@@ -44,7 +44,7 @@ export class HackathonsComponent implements OnInit {
     }
   ];
 
-  totalPrizeWorth = '95k';
+  totalPrizeWorth = '35k';
 
   ngOnInit() {
     // Add any initialization logic here

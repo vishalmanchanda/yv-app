@@ -1,0 +1,5 @@
+
+
+#Firebase deploy
+
+nx build --configuration=production

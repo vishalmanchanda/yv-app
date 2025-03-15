@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { toCamelCase } from '../../../core/utils/string-utils';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
+
 import html2canvas from 'html2canvas';
 import { v4 as uuidv4 } from 'uuid';
 import { QuizService } from '../../../services/quiz.service';
@@ -272,11 +273,14 @@ export class QuizReportComponent implements OnInit {
     if (result) {
       const { pdf, imgData } = result;
       this.pdfBlob = pdf.output('blob');
-      const pdfUrl = URL.createObjectURL(this.pdfBlob);
-      window.open(pdfUrl, '_blank');
+      if (this.pdfBlob) {
+        const pdfUrl = URL.createObjectURL(this.pdfBlob);
+        window.open(pdfUrl, '_blank');
 
       // Save the PDF blob with the reportId
-      localStorage.setItem(`pdf_${this.reportId}`, await this.blobToBase64(this.pdfBlob));
+      if (this.pdfBlob) 
+        localStorage.setItem(`pdf_${this.reportId}`, await this.blobToBase64(this.pdfBlob));
+      }
 
       // Save the JPEG image
       this.saveJPEG(imgData);
