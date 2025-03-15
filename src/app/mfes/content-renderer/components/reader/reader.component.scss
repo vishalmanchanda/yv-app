@@ -4,8 +4,15 @@
   display: flex;
   flex-direction: column;
   background-color: var(--bs-body-bg);
-  
+}
 
+.reader-content {
+  transition: font-size 0.2s ease;
+}
+
+/* Ensure the base font size is set */
+:host ::ng-deep .reader-content {
+  font-size: 100%;
 }
 
 .reader-container {

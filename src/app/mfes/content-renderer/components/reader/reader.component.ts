@@ -58,7 +58,17 @@ import { CategoryContentService } from '../../services/category-content.service'
   providers :[NgbActiveModal],
   selector: 'cr-reader',
   templateUrl: './reader.component.html',
-  styleUrls: ['./reader.component.scss']
+  styleUrls: ['./reader.component.scss'],
+  styles: [`
+    .reader-content {
+      transition: font-size 0.2s ease;
+    }
+    
+    /* Ensure the base font size is set */
+    :host ::ng-deep .reader-content {
+      font-size: 100%;
+    }
+  `]
 })
 export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChanges {
 
@@ -108,7 +118,6 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   constructor(
     private contentService: ContentService,
     private categoryContentService: CategoryContentService,
-
     private progressService: ProgressService,
     private modalService: NgbModal,
     private ngbActiveModal: NgbActiveModal,
@@ -136,6 +145,14 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
     // Load saved preferences first
     this.settingsService.getPreferences().subscribe(prefs => {
       this.applyPreferences(prefs);
+    });
+
+    // Wait for metadata to be available
+    await new Promise<void>(resolve => {
+      this.contentService.getMetadata().subscribe(metadata => {
+        this.state.metadata = metadata;
+        resolve();
+      });
     });
 
     // Get route parameters first
@@ -170,13 +187,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
       console.log('Loading content item:', this.categoryKey, localeParam, contentIdParam);
       await this.categoryContentService.loadContentItem(this.categoryKey, localeParam, contentIdParam);
       
-      // Wait for metadata to be available
-      await new Promise<void>(resolve => {
-        this.contentService.getMetadata().subscribe(metadata => {
-          this.state.metadata = metadata;
-          resolve();
-        });
-      });
+      
 
       // If partId and sectionId are provided in the route, use them
       if (partIdParam > 0 && sectionIdParam > 0) {
@@ -297,6 +308,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
 
   private async loadPartAndSection(partId?: number, sectionId?: number) {
     const bookmark = await this.getBookMark();
+    console.log('bookmark', bookmark, this.hasActiveSearch);
     if(bookmark && !this.hasActiveSearch){
       await this.resumeFromBookMark(bookmark);
       return;
@@ -318,6 +330,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   }
 
   async getBookMark(): Promise<Bookmark | null>  {
+    console.log('getBookMark', this.categoryKey, this.state.metadata?.id);
     if (this.categoryKey && this.state.metadata?.id) {
       const bookmark = await this.contentService.getResumeBookMark(this.categoryKey, this.state.metadata?.id);
       return bookmark || null;
@@ -693,7 +706,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   }
 
   applyFontSize(): void {
-    const contentElement = document.querySelector('.content-wrapper');
+    const contentElement = document.querySelector('.reader-content');
     if (contentElement) {
       (contentElement as HTMLElement).style.fontSize = `${this.fontSize}%`;
     }

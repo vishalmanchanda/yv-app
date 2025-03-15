@@ -47,7 +47,7 @@
   <div class="reader-container" [class.mt-5]="!showImages" >
     <!-- Main Content -->
     <div class="content-area">
-      <div class="content-wrapper" *ngIf="state.currentPart">
+      <div class="content-wrapper reader-content" *ngIf="state.currentPart">
         <cr-section-view 
           [section]="state.currentSection" 
           [partId]="state.currentPart.id.toString()"
