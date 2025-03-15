@@ -291,9 +291,6 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
       } 
       }    
   
-  
-
-  
 
   private applyPreferences(prefs: UserPreferences) {
     const contentArea = document.querySelector('.content-area');
@@ -542,9 +539,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
 
 
   splitPassage() {
-    console.log('splitting passage');
     if (this.state.currentSection && this.state.currentSection.passage) {   
-      console.log('splitting passage 2');
       const parser = new PassageParser(this.state.currentSection.passage);
       this.state.passageLines = parser.processLines();    
   }
@@ -641,7 +636,7 @@ export class ReaderComponent implements OnInit, OnDestroy, AfterViewInit, OnChan
   }
 
   increaseFontSize(): void {
-    if (this.fontSize < 150) {
+    if (this.fontSize < 180) {
       this.fontSize += 10;
       this.applyFontSize();
     }

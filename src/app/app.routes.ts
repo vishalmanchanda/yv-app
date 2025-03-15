@@ -70,6 +70,13 @@ export const routes: Routes = [
             
           },
           {
+            path: 'content/:locale/:category/:contentId/:partId/:sectionId',
+            loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent),
+            data: { 
+              hideBreadcrumb: true
+            }
+          },
+          {
             path: 'settings',
             loadComponent: () => import('./mfes/content-viewer/app/components/settings/settings.component').then(m => m.SettingsComponent)
           },
@@ -178,7 +185,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     data: { breadcrumb: 'Settings' }
   },
-  
+  {
+    path: 'content/:locale/:category/:contentId/:partId/:sectionId',
+    redirectTo: 'content-viewer/content/:locale/:category/:contentId/:partId/:sectionId',
+    pathMatch: 'full'
+  },
   {
     path: '**',
     redirectTo: '404'
