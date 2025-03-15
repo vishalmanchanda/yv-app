@@ -137,7 +137,7 @@ export class ModernNavbarComponent implements OnInit, OnDestroy {
       exact: false 
     },
     { 
-      label: 'Gita Chat', 
+      label: 'Gita Chat - Beta', 
       route: '/chat', 
       icon: 'bi bi-chat',
       exact: true 
