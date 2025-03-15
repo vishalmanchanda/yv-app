@@ -8,7 +8,7 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <nav class="breadcrumb-nav" aria-label="breadcrumb">
+    <nav *ngIf="showBreadcrumb$ | async" class="breadcrumb-nav" aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a routerLink="/">
@@ -101,9 +101,11 @@ import { BreadcrumbService, Breadcrumb } from '../../../core/services/breadcrumb
 })
 export class BreadcrumbComponent {
   readonly breadcrumbs$;
+  readonly showBreadcrumb$;
 
   constructor(private breadcrumbService: BreadcrumbService) {
     this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$;
+    this.showBreadcrumb$ = this.breadcrumbService.showBreadcrumb$;
   }
 
   onBreadcrumbClick(clickedBreadcrumb: Breadcrumb) {

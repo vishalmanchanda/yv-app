@@ -23,7 +23,7 @@ export const routes: Routes = [
         path: 'chat',
         loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
         canActivate: [AuthGuard],
-        data: { breadcrumb: 'Chat' }
+        data: { breadcrumb: 'Chat', hideBreadcrumb: true }
       },
       {
         path: 'chatbot',

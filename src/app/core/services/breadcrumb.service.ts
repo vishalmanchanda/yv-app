@@ -14,14 +14,34 @@ export interface Breadcrumb {
 })
 export class BreadcrumbService {
   private breadcrumbsSubject = new BehaviorSubject<Breadcrumb[]>([]);
+  private showBreadcrumbSubject = new BehaviorSubject<boolean>(true);
+  
   breadcrumbs$ = this.breadcrumbsSubject.asObservable();
+  showBreadcrumb$ = this.showBreadcrumbSubject.asObservable();
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
-      const breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
-      this.breadcrumbsSubject.next(breadcrumbs);
+      // Check if current route should hide breadcrumb
+      let route = this.activatedRoute.root;
+      let hideBreadcrumb = false;
+      
+      // Traverse route tree to find hideBreadcrumb data
+      while (route.firstChild) {
+        route = route.firstChild;
+        if (route.snapshot.data['hideBreadcrumb']) {
+          hideBreadcrumb = true;
+          break;
+        }
+      }
+      
+      this.showBreadcrumbSubject.next(!hideBreadcrumb);
+      
+      if (!hideBreadcrumb) {
+        const breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
+        this.breadcrumbsSubject.next(breadcrumbs);
+      }
     });
   }
 
