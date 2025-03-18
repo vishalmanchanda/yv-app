@@ -5,3 +5,14 @@ nx build --configuration=production
 firebase deploy
 
 
+
+# render settings
+
+repository
+https://github.com/vishalmanchanda/yv-app
+
+#Build command
+npm install --legacy-peer-deps
+
+#Start Command
+npm start
