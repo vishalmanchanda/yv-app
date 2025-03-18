@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: '',
     component: ShellLayoutComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -22,13 +22,13 @@ export const routes: Routes = [
       {
         path: 'chat',
         loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: { breadcrumb: 'Chat', hideBreadcrumb: true }
       },
       {
         path: 'chatbot',
         loadComponent: () => import('./mfes/chatbot/chatbot-mfe.component').then(m => m.ChatbotMfeComponent),
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         data: { breadcrumb: 'Chatbot' }
       },
      
@@ -176,13 +176,13 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadComponent: () => import('./features/profile/profile.component').then(m => m.ProfileComponent),
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: { breadcrumb: 'Profile' }
   },
   {
     path: 'settings',
     loadComponent: () => import('./features/settings/settings.component').then(m => m.SettingsComponent),
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
     data: { breadcrumb: 'Settings' }
   },
   {
