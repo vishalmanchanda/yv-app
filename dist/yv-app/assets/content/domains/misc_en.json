@@ -1,0 +1,48 @@
+[
+    {
+        "id": "4",
+        "title": "English, Reasoning & Current Affairs - By Artificial Intelligence",
+        "description": "Learn about English, reasoning, and current affairs through AI-driven content",
+        "status": "published",
+        "categoryKey": "misc",
+        "type": "quiz",
+        "language": "en",
+        "coverImage": "/assets/images/reading.jpg",
+        "zipUrl": "/assets/content/entrance_v1.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "AI Author",
+                "image": "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
+                "bio": "An AI-generated content expert",
+                "website": "https://ai-author.com"
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    },
+    {
+        "id": "1",
+        "title": "Sample Design for Testing",
+        "description": "Sample for testing all types of content and all levels",
+        "status": "draft",
+        "categoryKey": "misc",
+        "type": "book",
+        "language": "en",
+        "coverImage": "https://images.pexels.com/photos/1002703/pexels-photo-1002703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "zipUrl": "/assets/content/sample.zip",
+        "authors": [
+            {
+                "id": "1",
+                "name": "Parinita Manchanda",
+                "image": "https://media.licdn.com/dms/image/v2/D5603AQHY9akO8bI1Jw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1703162491400?e=1736380800&v=beta&t=37C04eiqsdWe_84ovpmz1-ip2u6ufpETjInzq-RL0Sc",
+                "bio": "Parinita Manchanda is a designer at NID Andhra Pradesh",
+                "website": "https://parinita.dev"
+            }
+        ],
+        "version": "1.0",
+        "createdAt": "2023-10-01T00:00:00Z",
+        "upadtedAt": "2023-10-01T00:00:00Z"
+    }
+]
