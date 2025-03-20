@@ -16,6 +16,7 @@ export class HackathonDetailsComponent implements OnInit {
   currentYear = new Date().getFullYear();
   activeSection = 'todo';
   isNavSticky = false;
+  loading = true;
 
   sections = [
     { id: 'todo', label: 'Tasks', icon: 'fas fa-tasks' },
@@ -43,7 +44,26 @@ export class HackathonDetailsComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      this.loading = true;
+      
+      // First try the synchronous method (in case data is already loaded)
       this.hackathon = this.hackathonService.getHackathonDetails(id);
+      
+      if (this.hackathon) {
+        this.loading = false;
+      } else {
+        // If data isn't loaded yet, use the async method
+        this.hackathonService.getHackathonDetailsAsync(id).subscribe({
+          next: (hackathon) => {
+            this.hackathon = hackathon;
+            this.loading = false;
+          },
+          error: (error) => {
+            console.error('Error loading hackathon details:', error);
+            this.loading = false;
+          }
+        });
+      }
     }
   }
 

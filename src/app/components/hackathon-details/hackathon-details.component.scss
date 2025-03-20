@@ -763,4 +763,24 @@
       );
     }
   }
+}
+
+/* Loading container styles */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  margin: 2rem 0;
+}
+
+.spinner-container {
+  text-align: center;
+}
+
+.error-container {
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 

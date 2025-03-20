@@ -13,8 +13,19 @@
     
   </header>
 
-  <main>
-    <section class="upcoming-section mt-5">
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3">Loading hackathons...</p>
+    </div>
+  </div>
+
+  <!-- Loaded Content -->
+  <main *ngIf="!loading">
+    <section class="upcoming-section mt-5" *ngIf="upcomingHackathons.length > 0">
       <div class="section-header">
         <h2>Upcoming Hackathons</h2>
         <div class="section-line"></div>
@@ -25,22 +36,22 @@
              class="hackathon-card upcoming"
              [routerLink]="hackathon.id">
           <div class="card-content">
-            <div class="status-badge" *ngIf="hackathon.status">
-              {{ hackathon.status }}
+            <div class="status-badge">
+              Coming Soon
             </div>
             <h3>{{ hackathon.title }}</h3>
             <div class="card-details">
               <span class="date">
                 <i class="far fa-calendar-alt"></i>
-                Coming Soon
+                {{ hackathon.dates[hackathon.dates.length - 1]?.date || 'Date TBA' }}
               </span>
               <span class="prize">
                 <i class="fas fa-trophy"></i>
-                Prize Pool TBA
+                Prize Pool Available
               </span>
             </div>
             <button class="register-btn">
-              Register Interest
+              View Details
               <i class="fas fa-arrow-right"></i>
             </button>
           </div>
@@ -48,7 +59,15 @@
       </div>
     </section>
 
-    <section class="completed-section">
+    <section class="no-hackathons" *ngIf="upcomingHackathons.length === 0 && completedHackathons.length === 0">
+      <div class="text-center p-5">
+        <i class="fas fa-info-circle text-primary fa-3x mb-3"></i>
+        <h2>No Hackathons Available</h2>
+        <p>There are currently no hackathons listed. Please check back later.</p>
+      </div>
+    </section>
+
+    <section class="completed-section" *ngIf="completedHackathons.length > 0">
       <div class="section-header">
         <h2>Completed Hackathons</h2>
         <div class="section-line"></div>
@@ -75,22 +94,20 @@
             </div>
             <h3>{{ hackathon.title }}</h3>
             <div class="card-details">
-              <span class="participants">
+              <span class="participants" *ngIf="hackathon.winners">
                 <i class="fas fa-users"></i>
-                100+ Participants
+                {{ hackathon.winners.length }}+ Teams
               </span>
               <span class="projects">
                 <i class="fas fa-code-branch"></i>
-                25+ Submissions
+                {{ hackathon.dates[hackathon.dates.length - 1]?.date || 'Completed' }}
               </span>
             </div>
             
             <button class="view-btn" [routerLink]="['/hackathons', hackathon.id]">
               View Results
               <i class="fas fa-arrow-right"></i>              
-
             </button>
-            
           </div>
         </div>
       </div>

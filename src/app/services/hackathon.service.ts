@@ -1,209 +1,147 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { HackathonDetails } from '../types/hackathon';
+import { Observable, forkJoin, of, map, catchError, switchMap, BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HackathonService {
-  private hackathons: Record<string, HackathonDetails> = {
-    'iyd-2025': {
-      id: 'iyd-2025',
-      title: 'The IYD Hackathon 2025',
-      subtitle: 'Code. Collaborate. Conquer.',
-      prizes: [
-        { position: '1st Prize', amount: 'INR 20k', color: '#ffd700' },
-        { position: '2nd Prize', amount: 'INR 10k', color: '#c0c0c0' },
-        { position: '3rd Prize', amount: 'INR 5k', color: '#cd7f32' }
-      ],
-      tasks: [
-        {
-          description: 'Create a dataset of Valmiki Ramayana verses (English translations only) through web scraping.'
-        },
-        {
-          description: 'Write a function which takes a statement as input from the user (relevant to Ramayana), and returns True if its factually correct and False if its incorrect.'
-        },
-        {
-          description: 'If the user statement is not relevant to Ramayana or vague, return None.'
-        },
-        {
-          description: 'Evaluation Criteria:',
-          subTasks: [
-            'Accuracy of the responses for 100 test sentences (20 of these will be shared with the registered participants for testing, and rest 80 to be revealed after submission).'
-          ]
-        }
-      ],
-      rules: [
-        { rule: 'Each team should have 1-3 members.' },
-        { rule: 'Team members can be students or working professionals.' },
-        { rule: 'All the code or ideas used from elsewhere must be properly cited in the submission report.' },
-        { rule: 'Use only Open Source LLMs like SBERT, LLaMA, etc for all tasks like embeddings, text generation, etc.' },
-        { rule: 'The code submitted for final evaluation must be made openly available for anyone to use.' },
-        { rule: 'Incomplete or inappropriate submissions will be rejected.' },
-        { rule: 'Prize money will be distributed through UPI or as Amazon Gift Vouchers to the team lead.' },
-        { rule: 'Decision of the judges will be final.' }
-      ],
-      dates: [
-        { event: 'Register for free on UnStop', date: 'April 06, 2025', link: '#' },
-        { event: 'First Webinar for registered participants', date: 'April 13, 2024' },
-        { event: 'Progress monitoring meetings', date: 'May 11 and June 01' },
-        { event: 'Final submission', date: 'June 08, 2025', isHighlighted: true },
-        { event: 'Presentation of top 10 submissions', date: 'June 15, 2025' },
-        { event: 'Prize Announcement', date: 'June 21, 2025', isHighlighted: true }
-      ],
-      sponsors: [
-        {
-          name: 'Dr. Kushal Shah',
-          title: 'Chief Advisor to the Founders and Professor, Sitare University',
-          link: 'https://www.yogavivek.org/assets/images/Kushal_Shah.jpeg'
-        },
-        {
-          name: 'Mr. Vishal Manchanda',
-          title: 'Senior Principal Technology Architect, Infosys',
-          link: 'https://www.yogavivek.org/assets/images/Vishal-Manchanda.jpg',
-        },
-        {
-          name: 'and other well wishers',
-          title: '',
-          link: 'https://placehold.co/600x400/transparent/F00?text=others'
-        }
-      ],
-      contactEmail: 'info@yogavivek.org',
-      isCompleted: false
-    },
-    'nyd-2025': {
-      id: 'nyd-2025',
-      title: 'The NYD Hackathon 2025',
-      subtitle: 'Code. Collaborate. Conquer.',
-      prizes: [
-        { position: '1st Prize', amount: 'INR 20k', color: '#ffd700' },
-        { position: '2nd Prize', amount: 'INR 10k', color: '#c0c0c0' },
-        { position: '3rd Prize', amount: 'INR 5k', color: '#cd7f32' }
-      ],
-      tasks: [
-        {
-          description: 'Find a few relevant shlokas (verses) from the <b>Bhagavad Gita</b> and <b>Patanjali Yoga Sutras (PYS)</b> for a user query using LLMs and other information retrieval techniques. You can use this <a href="https://www.github.com/atmabodha/Vedanta_Datasets" target="_blank">dataset</a> as a starting point to build upon. Feel free to explore various strategies for chunking, reranking, fine-tuning, etc.'
-        },
-        {
-          description: 'Feed the retrieved shlokas along with the user query to an open source LLM like LLaMA to generate a summary of the answer. You are expected to work on creating a suitable prompt for this purpose that minimizes hallucinations.'
-        },
-        {
-          description: 'Generate the output in a suitable JSON format.'
-        },
-        {
-          description: 'Need to identify irrelevant or inappropriate user queries.'
-        },
-        {
-          description: 'Do a thorough analysis of the generated answers for a wide variety of user queries.'
-        },
-        {
-          description: 'Evaluation Criteria:',
-          subTasks: [
-            'Accuracy of the top verse retrieved for these curated questions from <a href="https://github.com/atmabodha/Vedanta_Datasets/blob/main/Bhagwad_Gita/Bhagwad_Gita_Verses_English_Questions.csv" target="_blank">Gita</a> and <a href="https://github.com/atmabodha/Vedanta_Datasets/blob/main/Patanjali_Yoga_Sutras/Patanjali_Yoga_Sutras_Verses_English_Questions.csv" target="_blank">PYS</a>.',
-            'Quality of the prompt written and summarised answers generated using an open source LLM.',
-            'Depth and quality of the analysis of the results.',
-            'Cost of generating answer per query and lean architecture of the pipeline.'
-          ]
-        }
-      ],
-      rules: [
-        { rule: 'Each team should have 1-3 members.' },
-        { rule: 'Team members can be students or working professionals.' },
-        { rule: 'All the code or ideas used from elsewhere must be properly cited in the submission report.' },
-        { rule: 'Use only Open Source LLMs like SBERT, LLaMA, etc for all tasks like embeddings, text generation, etc.' },
-        { rule: 'The code submitted for final evaluation must be made openly available for anyone to use.' },
-        { rule: 'Incomplete or inappropriate submissions will be rejected.' },
-        { rule: 'Prize money will be distributed through UPI or as Amazon Gift Vouchers to the team lead.' },
-        { rule: 'Decision of the judges will be final.' }
-      ],
-      dates: [
-        { 
-          event: 'Register for free on UnStop', 
-          date: 'December 20, 2024',
-          link: 'https://unstop.com/hackathons/the-nyd-hackathon-2025-the-yoga-vivek-group-1281825'
-        },
-        { 
-          event: 'First Webinar for registered participants',
-          date: 'December 22, 2024'
-        },
-        { 
-          event: 'Progress monitoring meetings',
-          date: 'Dec 29 and Jan 05'
-        },
-        { 
-          event: 'Final submission',
-          date: 'January 12, 2025',
-          isHighlighted: true
-        },
-        { 
-          event: 'Presentation of top 10 submissions',
-          date: 'January 19, 2025'
-        },
-        { 
-          event: 'Prize Announcement',
-          date: 'January 26, 2025',
-          isHighlighted: true
-        }
-      ],
-      winners: [
-        {
-          position: "#1 Prize",
-          names: ["Kabir Arora", "Aryan Kaul", "Bhavya Pratap Singh"],
-          institute: "Punjab Engineering College, Chandigarh",
-          image: "https://www.yogavivek.org/assets/images/nyd2025_Kabir_Bhavya_Aryan.jpeg"
-        },
-        {
-          position: "#2 Prize",
-          names: ["Anushree Ghosh", "Agniva Saha", "Srinjoy Das"],
-          institute: "IIT Kharagpur",
-          image: "https://www.yogavivek.org/assets/images/nyd2025_Anushree_Agniva_Srinjoy.png"
-        },
-        {
-          position: "#3 Prize",
-          names: ["Rakshit Sawarn", "Ananya Priyaroop"],
-          institute: "IIT Bombay",
-          image: "https://www.yogavivek.org/assets/images/nyd2025_Rakshit_Ananya.jpeg"
-        },
-        {
-          position: "#4 Prize",
-          names: ["Hritish Maikap"],
-          institute: "Vishwakarma Institute of Technology, Pune",
-          image: "https://www.yogavivek.org/assets/images/nyd2025_hriteshImage.png"
-        },
-        {
-          position: "#5 Prize",
-          names: ["Nikhil Yadav", "Sanjay VP", "Nikhil Raj Soni"],
-          institute: "Sitare University",
-          image: "https://www.yogavivek.org/assets/images/nyd2025_Nikhil_Sanjay_Nikhil.jpeg"
-        }
-      ],
-      sponsors: [
-        {
-          name: 'Dr. Kushal Shah',
-          title: 'Chief Advisor to the Founders and Professor, Sitare University',
-          link: 'https://www.yogavivek.org/assets/images/Kushal_Shah.jpeg'
-        },
-        {
-          name: 'Mr. Vishal Manchanda',
-          title: 'Senior Principal Technology Architect, Infosys',
-          link: 'https://www.yogavivek.org/assets/images/Vishal-Manchanda.jpg',
+  private hackathons: Record<string, HackathonDetails> = {};
+  private isLoaded = false;
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
 
-        },
-        {
-          name: 'and other well wishers',
-          title: '',
-          link: 'https://placehold.co/600x400/transparent/F00?text=others'
-        }
-      ],
-      contactEmail: 'info@yogavivek.org',
-      isCompleted: true
-    }
-  };
+  constructor(private http: HttpClient) {
+    this.loadHackathons();
+  }
 
+  private loadHackathons(): void {
+    // Set loading state
+    this.loadingSubject.next(true);
+    
+    // Get the hackathons from the index file
+    this.http.get<string[]>('assets/hackathons/index.json')
+      .pipe(
+        catchError(error => {
+          console.error('Error loading hackathon index:', error);
+          // Fall back to hardcoded IDs
+          return of(['iyd-2025', 'nyd-2025']);
+        }),
+        switchMap(hackathonIds => {
+          // Create an array of observables for each hackathon JSON file
+          const hackathonObservables = hackathonIds.map(id => 
+            this.http.get<HackathonDetails>(`assets/hackathons/${id}.json`).pipe(
+              catchError(error => {
+                console.error(`Error loading hackathon ${id}:`, error);
+                return of(null);
+              })
+            )
+          );
+          
+          // Use forkJoin to wait for all requests to complete
+          return forkJoin(hackathonObservables);
+        })
+      )
+      .subscribe({
+        next: (results) => {
+          // Filter out any null results and build the hackathons record
+          results.filter(result => result !== null).forEach(hackathon => {
+            if (hackathon && hackathon.id) {
+              this.hackathons[hackathon.id] = hackathon;
+            }
+          });
+          this.isLoaded = true;
+          this.loadingSubject.next(false);
+        },
+        error: (error) => {
+          console.error('Error loading hackathons:', error);
+          this.isLoaded = false;
+          this.loadingSubject.next(false);
+        }
+      });
+  }
+
+  /**
+   * Check if the data has been loaded yet
+   */
+  isDataLoaded(): boolean {
+    return this.isLoaded;
+  }
+
+  /**
+   * Get hackathon details synchronously
+   * Use this only if you're sure the data is already loaded
+   */
   getHackathonDetails(id: string): HackathonDetails | undefined {
     return this.hackathons[id];
   }
 
+  /**
+   * Get all hackathons synchronously
+   * Use this only if you're sure the data is already loaded
+   */
   getAllHackathons(): HackathonDetails[] {
     return Object.values(this.hackathons);
+  }
+
+  /**
+   * Get hackathon details asynchronously
+   * This ensures data is loaded before returning
+   */
+  getHackathonDetailsAsync(id: string): Observable<HackathonDetails | undefined> {
+    // If data is already loaded, return it immediately
+    if (this.isLoaded) {
+      return of(this.hackathons[id]);
+    }
+    
+    // Otherwise, try to load the specific hackathon file
+    return this.http.get<HackathonDetails>(`assets/hackathons/${id}.json`).pipe(
+      tap(hackathon => {
+        if (hackathon && hackathon.id) {
+          // Store it in our cache
+          this.hackathons[hackathon.id] = hackathon;
+        }
+      }),
+      catchError(() => of(undefined))
+    );
+  }
+
+  /**
+   * Get all hackathons asynchronously
+   * This ensures data is loaded before returning
+   */
+  getAllHackathonsAsync(): Observable<HackathonDetails[]> {
+    // If data is already loaded, return it immediately
+    if (this.isLoaded) {
+      return of(Object.values(this.hackathons));
+    }
+
+    // This will scan the hackathons directory and load all JSON files
+    return this.http.get<string[]>('assets/hackathons/index.json').pipe(
+      catchError(() => {
+        console.warn('No index.json found, falling back to known hackathon IDs');
+        return of(['iyd-2025', 'nyd-2025']);
+      }),
+      switchMap(hackathonIds => 
+        forkJoin(
+          hackathonIds.map(id => 
+            this.http.get<HackathonDetails>(`assets/hackathons/${id}.json`).pipe(
+              catchError(() => of(null))
+            )
+          )
+        )
+      ),
+      map(results => results.filter((h): h is HackathonDetails => h !== null)),
+      tap(hackathons => {
+        // Store the results in our cache
+        hackathons.forEach(hackathon => {
+          if (hackathon && hackathon.id) {
+            this.hackathons[hackathon.id] = hackathon;
+          }
+        });
+        this.isLoaded = true;
+      })
+    );
   }
 } 

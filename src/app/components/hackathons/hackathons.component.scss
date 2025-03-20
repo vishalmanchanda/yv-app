@@ -359,4 +359,24 @@ footer {
       text-align: center;
     }
   }
+}
+
+/* Loading state styles */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
+  margin: 2rem 0;
+}
+
+.spinner-container {
+  text-align: center;
+}
+
+.no-hackathons {
+  min-height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 } 
