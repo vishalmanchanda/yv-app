@@ -33,7 +33,7 @@ export class ModernNavbarComponent implements OnInit, OnDestroy {
   navLinks = [
     { 
       label: 'Content', 
-      route: '/content-viewer', 
+      route: '/home', 
       icon: 'bi bi-book',
       exact: false 
     },

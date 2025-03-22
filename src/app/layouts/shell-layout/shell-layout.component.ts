@@ -133,7 +133,7 @@ export class ShellLayoutComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   
   menuItems = [
-    { label: 'Home', icon: 'bi bi-house', route: '/content-viewer' },
+    { label: 'Home', icon: 'bi bi-house', route: '/home' },
     { label: 'Gita Chat - Beta', icon: 'bi bi-chat', route: '/chat' },    
     { label: 'Hackathons', icon: 'bi bi-award', route: '/hackathons' }, 
     { label: 'About Us', icon: 'bi bi-person', route: '/about' }

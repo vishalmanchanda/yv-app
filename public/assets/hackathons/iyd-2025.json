@@ -2,21 +2,27 @@
     "id": "iyd-2025",
     "title": "The IYD Hackathon 2025",
     "subtitle": "Code. Collaborate. Conquer.",
+    "prizePool": "60K",
     "prizes": [
         {
             "position": "1st Prize",
-            "amount": "INR 20k",
+            "amount": "INR 25k",
             "color": "#ffd700"
         },
         {
             "position": "2nd Prize",
-            "amount": "INR 10k",
+            "amount": "INR 15k",
             "color": "#c0c0c0"
         },
         {
             "position": "3rd Prize",
-            "amount": "INR 5k",
+            "amount": "INR 10k",
             "color": "#cd7f32"
+        },
+        {
+            "position": "Consolation Prizes",
+            "amount": "10 x INR 1k",
+            "color": "#A2D6F7FF"
         }
     ],
     "tasks": [

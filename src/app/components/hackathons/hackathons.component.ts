@@ -64,7 +64,7 @@ export class HackathonsComponent implements OnInit {
       hackathon.prizes.forEach(prize => {
         // Extract numeric value from prize amount (e.g., "INR 20k" -> 20)
         const match = prize.amount.match(/(\d+)/);
-        if (match && match[1]) {
+        if (match && match[1] && hackathon.isCompleted) {
           hackathonTotal += parseInt(match[1], 10);
         }
       });

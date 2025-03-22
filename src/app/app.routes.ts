@@ -10,7 +10,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: ShellLayoutComponent,
+    component: ShellLayoutComponent,    
     //canActivate: [AuthGuard],
     children: [
       {
@@ -19,6 +19,7 @@ export const routes: Routes = [
         pathMatch: 'full'
       },
      
+      
       {
         path: 'chat',
         loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
@@ -163,6 +164,11 @@ export const routes: Routes = [
         ]
       }
     ]
+  },
+  {
+    path: 'home',
+    redirectTo: 'content-viewer',
+    pathMatch: 'full'
   },
   {
     path: 'error',
