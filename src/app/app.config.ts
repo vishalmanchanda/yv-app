@@ -7,6 +7,7 @@ import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 import { provideHttpClient } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 import { Router } from '@angular/router';
+import { provideServiceWorker } from '@angular/service-worker';
 
 import { routes } from './app.routes';
 import { uiReducer } from './core/store/reducers/ui.reducer';
@@ -30,6 +31,10 @@ export const appConfig: ApplicationConfig = {
       autoPause: true,
       trace: false,
       traceLimit: 75,
+    }),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
     }),
     {
       provide: APP_INITIALIZER,

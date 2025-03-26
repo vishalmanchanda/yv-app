@@ -38,6 +38,7 @@ export interface HackathonDetails {
   id: string;
   title: string;
   subtitle: string;
+  status: string;
   prizePool: string;
   prizes: HackathonPrize[];
   tasks: HackathonTask[];

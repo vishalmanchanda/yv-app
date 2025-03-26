@@ -25,6 +25,21 @@
             "glob": "**/*",
             "input": "public",
             "output": "."
+          },
+          {
+            "glob": "manifest.webmanifest",
+            "input": "src/",
+            "output": "."
+          },
+          {
+            "glob": "ngsw-worker.js",
+            "input": "node_modules/@angular/service-worker",
+            "output": "."
+          },
+          {
+            "glob": "ngsw-config.json",
+            "input": "src/",
+            "output": "."
           }
         ],
         "styles": [
