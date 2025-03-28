@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { ShellLayoutComponent } from './layouts/shell-layout/shell-layout.component';
 import { AuthGuard } from './core/auth/auth.guard';
 import { routes as contentViewerRoutes } from './mfes/content-viewer/app/app.routes';
+import { importProvidersFrom } from '@angular/core';
+import { FirebaseModule } from './mfes/content-builder/app/firebase.module';
 
 export const routes: Routes = [
   {
@@ -18,8 +20,47 @@ export const routes: Routes = [
         redirectTo: 'content-viewer',
         pathMatch: 'full'
       },
-     
-      
+      {
+        path: 'content-builder',
+        //canActivate: [AuthGuard],
+        data: { breadcrumb: 'Content Builder' },
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./mfes/content-builder/app/features/content-browser/components/browser/browser.component').then(m => m.BrowserComponent),
+            data: { breadcrumb: 'Browser' }
+          },
+          {
+            path: 'browser',
+            loadComponent: () => import('./mfes/content-builder/app/features/content-browser/components/browser/browser.component').then(m => m.BrowserComponent),
+            providers: [
+              importProvidersFrom(FirebaseModule)
+            ],
+            data: { breadcrumb: 'Browser' }
+          },
+          {
+            path: 'content',
+            loadChildren: () => import('./mfes/content-builder/app/features/content-creation/content-creation.module')
+              .then(m => m.ContentCreationModule),
+            data: { breadcrumb: 'Content' }
+          },
+          {
+            path: 'editor/:id',
+            loadComponent: () => import('./mfes/content-builder/app/features/content-editor/components/editor/editor.component').then(m => m.EditorComponent),
+            data: { breadcrumb: 'Editor' }
+          },
+          {
+            path: 'renderer/:id',
+            loadComponent: () => import('./mfes/content-renderer/components/reader/reader.component').then(m => m.ReaderComponent),
+            data: { breadcrumb: 'Renderer' }
+          },
+          {
+            path: 'preview/:id',
+            loadComponent: () => import('./mfes/content-builder/app/features/content-preview/content-preview.component').then(m => m.ContentPreviewComponent),
+            data: { breadcrumb: 'Preview', hideBreadcrumb: true }
+          }
+        ]
+      }, 
       {
         path: 'chat',
         loadComponent: () => import('./components/chat/chat.component').then(m => m.ChatComponent),
@@ -32,7 +73,6 @@ export const routes: Routes = [
         //canActivate: [AuthGuard],
         data: { breadcrumb: 'Chatbot' }
       },
-     
       {
         path: 'content-viewer',        
         children: [

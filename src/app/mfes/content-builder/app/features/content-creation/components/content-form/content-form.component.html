@@ -1,0 +1,111 @@
+<form [formGroup]="contentForm" class="mb-4">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title*</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="title"
+      formControlName="title"
+      placeholder="Enter content title">
+    <div class="form-text text-danger" 
+      *ngIf="contentForm.get('title')?.touched && contentForm.get('title')?.invalid">
+      Title is required
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description*</label>
+    <textarea 
+      class="form-control" 
+      id="description"
+      formControlName="description"
+      rows="3"
+      placeholder="Enter content description"></textarea>
+    <div class="form-text text-danger" 
+      *ngIf="contentForm.get('description')?.touched && contentForm.get('description')?.invalid">
+      Description is required
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="mb-3">
+        <label for="type" class="form-label">Content Type*</label>
+        <select class="form-select" id="type" formControlName="type">
+          <option *ngFor="let type of contentTypes" [value]="type">{{type | titlecase}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="mb-3">
+        <label for="category" class="form-label">Category*</label>
+        <select class="form-select" id="category" formControlName="category">
+          <option *ngFor="let cat of categories" [value]="cat">{{cat | titlecase}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="mb-3">
+        <label for="language" class="form-label">Language*</label>
+        <select class="form-select" id="language" formControlName="language">
+          <option *ngFor="let lang of languages" [value]="lang">{{lang | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="keywords" class="form-label">Keywords</label>
+    <input 
+      type="text" 
+      class="form-control" 
+      id="keywords"
+      formControlName="keywords"
+      placeholder="Enter comma-separated keywords">
+  </div>
+  <app-prompt-tabs
+  [title]="contentForm.get('title')?.value"
+  [description]="contentForm.get('description')?.value">
+</app-prompt-tabs>
+  <div class="mb-3">
+    <label class="form-label" for="authors">Authors</label>
+    <div formArrayName="authors">
+      <div *ngFor="let author of authorsArray.controls; let i=index" 
+           [formGroupName]="i"
+           class="border p-3 mb-2 rounded">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-2">
+              <label class="form-label" for="name">Name*</label>
+              <input type="text" class="form-control" formControlName="name">
+              <div class="form-text text-danger" 
+                   *ngIf="author.get('name')?.touched && author.get('name')?.invalid">
+                Name is required
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-2">
+              <label class="form-label" for="website">Website</label>
+              <input type="text" class="form-control" formControlName="website">
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label" for="bio">Bio</label>
+          <textarea class="form-control" formControlName="bio" rows="2"></textarea>
+        </div>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeAuthor(i)">
+          Remove Author
+        </button>
+      </div>
+    </div>
+    <button type="button" class="btn btn-outline-primary mt-2" (click)="addAuthor()">
+      Add Author
+    </button>
+  </div>
+
+ 
+</form> 

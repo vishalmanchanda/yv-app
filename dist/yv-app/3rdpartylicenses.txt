@@ -2,7 +2,7 @@
 MIT
 The MIT License
 
-Copyright (c) 2010-2024 Google LLC. https://angular.dev/license
+Copyright (c) 2010-2025 Google LLC. https://angular.dev/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +27,7 @@ THE SOFTWARE.
 MIT
 The MIT License
 
-Copyright (c) 2010-2024 Google LLC. https://angular.dev/license
+Copyright (c) 2010-2025 Google LLC. https://angular.dev/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,7 @@ THE SOFTWARE.
 MIT
 The MIT License
 
-Copyright (c) 2010-2024 Google LLC. https://angular.dev/license
+Copyright (c) 2010-2025 Google LLC. https://angular.dev/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -73,11 +73,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@angular/fire
+MIT
+
 @angular/forms
 MIT
 The MIT License
 
-Copyright (c) 2010-2024 Google LLC. https://angular.dev/license
+Copyright (c) 2010-2025 Google LLC. https://angular.dev/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +105,7 @@ THE SOFTWARE.
 MIT
 The MIT License
 
-Copyright (c) 2010-2024 Google LLC. https://angular.dev/license
+Copyright (c) 2010-2025 Google LLC. https://angular.dev/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -127,7 +130,7 @@ THE SOFTWARE.
 MIT
 The MIT License
 
-Copyright (c) 2010-2024 Google LLC. https://angular.dev/license
+Copyright (c) 2010-2025 Google LLC. https://angular.dev/license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -198,6 +201,21 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+@firebase/app
+Apache-2.0
+
+@firebase/component
+Apache-2.0
+
+@firebase/logger
+Apache-2.0
+
+@firebase/storage
+Apache-2.0
+
+@firebase/util
+Apache-2.0
 
 @ng-bootstrap/ng-bootstrap
 MIT
@@ -363,6 +381,10 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+firebase/app
+
+firebase/storage
 
 html2canvas
 MIT

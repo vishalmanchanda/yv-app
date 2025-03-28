@@ -1,0 +1,92 @@
+<div class="row pb-5 mb-5">
+  <div class="col-md-6">
+    <!-- Basic Form -->
+
+    <form [formGroup]="form" class="container-fluid p-3" >
+      <div class="row">
+        <div class="mb-3 col-md-8">
+          <label for="title" class="form-label">Title*</label>
+          <input type="text" 
+               class="form-control" 
+               id="title" 
+               formControlName="title"
+               [class.is-invalid]="form.get('title')?.invalid && form.get('title')?.touched">
+        <div class="invalid-feedback" *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+            Title is required
+          </div>
+        </div>
+        <div class="mb-3 col-md-4">
+        <label for="language" class="form-label">Language*</label>
+        <select class="form-select" 
+                id="language" 
+                formControlName="language"
+                [class.is-invalid]="form.get('language')?.invalid && form.get('language')?.touched">
+          <option value="">Select Language</option>
+          <option *ngFor="let lang of languages" [value]="lang">
+            {{lang | uppercase}}
+          </option>
+        </select>
+        <div class="invalid-feedback" *ngIf="form.get('language')?.invalid && form.get('language')?.touched">
+          Language is required
+        </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <label for="description" class="form-label">Description*</label>
+            <button class="btn btn-primary" 
+                    [disabled]="!canGenerateDescription || isGenerating"
+                    (click)="generateDescription()">
+              <span *ngIf="isGenerating" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+              <i *ngIf="!isGenerating" class="bi bi-magic"></i> 
+              {{ isGenerating ? 'Generating...' : 'Generate Description' }}
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <textarea class="form-control" 
+                    id="description" 
+                    rows="12" 
+                    formControlName="description"
+                    [class.is-invalid]="form.get('description')?.invalid && form.get('description')?.touched">
+          </textarea>
+        </div>
+      </div>
+      <!-- <p> Generate content button will generate the content metadata and parts metadata in the background in one go and may take a while.</p>
+      <div class="text-end">  
+        <button class="btn btn-primary" (click)="generateContent()" [disabled]="isGenerating">Generate Content</button>
+      </div> -->
+    </form>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+    <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+      <h5>AI Generated Metadata</h5>
+      
+      <!-- <p> Generate metadata button will generate the content metadata only and do not use this if you have already generated the content.</p> -->
+      <div class="text-end">
+        <button class="btn btn-primary " (click)="generateMetadataFromService()" [disabled]="!canCreate">  <i class="bi bi-magic"></i> Generate Metadata</button>
+        <span *ngIf="isGenerating" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- <div class="json-preview" >       -->
+      <pre class="p-2 rounded" *ngIf="metadata">
+        <textarea class="form-control" rows="20"
+        
+        id="metadata"
+        [class.is-invalid]="form.get('metadata')?.invalid && form.get('metadata')?.touched"
+        >{{metadata | json}}</textarea>
+      </pre>
+      </div>
+    <!-- </div>   -->
+   
+    </div>
+  </div> 
+
+</div> 

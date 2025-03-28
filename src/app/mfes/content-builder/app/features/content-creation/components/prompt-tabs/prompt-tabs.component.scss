@@ -1,0 +1,37 @@
+.prompt-tabs {
+  .nav-link {
+    cursor: pointer;
+  }
+
+  .prompt-container {
+    min-height: 100px;
+    
+    pre {
+      max-height: 500px;
+      overflow-y: auto;
+      margin-bottom: 0;
+      white-space: pre-wrap;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .btn {
+      transition: all 0.3s ease;
+      
+      &.btn-success {
+        border-color: #28a745;
+      }
+    }
+  }
+}
+
+.tab-pane {
+  &.fade {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+    
+    &.show {
+      opacity: 1;
+    }
+  }
+} 

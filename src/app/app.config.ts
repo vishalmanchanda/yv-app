@@ -11,6 +11,17 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 import { routes } from './app.routes';
 import { uiReducer } from './core/store/reducers/ui.reducer';
+import { MockStorageService } from './core/services/mock-storage.service';
+
+// Factory function to provide the Storage token
+export function storageFactory() {
+  // Empty implementation object that satisfies the minimal interface needed
+  return {
+    // Stub methods needed by the FileUploadService
+    _delegate: {},
+    app: { name: 'mock-app' }
+  };
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,6 +47,11 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    // Provide Storage token with a factory function
+    {
+      provide: 'Storage',
+      useFactory: storageFactory
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: (router: Router) => {

@@ -1,0 +1,11 @@
+<div class="fixed-bottom border-top p-2 pt-3">
+  <div class="container-fluid">
+    <div class="row align-items-center">               
+      <div class="col text-end">
+        <button type="button" class="btn btn-outline-secondary me-2" (click)="canceled.emit()">Cancel</button>
+        <button type="button" class="btn btn-secondary me-2" [disabled]="!isFormValid" (click)="saveDraft.emit()">Save Draft</button>        
+        <button type="button" class="btn btn-primary me-2" [disabled]="!isFormValid" (click)="created.emit()">Create Content</button>
+      </div>
+    </div>
+  </div>
+</div> 

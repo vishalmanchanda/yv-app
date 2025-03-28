@@ -1,0 +1,375 @@
+<div class="section-editor d-flex" *ngIf="part">
+    <div class="section-sidebar border-end  d-flex flex-column">
+      <!-- Scrollable Sections List -->
+      <div class="section-list flex-grow-1 overflow-auto p-2">
+        <div class="list-group shadow-sm">
+          <button *ngFor="let section of part.sections"
+                  class="list-group-item list-group-item-action border-0 mb-1 rounded-3 position-relative hover-shadow"
+                  [class.active]="section.id === selectedSection?.id"
+                  (click)="selectSection(section)">
+            <div class="d-flex align-items-center justify-content-between py-2">
+              <div class="d-flex align-items-center">
+                <i class="bi bi-grip-vertical text-muted me-2"></i>
+                <span class="section-title text-truncate fw-medium">
+                  {{ section.title || 'Untitled Section' }}
+                </span>
+              </div>
+              <button class="btn btn-link btn-sm delete-button p-1 ms-2 rounded-circle"
+                      (click)="deleteSection(section.id); $event.stopPropagation()"
+                      [class.disabled]="saving">
+                <i class="bi bi-trash text-danger"></i>
+              </button>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Fixed Bottom Bar -->
+      <div class="section-footer p-3 border-top">
+        <button class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2" 
+                (click)="addSection()"
+                [disabled]="saving">
+          <i class="bi bi-plus-lg"></i>
+          Add Section
+        </button>
+      </div>
+    </div>
+
+    <div class="section-main d-flex flex-column">
+      <!-- Header -->
+      <div class="editor-header border-bottom p-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-2">
+            <span class="text-truncate fw-medium">
+              {{ selectedSection?.title || 'Untitled Section' }}
+            </span>
+          </div>
+
+          <!-- Tabs moved to header -->
+          <ul class="nav nav-tabs mb-0 border-bottom-0">
+          <li class="nav-item">
+              <a class="nav-link" 
+                 [class.active]="currentView === 'form'"
+                 (click)="switchToForm()"
+                 role="button"
+                 tabindex="0"
+                 (keyup.enter)="switchToForm()">
+                Form Editor
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" 
+                 [class.active]="currentView === 'preview'"
+                 (click)="switchToPreview()"
+                 role="button"
+                 tabindex="0"
+                 (keyup.enter)="switchToPreview()">
+                Preview
+              </a>
+            </li>              
+            <li class="nav-item">
+              <a class="nav-link" 
+                 [class.active]="currentView === 'prompt'"
+                 (click)="switchToPrompt()"
+                 role="button"
+                 tabindex="0"
+                 (keyup.enter)="switchToPrompt()">
+                Prompt Editor
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" 
+                 [class.active]="currentView === 'rag'"
+                 (click)="switchToRag()"
+                 role="button"
+                 tabindex="0"
+                 (keyup.enter)="switchToRag()">
+                RAG Chat
+              </a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- Error Alert -->
+      <div *ngIf="error" class="alert alert-danger m-3 mb-0">
+        {{ error }}
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="editor-content flex-grow-1 overflow-auto p-3">
+        <div *ngIf="selectedSection">
+          <!-- Preview View -->
+          <div *ngIf="currentView === 'preview'" class="h-100">
+          <div class="col-md-5">
+                <cr-section-view *ngIf="selectedSection?.type !== 'intro'"
+                  [section]="selectedSection"
+                  [partId]="partId?.toString() || ''"
+                  [partTitle]="part.title || ''"
+                  [contentTitle]="content?.title || ''"
+                  [showImages]="true"
+                ></cr-section-view>
+
+                <div *ngIf="selectedSection?.type === 'intro'">
+                  <div class="alert alert-info">
+                    Intro sections are not supported in the AI editor yet
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <!-- Form View -->
+          <div *ngIf="currentView === 'form'" class="h-100">
+            <div class="row">
+              <div class="col-md-4">
+                <form *ngIf="sectionForm" [formGroup]="sectionForm" class="editor-form">
+                  <div class="mb-3">
+                <label class="form-label" for="title" >Section Title</label>
+                <input class="form-control" 
+                       id="title"
+                       formControlName="title" 
+                       placeholder="Enter section title">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="type">Type</label>
+                <select class="form-select" 
+                        id="type"
+                        formControlName="type">
+                  <option value="default">Default</option>
+                  <option value="verse">Verse</option>
+                  <option value="intro">Intro</option>
+                  <option value="note">Note</option>
+                  <option value="quote">Quote</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                  <option value="carousel">Carousel</option>
+                  <option value="divider">Divider</option>
+                  <option value="question">Question</option>
+                  <option value="cover">Cover</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="passage">Passage</label>
+                  <textarea class="form-control" 
+                          id="passage"
+                          formControlName="passage" 
+                          rows="5"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="meaning">Meaning</label>
+                  <textarea class="form-control" 
+                          id="meaning"
+                          formControlName="meaning" 
+                          rows="5"></textarea>
+              </div>
+
+              <div class="card mb-3"> 
+                <div class="card-header">
+                  <button type="button" class="btn btn-primary" (click)="formatCommentary()">Format Commentary</button>
+                </div>
+                <div class="card-body">
+                  <div class="mb-3">
+                    <label class="form-label" for="commentary">Commentary</label>
+                <textarea class="form-control" 
+                          id="commentary"
+                          formControlName="commentary" 
+                          rows="5"></textarea>
+                  </div>
+                </div>
+                <div class="card-footer" *ngIf="formattedCommentary">
+                  <markdown [data]="formattedCommentary"></markdown>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="content">Content</label>
+                <textarea class="form-control" 
+                          id="content"
+                          formControlName="content" 
+                          rows="10"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="tags">Tags</label>
+                <div class="d-flex flex-wrap gap-2 mb-2">
+                  <span *ngFor="let tag of sectionForm?.get('tags')?.value || []" 
+                        class="badge bg-primary d-flex align-items-center">
+                    {{tag}}
+                    <button type="button" 
+                            class="btn-close btn-close-white ms-2" 
+                            (click)="removeTag(tag)">
+                    </button>
+                  </span>
+                </div>
+                <input class="form-control" 
+                       placeholder="Press Enter to add tag"
+                       id="tags">
+              </div>
+
+              <!-- <div class="text-end">
+                <button class="btn btn-primary" 
+                        (click)="saveFormChanges()"
+                        [disabled]="!sectionForm.valid || saving">
+                  Update JSON
+                </button>
+                
+              </div> -->
+            </form>
+            </div>
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="card-title">JSON View</h5>
+                  <button class="btn btn-primary" 
+                          (click)="generateSection()"
+                          [disabled]="!sectionForm?.valid || saving">
+                    Generate Section with AI
+                  </button>
+                </div>
+                <div class="card-body">
+                <app-json-view
+                  [data]="selectedSection"                      
+                  (dataChange)="onJsonChange($event)">
+                </app-json-view>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+
+
+
+          <!-- AI View -->
+          <div *ngIf="currentView === 'prompt'" class="h-100">
+            <div *ngIf="selectedSection; else noSection" class="h-100 row">
+              <div class="col-md-12">
+                <app-prompt-tabs
+                  [title]="selectedSection.title || ''"
+                  [description]="selectedSection.content || ''"                    
+                  type="section"  
+                  (userPromptChange)="onUserPromptChange($event)"
+                  (systemPromptChange)="onSystemPromptChange($event)">
+                </app-prompt-tabs>
+             
+              </div>
+            
+            </div>
+            <ng-template #noSection>
+              <div class="alert alert-info">
+                Please select a section to use AI assistance
+              </div>
+            </ng-template>
+          </div>
+
+          <!-- RAG View -->
+          <div *ngIf="currentView === 'rag'" class="h-100">
+            <div class="row">
+              <div class="col-12 mb-3">
+                <div class="input-group mb-2">
+                  <select class="form-select flex-grow-0" style="width: auto;" [(ngModel)]="researchType">
+                    <option value="local">Knowledge Base</option>
+                    <option value="web">Web Research</option>
+                  </select>
+                  <input type="text" 
+                         class="form-control" 
+                         [(ngModel)]="ragQuestion"
+                         placeholder="Ask a question..."
+                         (keyup.enter)="askRag()">
+                  <button class="btn btn-primary" 
+                          (click)="askRag()"
+                          [disabled]="!ragQuestion || isLoading">
+                    <i class="bi" [class.bi-hourglass-split]="isLoading" [class.bi-send]="!isLoading"></i>
+                    {{ isLoading ? 'Searching...' : 'Search' }}
+                  </button>
+                </div>
+                <div class="form-text text-muted">
+                  {{ researchType === 'local' ? 'Search through our knowledge base' : 'Search the web for information' }}
+                </div>
+              </div>
+
+              <div class="col-12" *ngIf="ragResponse">
+                <!-- Answer Section -->
+                <div class="card mb-3">
+                  <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Answer</h5>
+                    <button class="btn btn-primary btn-sm" 
+                            (click)="useRagAnswer()"
+                            title="Use this answer as section content">
+                      <i class="bi bi-check-lg"></i> Use Answer
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <markdown [data]="ragResponse.answer"></markdown>
+                    <!-- <p class="mb-0">{{ ragResponse.answer }}</p> -->
+                  </div>
+                </div>
+
+                <!-- Sources Accordion -->
+                <div class="mt-3">
+                  <div class="list-group">
+                    <div class="list-group-item" *ngFor="let source of ragResponse.source_documents; let i = index">
+                      <div class="d-flex justify-content-between align-items-center" 
+                           (click)="toggleSource(i)" 
+                           style="cursor: pointer" 
+                           tabindex="0"
+                           (keyup.enter)="toggleSource(i)">
+                        <h6 class="mb-0">Source {{ i + 1 }}: {{ source.metadata.verseNum }}</h6>
+                        <i class="bi" [class.bi-chevron-down]="!isSourceExpanded[i]" [class.bi-chevron-up]="isSourceExpanded[i]"></i>
+                      </div>
+                      
+                      <div class="mt-2" *ngIf="isSourceExpanded[i]">
+                        <p class="mb-2">{{ source.content }}</p>
+                        <div class="text-muted small">
+                          <span>Chapter: {{ source.metadata.chapter }}, </span>
+                          <span>Verse: {{ source.metadata.verse }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!selectedSection" class="text-center text-muted py-5">
+          <i class="bi bi-file-text display-4"></i>
+          <p class="mt-3">Select a section to edit or create a new one</p>
+        </div>
+      </div>
+
+      <!-- Fixed Bottom Bar -->
+      <div class="editor-footer border-top p-3 ">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex align-items-center">
+            <div class="save-status text-muted" *ngIf="saving">
+              <div class="spinner-border spinner-border-sm me-2"></div>
+              <span>Saving changes...</span>
+            </div>
+            <div class="save-status text-success" *ngIf="!saving">
+              <i class="bi bi-check2-circle me-2"></i>
+              <span>All changes saved</span>
+            </div>
+          </div>
+          
+          <div class="d-flex gap-2">
+            <button class="btn btn-outline-secondary" 
+                    (click)="currentView === 'form' ? switchToPreview() : switchToForm()">
+              Switch to {{ currentView === 'form' ? 'Preview' : 'Form' }}
+            </button>
+            <button class="btn btn-primary" 
+                    (click)=" saveFormChanges()"
+                    [disabled]="!sectionForm?.valid || saving">
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

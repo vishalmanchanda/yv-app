@@ -1,0 +1,66 @@
+<div class="prompt-tabs mt-4">
+  <!-- Tab Navigation -->
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+      <a class="nav-link" 
+         [class.active]="activeTab === 'user'"
+         (click)="setActiveTab('user')"
+         href="javascript:void(0)">
+        User Prompt
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" 
+         [class.active]="activeTab === 'system'"
+         (click)="setActiveTab('system')"
+         href="javascript:void(0)">
+        System Prompt
+      </a>
+    </li>
+   
+  </ul>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="tab-content" *ngIf="!isLoading">
+    <!-- System Prompt Tab -->
+    <div class="tab-pane fade" [class.show]="activeTab === 'system'" [class.active]="activeTab === 'system'">
+      <div class="position-relative prompt-container">
+        <textarea class="form-control p-3 rounded" 
+                  [(ngModel)]="systemPrompt"
+                  (ngModelChange)="onSystemPromptChange($event)"
+                  rows="20"></textarea>
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                (click)="copyPrompt(systemPrompt)"
+                [class.btn-success]="copySuccess"
+                title="Copy to clipboard">
+          <i class="bi" [class.bi-clipboard]="!copySuccess" [class.bi-check-lg]="copySuccess"></i>
+          {{copySuccess ? 'Copied!' : 'Copy'}}
+        </button>
+      </div>
+    </div>
+
+    <!-- User Prompt Tab -->
+    <div class="tab-pane fade" [class.show]="activeTab === 'user'" [class.active]="activeTab === 'user'">
+      <div class="position-relative prompt-container">
+        <textarea class="form-control p-3 rounded" 
+                  [(ngModel)]="userPrompt"
+                  (ngModelChange)="onUserPromptChange($event)"
+                  rows="20"></textarea>
+        <button class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 m-2"
+                (click)="copyPrompt(userPrompt)"
+                [class.btn-success]="copySuccess"
+                title="Copy to clipboard">
+          <i class="bi" [class.bi-clipboard]="!copySuccess" [class.bi-check-lg]="copySuccess"></i>
+          {{copySuccess ? 'Copied!' : 'Copy'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

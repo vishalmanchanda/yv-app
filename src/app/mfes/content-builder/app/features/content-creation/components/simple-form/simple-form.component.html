@@ -1,0 +1,66 @@
+<form [formGroup]="form" class="row">
+  <!-- Cover Image Preview -->
+  <div class="col-md-9">
+    <!-- Form Fields -->
+    <div class="mb-3">
+      <label for="title" class="form-label">Title*</label>
+      <input type="text" class="form-control" id="title" formControlName="title">
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Description*</label>
+      <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="type" class="form-label">Type*</label>
+          <select class="form-select" id="type" formControlName="type">
+            <option value="book">Book</option>
+            <option value="course">Course</option>
+            <option value="article">Article</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="category" class="form-label">Category*</label>
+          <select class="form-select" id="category" formControlName="category">
+            <option value="spiritual">Spiritual</option>
+            <option value="technical">Technical</option>
+            <option value="study">Study</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="mb-3">
+          <label for="language" class="form-label">Language*</label>
+          <select class="form-select" id="language" formControlName="language">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="keywords" class="form-label">Keywords</label>
+      <input type="text" class="form-control" id="keywords" formControlName="keywords"
+             placeholder="Enter comma-separated keywords">
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="cover-image-container">
+      <img *ngIf="previewImage" [src]="previewImage" alt="Cover Preview" class="cover-preview">
+      <div *ngIf="!previewImage" class="upload-placeholder">
+        <i class="bi bi-image"></i>
+        <span>Upload Cover Image</span>
+      </div>
+      <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+  </div>
+</form> 
